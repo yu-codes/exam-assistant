@@ -1,0 +1,929 @@
+{
+  "meta": {
+    "title": "110年 資訊安全工程師 - 資訊安全防護實務 詳解",
+    "source_file": "110年資訊安全工程師-資訊安全防護實務-詳解.md",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "single",
+      "context": "",
+      "question": "某公司正在研究網路型防火牆（Layer 4 Firewall）如何有效防止網站應用程式（Web application）攻擊的方法，下列敘述何者正確？",
+      "options": {
+        "A": "網路型防火牆可以偵測惡意的網站訪問攻擊",
+        "B": "網路型防火牆無法阻擋此類型攻擊，因為連接埠80, 443 必須開啟",
+        "C": "如果正確設定，網路型防火牆可阻擋此類型攻擊",
+        "D": "無須進行設定，網路型防火牆預設能阻擋此類型攻擊"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "網站應用程式攻擊（如 SQL Injection、XSS、CSRF 等）是透過 HTTP/HTTPS 協定在應用層發動的。由於網站服務必須開放 Port 80（HTTP）與 Port 443（HTTPS）供正常使用者存取，Layer 4 防火牆無法區分正常的 HTTP 請求與夾帶惡意 payload 的請求，因此無法阻擋此類攻擊。",
+        "A": "Layer 4 防火牆無法深入檢視 HTTP 請求內容，因此無法偵測惡意的網站訪問攻擊。要偵測此類攻擊需使用網頁應用程式防火牆（WAF, Web Application Firewall）等 Layer 7 設備。",
+        "C": "無論如何設定，Layer 4 防火牆都無法阻擋應用層攻擊，因為它缺乏解析 HTTP 內容的能力。",
+        "D": "Layer 4 防火牆預設功能不包含應用層內容檢測，自然也無法預設阻擋此類攻擊。"
+      },
+      "general_explanation": "",
+      "key_points": "網路型防火牆（Layer 4）與網頁應用程式防火牆（WAF, Layer 7）的核心差異在於運作層級。Layer 4 僅處理傳輸層資訊，WAF 則能解析 HTTP/HTTPS 內容、檢測惡意請求模式（如 SQL 語法注入、跨站腳本等），是防護網站應用程式攻擊的正確選擇。 ---"
+    },
+    {
+      "id": 2,
+      "type": "single",
+      "context": "",
+      "question": "關於跨站請求偽造（Cross-Site Request Forgery, CSRF or XSRF）與跨站腳本攻擊（Cross-Site Scripting, XSS）的比較，下列敘述何者較正確？",
+      "options": {
+        "A": "兩者都是利用瀏覽器（Browser）對伺服器端（Server site）的信任",
+        "B": "兩者都是利用伺服器端（Server site）對瀏覽器（Browser）的信任",
+        "C": "XSS 是利用伺服器端（Server site）對瀏覽器（Browser）的信任，CSRF 是利用瀏覽器（Browser）對伺服器端（Server site）的信任",
+        "D": "CSRF 是利用伺服器端（Server site）對瀏覽器（Browser）的信任，XSS 是利用瀏覽器（Browser）對伺服器端（Server site）的信任"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "- **CSRF（跨站請求偽造）** 利用的是「伺服器對瀏覽器的信任」。當使用者已登入某網站（瀏覽器持有有效的 Session Cookie），攻擊者誘導使用者點擊惡意連結，瀏覽器會自動附帶 Cookie 發送請求給伺服器，伺服器因為信任該瀏覽器（已驗證的 Session）而執行了非預期的操作。 - **XSS（跨站腳本攻擊）** 利用的是「瀏覽器對伺服器的信任」。攻擊者將惡意腳本注入到網站內容中，當使用者的瀏覽器載入該網站時，因為信任伺服器回傳的內容，會直接執行其中的惡意腳本。",
+        "A": "兩者利用的信任方向不同，並非都是瀏覽器對伺服器的信任。",
+        "B": "兩者利用的信任方向不同，並非都是伺服器對瀏覽器的信任。",
+        "C": "此選項將 XSS 和 CSRF 的信任關係描述反了。"
+      },
+      "general_explanation": "",
+      "key_points": "CSRF 防禦方式包括：使用 Anti-CSRF Token、驗證 Referer/Origin 標頭、SameSite Cookie 屬性。XSS 防禦方式包括：輸入驗證與輸出編碼、Content Security Policy（CSP）、HttpOnly Cookie 屬性。 ---"
+    },
+    {
+      "id": 3,
+      "type": "single",
+      "context": "",
+      "question": "使用公眾網路上網時應該注意下列哪些事項以防範公眾網路的中間人攻擊（Man-In-The-Middle Attack, MITM）？1.使用WPA3 最新一代 Wi-Fi 安全技術，保護通訊安全、2.避免瀏覽未加密的網站，減少資料被竊取風險、3.使用虛擬專用網路（VPN）連接公司網路或專屬系統、4.網路驗證採用雙因子認證，減少帳密被竊取的問題",
+      "options": {
+        "A": "1、2",
+        "B": "1、3",
+        "C": "2、3",
+        "D": "3、4"
+      },
+      "answers": [
+        "BD（B 和 D 均給分）"
+      ],
+      "explanations": {
+        "B": "WPA3（項目1）+ VPN（項目3）從網路通訊層面提供雙重防護，直接防範 MITM 攻擊。",
+        "D": "VPN（項目3）+ 2FA（項目4）兼顧通訊加密與身分驗證保護，在實務上也是公眾網路的有效防護組合。",
+        "A": "WPA3 + 避免未加密網站雖有助益，但缺少 VPN 這項最關鍵的防護措施。",
+        "C": "避免未加密網站 + VPN 的組合可行，但未涵蓋 Wi-Fi 層級或身分驗證的額外防護。"
+      },
+      "general_explanation": "",
+      "key_points": "公眾網路 MITM 防護的最佳實務為：(1) 全程使用 VPN 加密通訊、(2) 確認網站 HTTPS 憑證有效性、(3) 啟用雙因子認證保護帳號、(4) 盡可能連接支援 WPA3 的網路。 ---"
+    },
+    {
+      "id": 4,
+      "type": "single",
+      "context": "",
+      "question": "關於SQL 資料庫中常見的攻擊，下列敘述何者「不」正確？",
+      "options": {
+        "A": "OOB 注入攻擊（Out of Band），屬於inband 的注入模式",
+        "B": "SQL 注入類型區分成Boolean-based blind SQL injection、Error-based SQL injection、UNION query SQL injection、Stacked queries SQL injection、Time-based blind SQL injection",
+        "C": "Error-based SQL injection 屬於inband 的注入模式，被戲稱盲注入",
+        "D": "OOB 透過其他傳輸方式來獲得資料，如：利用DNS 解析協定和電子郵件來竊取資料庫資料"
+      },
+      "answers": [
+        "AC（A 和 C 均為不正確的敘述）"
+      ],
+      "explanations": {
+        "A": "OOB（Out of Band，帶外注入）顧名思義是透過「帶外」通道取得資料，與 In-band（帶內）是完全相對的概念。OOB 不透過原始的 SQL 查詢回應通道傳回資料，而是利用 DNS 請求、HTTP 請求、電子郵件等其他通道將資料外洩。將 OOB 歸類為 In-band 模式明顯錯誤。",
+        "C": "Error-based SQL injection 確實屬於 In-band 模式（因為攻擊者透過應用程式的錯誤訊息直接在同一通道取得資料庫資訊），但它並非「盲注入（Blind Injection）」。盲注入是指攻擊者無法直接看到查詢結果或錯誤訊息，必須透過間接方式（布林判斷或時間延遲）推斷資料。Error-based 恰恰相反，是能直接看到錯誤訊息的注入方式。",
+        "B": "此為 sqlmap 工具所定義的五種 SQL 注入技術分類，涵蓋了主要的注入手法。",
+        "D": "OOB 注入確實透過 DNS、電子郵件等替代通道來竊取資料，例如利用 `xp_dirtree` 或 `UTL_HTTP` 等函數觸發 DNS 查詢，將資料編碼在 DNS 請求中帶出。"
+      },
+      "general_explanation": "",
+      "key_points": "SQL 注入三大分類：(1) In-band：攻擊者透過同一通道觸發注入並取得結果（包含 Error-based 和 UNION-based）；(2) Blind：無法直接看到結果，需透過布林推斷或時間延遲判斷（Boolean-based 和 Time-based）；(3) Out-of-Band：透過其他通道取得資料（DNS、HTTP、Email）。 ---"
+    },
+    {
+      "id": 5,
+      "type": "single",
+      "context": "",
+      "question": "在規劃建置異地的連網系統時，為了達到大量資料傳輸與通訊的安全，下列何者通訊安全之防護與應變實務規劃較佳？",
+      "options": {
+        "A": "採用數位簽章提升訊息交換安全，並使用對稱式加密進行金鑰交換",
+        "B": "採用非對稱式加密處理大量訊息，並使用對稱式加密進行金鑰交換",
+        "C": "採用對稱式加密處理大量訊息，並使用數位簽章進行金鑰交換",
+        "D": "採用對稱式加密處理大量訊息，並使用非對稱式加密進行金鑰交換"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "這是業界標準的混合加密方案。**對稱式加密**（如 AES）加解密速度快，適合處理大量資料傳輸；**非對稱式加密**（如 RSA）安全性高但運算量大，適合用於安全地交換對稱式加密的金鑰（Session Key）。先用非對稱加密安全交換金鑰，再用交換到的對稱金鑰加密大量資料。",
+        "A": "數位簽章的用途是驗證身分與確保資料完整性，不是用來「提升訊息交換安全」的加密手段。使用對稱式加密進行金鑰交換存在「如何安全傳遞對稱金鑰」的問題（密鑰分配問題），這正是非對稱加密要解決的。",
+        "B": "非對稱式加密運算量極大、速度慢，不適合用於加密大量訊息。同時，使用對稱式加密進行金鑰交換也存在密鑰分配問題。此選項將兩者的適用場景完全搞反。",
+        "C": "數位簽章的功能是簽名與驗證，不是用來進行金鑰交換的。金鑰交換應使用非對稱式加密或 Diffie-Hellman 等金鑰交換協定。"
+      },
+      "general_explanation": "",
+      "key_points": "混合加密是現代通訊安全的基石，TLS 握手過程即為典型範例：先透過非對稱加密（RSA 或 ECDHE）協商出共享密鑰，再使用對稱加密（AES）加密後續所有通訊資料，兼顧安全性與效能。 ---"
+    },
+    {
+      "id": 6,
+      "type": "single",
+      "context": "",
+      "question": "入侵檢測系統（Intrusion-Detection System, IDS）與入侵預防系統（Intrusion Prevention System, IPS）具監測及防禦的雙重功能，可即時偵測到攻擊事件的發生，並中止或阻絕入侵行為，包括自動攔截棄置攻擊封包，下列敘述何者較「不」正確？",
+      "options": {
+        "A": "IDS 防禦方式為被動監聽（Passive sniffer mode）",
+        "B": "IDS 防禦動作可透過TCP reset 來中斷連線",
+        "C": "IPS 防禦方式為主動防禦（Active in-line mode）",
+        "D": "IPS 防禦動作為通知防火牆丟棄惡意封包、中斷連線"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "IPS 運作於「主動行內模式（Active In-line Mode）」，所有網路流量必須通過 IPS 設備。IPS 能夠**直接丟棄惡意封包**、阻斷連線，無需「通知防火牆」來執行。選項描述的「通知防火牆丟棄封包」反而是 IDS 的典型行為模式——IDS 偵測到威脅後，因為本身是旁路部署，需要通知其他設備（如防火牆）來執行阻擋動作。",
+        "A": "IDS 確實採用被動監聽模式，通常以 SPAN/Mirror Port 方式接收網路流量的副本進行分析，不直接干預流量傳輸。",
+        "B": "IDS 雖然是被動監聽，但仍可透過發送 TCP RST（Reset）封包給通訊雙方來中斷連線。這是 IDS 在被動模式下少數能主動執行的防禦動作之一。",
+        "C": "IPS 確實採用行內主動防禦模式（In-line Mode），部署於網路流量的必經路徑上，能直接對通過的封包進行檢測與處置。"
+      },
+      "general_explanation": "",
+      "key_points": "IDS vs IPS 比較：IDS 以旁路方式被動監測，偵測到威脅後發出告警或發送 TCP RST；IPS 以行內方式主動防禦，能直接丟棄（Drop）惡意封包、阻斷連線（Block）、或重設連線（Reset），無需依賴其他設備。 ---"
+    },
+    {
+      "id": 7,
+      "type": "single",
+      "context": "",
+      "question": "關於資料隱碼攻擊，可透過下列何種方式防範以避免類似事件再發生？",
+      "options": {
+        "A": "執行輸入檢查",
+        "B": "使用SSL 加密",
+        "C": "加入圖形驗證",
+        "D": "加裝防毒軟體"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "執行輸入檢查（Input Validation）是防範 SQL Injection 最基本且直接的方式。透過驗證、過濾與淨化使用者輸入，可有效阻擋惡意 SQL 語法進入後端資料庫查詢。搭配參數化查詢（Parameterized Query）與預存程序（Prepared Statement）效果更佳。",
+        "B": "SSL/TLS 加密保護的是資料在傳輸過程中的機密性，防止中間人竊聽。但 SQL Injection 是在伺服器端處理輸入時發生的，加密傳輸通道無法阻止使用者提交的惡意輸入被伺服器解析執行。",
+        "C": "圖形驗證（CAPTCHA）的目的是區分人類使用者與自動化程式（機器人），可防範自動化暴力攻擊，但無法阻止攻擊者手動提交惡意 SQL 語法。",
+        "D": "防毒軟體主要偵測與阻擋惡意程式（病毒、木馬等），無法辨識藏在正常 HTTP 請求中的 SQL 注入語法。SQL Injection 並非使用惡意程式進行攻擊。"
+      },
+      "general_explanation": "",
+      "key_points": "防範 SQL Injection 的最佳實務：(1) 參數化查詢（最有效）、(2) 輸入驗證與過濾、(3) 最小權限原則（限制資料庫帳號權限）、(4) 使用 WAF 作為額外防護層、(5) 避免在錯誤訊息中洩漏資料庫資訊。 ---"
+    },
+    {
+      "id": 8,
+      "type": "single",
+      "context": "",
+      "question": "關於零信任安全架構（Zero Trust Architecture），下列敘述何者「不」正確？",
+      "options": {
+        "A": "零信任基礎認知，也就是假設不信任任何人為前提的安全架構",
+        "B": "從網路到裝置都是零信任控制點。換言之，不管是連接裝置、應用程式或是組件，都視為威脅向量，必須經過認可及驗證",
+        "C": "零信任包含：網路、設備、使用者、資料，不包含Workloads",
+        "D": "零信任安全架構四大支柱：身分可信、架構可信、存取可信、服務可信"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "零信任架構的保護範圍**包含 Workloads（工作負載）**。完整的零信任模型涵蓋五大面向：**網路（Network）、設備（Device）、使用者（User/Identity）、資料（Data）以及工作負載（Workloads）**。工作負載包含應用程式、容器、虛擬機器、微服務等，每個工作負載都需要經過身分驗證和授權，不應預設信任。排除 Workloads 將造成重大安全缺口。",
+        "A": "零信任的基本假設就是不信任任何實體——無論是內部或外部的使用者、設備或服務，所有存取請求都必須經過驗證。",
+        "B": "在零信任架構中，每個連接點（裝置、應用程式、組件）都被視為潛在的威脅向量（Threat Vector），必須經過身分認證與授權驗證才能獲得存取權限。",
+        "D": "零信任安全架構的四大支柱為：身分可信（Trusted Identity）、架構可信（Trusted Infrastructure）、存取可信（Trusted Access）、服務可信（Trusted Service），確保從身分到服務的全鏈路可信。"
+      },
+      "general_explanation": "",
+      "key_points": "零信任架構五大面向：Identity（身分）、Device（設備）、Network（網路）、Application/Workload（應用程式/工作負載）、Data（資料）。實施原則包括：最小權限存取、微分段（Microsegmentation）、持續驗證、假設已被入侵。 ---"
+    },
+    {
+      "id": 9,
+      "type": "single",
+      "context": "",
+      "question": "容錯式磁碟陣列（Redundant Array of Independent Disks, RAID）建置時，RAID 0, RAID 1, RAID 5, RAID 10 最小需要的實體硬碟數量依序為下列何者？",
+      "options": {
+        "A": "1, 1, 2, 2",
+        "B": "2, 2, 3, 3",
+        "C": "2, 2, 3, 4",
+        "D": "2, 2, 5, 10"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "各等級最小硬碟數量： - **RAID 0（條帶化，Striping）：最少 2 顆**。將資料分散寫入多顆硬碟，需至少 2 顆才能進行條帶化。無容錯能力。 - **RAID 1（鏡像，Mirroring）：最少 2 顆**。將相同資料同時寫入兩顆硬碟，形成鏡像副本。 - **RAID 5（分散式奇偶校驗，Distributed Parity）：最少 3 顆**。資料與奇偶校驗資訊分散在所有硬碟上，至少需 3 顆才能實現分散式奇偶校驗（2 顆存資料 + 1 顆等量的校驗空間分散在 3 顆中）。 - **RAID 10（RAID 1+0，鏡像 + 條帶化）：最少 4 顆**。先建立 2 組 RAID 1 鏡像（各 2 顆），再將兩組以 RAID 0 條帶化串接，因此至少需 4 顆。",
+        "A": "RAID 0 和 RAID 1 至少需要 2 顆，非 1 顆。",
+        "B": "RAID 10 至少需要 4 顆，非 3 顆。",
+        "D": "RAID 名稱中的數字是等級編號，與所需硬碟數量無關。RAID 5 只需 3 顆，RAID 10 只需 4 顆。"
+      },
+      "general_explanation": "",
+      "key_points": "RAID 等級比較表——RAID 0：效能最佳但無容錯；RAID 1：完全鏡像，可用容量 50%；RAID 5：兼顧效能與容錯，可用容量 (N-1)/N；RAID 6：雙重校驗可容忍 2 顆故障，最少 4 顆；RAID 10：高效能高容錯，可用容量 50%。 ---"
+    },
+    {
+      "id": 10,
+      "type": "single",
+      "context": "",
+      "question": "下列何者機制的目的是用來確保資料的完整性（Integrity）？",
+      "options": {
+        "A": "RC4（Rivest Cipher 4）",
+        "B": "RSA（Rivest, Shamir, Adleman）",
+        "C": "Diffie-Hellman",
+        "D": "MD5（Message Digest Algorithm 5）"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "MD5 是一種雜湊演算法（Hash Algorithm），能將任意長度的資料產生固定長度（128 位元）的摘要值（Digest）。傳送方與接收方可透過比對雜湊值來驗證資料是否完整未被竄改。雖然 MD5 已被發現碰撞弱點，不再建議用於安全用途，但其設計目的確實是確保資料完整性。",
+        "A": "RC4 是一種串流加密演算法（Stream Cipher），用於資料加密以確保**機密性（Confidentiality）**，而非完整性。且 RC4 已被證實存在多項弱點，已被淘汰。",
+        "B": "RSA 是一種非對稱式加密演算法，主要用於加密/解密（機密性）與數位簽章。雖然數位簽章可間接驗證完整性，但 RSA 本身的主要設計目的是非對稱式加密，並非專門用於完整性驗證。",
+        "C": "Diffie-Hellman 是一種金鑰交換協定（Key Exchange Protocol），用於在不安全的通道上安全地協商共享密鑰，與資料完整性驗證無關。"
+      },
+      "general_explanation": "",
+      "key_points": "密碼學三大安全目標（CIA）的對應機制：機密性（Confidentiality）→ 加密演算法（AES、RSA）；完整性（Integrity）→ 雜湊演算法（MD5、SHA）與 MAC；可用性（Availability）→ 備份、容錯等。 ---"
+    },
+    {
+      "id": 11,
+      "type": "single",
+      "context": "",
+      "question": "某公司的資料容錯策略是使用遠端日誌抄寫（Remote Journaling），關於遠端日誌抄寫，下列敘述何者正確？",
+      "options": {
+        "A": "即時複製資料庫或檔案到遠端存放，並進行即時同步",
+        "B": "傳送資料副本至備份磁帶，拿到遠端存放",
+        "C": "使用備份軟體備份資料至遠端，有更新時透過備份軟體同步",
+        "D": "傳送交易紀錄至遠端，當原始資料遺失時，在遠端透過交易紀錄重建"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "Remote Journaling 的核心機制是將資料庫的**交易紀錄（Transaction Journal/Log）** 即時或定期傳送到遠端備份站點。當主站點發生災難造成資料遺失時，備份站點可使用保存的交易紀錄，從最近一次完整備份的基準點開始**重放（Replay）交易紀錄**，重建資料到災難發生前的狀態。",
+        "A": "此描述的是**遠端鏡像（Remote Mirroring / Database Shadowing）**，即時同步複製整個資料庫到遠端，而非僅傳送交易紀錄。",
+        "B": "此描述的是**離線備份（Offline Backup / Electronic Vaulting 的變形）**，將備份媒體實體運送到異地保管，是最傳統的備份方式。",
+        "C": "此描述的是**電子乘載（Electronic Vaulting）**，透過網路將備份資料傳送到遠端，通常以批次方式進行。"
+      },
+      "general_explanation": "",
+      "key_points": "三種異地備份策略比較——Electronic Vaulting（電子乘載）：批次傳送備份檔案到遠端；Remote Journaling（遠端日誌抄寫）：傳送交易紀錄到遠端；Database Shadowing（資料庫鏡像）：即時同步整個資料庫到遠端。RPO 依序遞減，成本依序遞增。 ---"
+    },
+    {
+      "id": 12,
+      "type": "single",
+      "context": "",
+      "question": "關於網站應用程式之資料安全性，下列敘述何者正確？",
+      "options": {
+        "A": "網站應用程式所使用之安全傳輸協定（HTTPS），目前最新版加密層協議為透過SSL 3.0 實作",
+        "B": "HTTPS 協議需透過金鑰交換機制（如：RSA 非對稱加密演算法）取得用於加密資料之密鑰（如：AES 對稱加密演算法）以確保傳輸效能",
+        "C": "HTTPS 協議僅可保護應用程式傳送之資料內容，攻擊者仍可透過竊聽攻擊（Sniffing Attack）獲取未加密之表頭資訊（HTTP Header）",
+        "D": "使用者密碼若透過HTTPS 協議傳送，即可保護其不受攻擊者竊聽，因此可明文儲存於網站應用程式資料庫中"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "HTTPS 的運作機制正是混合加密架構。在 TLS 握手階段，透過非對稱加密演算法（如 RSA 或 ECDHE）安全地交換或協商出對稱式加密的密鑰（Session Key），後續資料傳輸階段則使用 AES 等對稱式加密演算法加密，兼顧安全性與傳輸效能。",
+        "A": "SSL 3.0 已於 2015 年被 IETF 正式廢棄（RFC 7568），因其存在 POODLE 等嚴重安全漏洞。目前 HTTPS 使用的是 **TLS（Transport Layer Security）** 協定，最新版為 TLS 1.3。SSL 與 TLS 是不同的協定，TLS 是 SSL 的後繼者。",
+        "C": "HTTPS 加密的是整個 HTTP 通訊內容，**包含 HTTP Header（表頭）和 Body（本體）**。在 TLS 建立加密通道後，所有 HTTP 資料（包含標頭、Cookie、URL 路徑等）都在加密通道內傳輸。攻擊者透過竊聽只能看到 TLS 加密後的密文，無法獲取 HTTP Header。（注意：目標伺服器的 IP 位址和 SNI 中的域名可能在加密前被觀察到，但 HTTP Header 本身是加密的。）",
+        "D": "HTTPS 僅保護資料在**傳輸過程中**的安全，無法保護資料在伺服器端儲存時的安全。使用者密碼在資料庫中必須經過**雜湊（Hash）加鹽（Salt）**處理後儲存，絕不可明文儲存。若資料庫遭入侵，明文密碼將直接洩露。"
+      },
+      "general_explanation": "",
+      "key_points": "HTTPS 安全性的範圍限於傳輸層加密。伺服器端的資料保護（密碼雜湊、資料庫加密）、應用層的安全（輸入驗證、存取控制）等仍需額外的安全措施。 ---"
+    },
+    {
+      "id": 13,
+      "type": "single",
+      "context": "",
+      "question": "關於附圖程式碼，下列敘述何者「不」正確？",
+      "options": {
+        "A": "Hard-coded Password 為FIXME",
+        "B": "此程式碼語言為Java",
+        "C": "prepareStatement 為預存式查詢",
+        "D": "setString 為參數化查詢"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "程式碼中的硬式編碼密碼（Hard-coded Password）並非「FIXME」。「FIXME」是程式碼中常見的註解標記（Code Annotation），用於標示「需要修正的地方」，屬於開發人員的待辦標記（與 TODO、HACK、XXX 同類），並非實際的密碼值。實際的硬式編碼密碼是程式中直接寫死的密碼字串。",
+        "B": "從程式碼中使用 `prepareStatement`、`setString` 等 JDBC（Java Database Connectivity）API 方法可確認為 Java 語言。",
+        "C": "`prepareStatement` 是 Java JDBC 中建立預備語句（Prepared Statement）的方法，會將 SQL 語句預先編譯，提高效能並防範 SQL 注入。",
+        "D": "`setString` 是 `PreparedStatement` 物件的方法，用於將參數值綁定到 SQL 語句中的佔位符（`?`），實現參數化查詢（Parameterized Query），有效防止 SQL 注入攻擊。"
+      },
+      "general_explanation": "",
+      "key_points": "硬式編碼密碼（Hard-coded Password）是 CWE-259 所定義的安全弱點。開發人員不應在原始碼中直接寫入密碼，應改用環境變數、設定檔（搭配加密）或密鑰管理系統（如 HashiCorp Vault）來管理機敏資訊。 ---"
+    },
+    {
+      "id": 14,
+      "type": "single",
+      "context": "",
+      "question": "某MIS 人員欲對公司一重要伺服器（功能包含檔案伺服器、資料庫功能）使用Nmap 來執行進行滲透測試，以便瞭解該資訊設備之漏洞是否全數修補完成，請問該MIS 使用此工具最主要之目的為下列何者？",
+      "options": {
+        "A": "利用該伺服器已知對外開放之服務埠進行情蒐",
+        "B": "利用該伺服器已知之漏洞提升權限",
+        "C": "利用該伺服器已知之漏洞竊取檔案",
+        "D": "利用該伺服器已知之漏洞下載資料庫"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "Nmap 的核心功能包括：主機探測（Host Discovery）、連接埠掃描（Port Scanning）、服務與版本偵測（Service/Version Detection）、作業系統辨識（OS Detection）。MIS 人員使用 Nmap 掃描伺服器，最主要的目的是**情蒐**——了解伺服器開放了哪些連接埠與服務，進而評估這些服務是否存在已知漏洞需要修補。",
+        "B": "提升權限（Privilege Escalation）需要使用漏洞利用工具（如 Metasploit），而非 Nmap。Nmap 是偵察工具，不具備直接利用漏洞提升權限的功能。",
+        "C": "竊取檔案需要在取得系統存取權限後使用其他工具，Nmap 僅進行掃描偵察，不具備檔案竊取功能。",
+        "D": "下載資料庫同樣需要取得資料庫存取權限後使用對應的工具或命令，非 Nmap 的功能範圍。"
+      },
+      "general_explanation": "",
+      "key_points": "Nmap 在滲透測試生命週期中屬於「偵察（Reconnaissance）」與「掃描（Scanning）」階段的工具。常用指令包括：`nmap -sV`（服務版本偵測）、`nmap -O`（OS 辨識）、`nmap -sS`（TCP SYN 掃描）、`nmap --script vuln`（執行漏洞偵測腳本）。 ---"
+    },
+    {
+      "id": 15,
+      "type": "single",
+      "context": "",
+      "question": "下列何種檢測方式較「不」能證明網站防禦機制跟企業認知的資安防護程度一樣好？",
+      "options": {
+        "A": "網站弱點掃描",
+        "B": "主機弱點掃描",
+        "C": "滲透測試",
+        "D": "網頁源碼檢測"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "主機弱點掃描（Host Vulnerability Scanning）針對的是作業系統、系統服務、系統設定等**主機層級**的漏洞（如未更新的系統修補、不安全的服務設定等），無法直接驗證**網站應用程式**的防禦機制（如 WAF 規則、輸入驗證、Session 管理等）是否有效。主機安全與網站應用程式安全是不同層面的議題。",
+        "A": "網站弱點掃描（Web Vulnerability Scanning）直接針對網站應用程式進行掃描，可偵測 SQL Injection、XSS、CSRF 等應用層漏洞，能有效驗證網站防禦機制的效能。",
+        "C": "滲透測試（Penetration Testing）由資安專家模擬駭客攻擊手法，實際測試網站防禦機制的抵禦能力，是最能證明防禦效能的檢測方式。",
+        "D": "網頁源碼檢測（Source Code Review）透過靜態分析或人工審查程式碼，可在開發階段發現潛在的安全漏洞，從根本面驗證網站安全性。"
+      },
+      "general_explanation": "",
+      "key_points": "完整的網站資安檢測應涵蓋多個層面：原始碼檢測（SAST）→ 網站弱點掃描（DAST）→ 滲透測試（PT）。主機弱點掃描雖然重要，但屬於基礎架構安全的範疇，與網站應用程式安全檢測互為補充但不能替代。 ---"
+    },
+    {
+      "id": 16,
+      "type": "single",
+      "context": "",
+      "question": "暴力破密（Brute-Force）攻擊是最需要大量運算資源的攻擊手法，下列哪些作法能有效避免暴力破密攻擊？",
+      "options": {
+        "A": "密鑰延伸（Key stretching）",
+        "B": "密碼複雜度要求（Password Complexity Requirements）",
+        "C": "雜湊演算（Hashing）",
+        "D": "加鹽（Salting）"
+      },
+      "answers": [
+        "ABD"
+      ],
+      "explanations": {
+        "A": "密鑰延伸（Key Stretching）透過反覆迭代雜湊運算（如 PBKDF2、bcrypt、scrypt、Argon2），大幅增加每次密碼驗證所需的運算時間。例如 bcrypt 可設定 cost factor 讓單次雜湊計算需數百毫秒，使暴力破解在計算上變得不切實際。",
+        "B": "密碼複雜度要求（要求包含大小寫字母、數字、特殊字元且達到最低長度）直接擴大了密碼的搜尋空間（Key Space），使暴力攻擊者需要嘗試的組合數量呈指數級增長。",
+        "C": "單純的雜湊演算（如 MD5、SHA-256）無法有效防禦暴力破密。標準雜湊演算法的設計目標是高速運算，攻擊者可以利用 GPU 或 ASIC 在極短時間內計算數十億次雜湊值。必須搭配密鑰延伸（A）和加鹽（D）才能有效防禦。",
+        "D": "加鹽（Salting）為每個密碼加入隨機的鹽值（Salt）後再進行雜湊，使得：(1) 相同密碼產生不同的雜湊值，(2) 預計算攻擊（Rainbow Table）失效，(3) 攻擊者必須對每個密碼獨立進行暴力破解，無法批量處理。"
+      },
+      "general_explanation": "",
+      "key_points": "安全的密碼儲存方案 = 雜湊 + 加鹽 + 密鑰延伸。業界推薦使用 bcrypt、scrypt 或 Argon2，這些演算法已內建鹽值和可調式運算成本。 ---"
+    },
+    {
+      "id": 17,
+      "type": "single",
+      "context": "",
+      "question": "下列哪些HTTP Header 標頭之安全性設定，「不」能讓網站與使用者瀏覽器之間有更多的安全防護功能？",
+      "options": {
+        "A": "HTTP Strict Transport Security",
+        "B": "Access-Control-Max-Age",
+        "C": "Accept-Encoding",
+        "D": "X-Frame-Options"
+      },
+      "answers": [
+        "BC"
+      ],
+      "explanations": {
+        "B": "`Access-Control-Max-Age` 是 CORS（跨來源資源共用）機制中的一個標頭，用於指定預檢請求（Preflight Request）結果的快取時間。它是效能優化設定，告訴瀏覽器在指定時間內不需重複發送 OPTIONS 預檢請求，與安全防護功能無直接關係。",
+        "C": "`Accept-Encoding` 是內容協商（Content Negotiation）標頭，用於告知伺服器客戶端支援的內容編碼方式（如 gzip、deflate、br）。這純粹是傳輸壓縮的功能性標頭，與安全防護完全無關。",
+        "A": "`HTTP Strict Transport Security（HSTS）` 是重要的安全標頭，強制瀏覽器只能透過 HTTPS 連線存取網站，有效防範 SSL Stripping 攻擊和降級攻擊。",
+        "D": "`X-Frame-Options` 用於控制網頁是否允許被嵌入 iframe 中，有效防範點擊劫持（Clickjacking）攻擊。常見設定值：DENY（完全禁止）、SAMEORIGIN（僅同源允許）。"
+      },
+      "general_explanation": "",
+      "key_points": "常見的 HTTP 安全標頭包括：HSTS（強制 HTTPS）、X-Frame-Options（防點擊劫持）、X-Content-Type-Options（防 MIME 嗅探）、Content-Security-Policy（CSP，防 XSS）、X-XSS-Protection（XSS 過濾）、Referrer-Policy（控制 Referrer 資訊）。 ---"
+    },
+    {
+      "id": 18,
+      "type": "single",
+      "context": "",
+      "question": "關於勒索病毒傳遞媒介、與常用技術手法，下列敘述哪些正確？",
+      "options": {
+        "A": "勒索病毒會透過郵件、網頁的網址連結、USB 裝置來傳遞",
+        "B": "勒索病毒會利用DLL Hijacking 技術取得高權限",
+        "C": "勒索病毒會利用OS 黑名單程式，迴避防毒系統檢查",
+        "D": "勒索病毒會利用Power Shell 無檔案式（File-less），取得高權限"
+      },
+      "answers": [
+        "ABD"
+      ],
+      "explanations": {
+        "A": "勒索病毒最常見的傳播途徑包括：(1) **釣魚郵件**（含惡意附件或連結）、(2) **惡意網頁連結**（利用瀏覽器或外掛漏洞進行 Drive-by Download）、(3) **USB 裝置**（透過自動執行功能散播）。這是勒索病毒最經典的三大傳遞媒介。",
+        "B": "DLL Hijacking（DLL 劫持）是勒索病毒常用的權限提升技術。攻擊者將惡意 DLL 檔案放置在合法程式的搜尋路徑中，當合法程式以高權限啟動時會優先載入惡意 DLL，從而讓勒索病毒取得高權限執行環境。",
+        "C": "此描述不正確。勒索病毒通常利用的是 **白名單程式**（Living Off the Land，如 PowerShell、WMI、mshta、certutil 等受系統信任的工具）來迴避防毒系統檢查，而非「黑名單程式」。黑名單程式本身就是被防毒軟體攔截的對象，使用黑名單程式反而會觸發偵測。",
+        "D": "無檔案式攻擊（File-less Attack）是勒索病毒常用的進階規避技術。利用 PowerShell 等系統內建工具，直接在記憶體中執行惡意程式碼，不在磁碟上留下檔案，有效規避傳統防毒軟體的檔案掃描機制，並可藉由 PowerShell 的執行權限取得較高權限。"
+      },
+      "general_explanation": "",
+      "key_points": "現代勒索病毒常結合多種技術：釣魚郵件投遞 → 漏洞利用或社交工程啟動 → 無檔案式攻擊或 DLL 劫持提權 → 橫向移動 → 加密檔案 → 勒索贖金。防禦策略包括：定期備份、郵件安全閘道、端點偵測與回應（EDR）、最小權限原則。 ---"
+    },
+    {
+      "id": 19,
+      "type": "single",
+      "context": "",
+      "question": "公司在協助客戶建置客制化應用軟體系統時，為方便進行遠端維護，下列哪些措施可以增加「系統維護」的安全性？",
+      "options": {
+        "A": "在公司政策允許下建立VPN 機制，提供作業人員可以進行遠端安全連線",
+        "B": "建立單一登入（Single Sign-On, SSO）作業，統一連線帳密管理",
+        "C": "設定網路防火牆遠端連線機制及限制存取的主機位置",
+        "D": "使用雙因子認證，確保連線使用者"
+      },
+      "answers": [
+        "ACD"
+      ],
+      "explanations": {
+        "A": "VPN（虛擬專用網路）為遠端連線建立加密隧道，確保維護人員與客戶系統之間的通訊不被竊聽或竄改。在公司政策框架下使用 VPN 是遠端維護安全的基本要求。",
+        "B": "SSO（單一登入）的主要目的是**便利性**——使用者登入一次即可存取多個系統。雖然 SSO 可以簡化帳密管理，但在遠端維護情境下，SSO 反而可能增加風險：一旦 SSO 憑證被竊取，攻擊者可同時存取所有關聯系統。對於遠端維護這類高敏感操作，應強化個別系統的存取驗證，而非依賴 SSO 簡化登入。",
+        "C": "在防火牆設定遠端連線規則，限制可存取的來源 IP 位址或主機，實施網路層的存取控制。這確保只有經授權的特定位置（如公司辦公室 IP）才能進行遠端連線，大幅降低未授權存取的風險。",
+        "D": "雙因子認證（2FA）要求連線使用者提供兩種不同類型的驗證因子（如密碼 + OTP、密碼 + 硬體 Token），即使密碼外洩，攻擊者仍無法在缺少第二因子的情況下成功登入，有效提升遠端維護的身分驗證安全性。"
+      },
+      "general_explanation": "",
+      "key_points": "安全的遠端維護架構應包含：(1) VPN 加密通道、(2) 防火牆來源 IP 限制、(3) 多因子認證、(4) 操作日誌記錄與稽核、(5) 最小權限原則、(6) 連線時間限制（Session Timeout）。 ---"
+    },
+    {
+      "id": 20,
+      "type": "single",
+      "context": "",
+      "question": "搜尋引擎的進階搜尋指令常被用來刺探網站重要資訊，更被用在滲透測試上，其中最知名就是Google Hacking Database（GHDB），關於搜尋引擎進階指令發展、應用與技術分析，下列敘述哪些正確？",
+      "options": {
+        "A": "駭客利用google 進階搜尋技巧與運算，搜索網際網路中定位特定的文本字，作為滲透入侵易受攻擊的Web 應用程序",
+        "B": "site:tw 此指令是限制搜尋標的為台灣網站",
+        "C": "intitle:index.of site:tw 描述是列出該網站index.of 網站目錄清單",
+        "D": "在另一個知名搜尋引擎Bing，並沒有類似的應用"
+      },
+      "answers": [
+        "ABC"
+      ],
+      "explanations": {
+        "A": "Google Hacking 的核心概念就是利用 Google 的進階搜尋運算子（如 `intitle:`、`inurl:`、`filetype:`、`site:` 等），在網際網路中精準定位特定文字內容，找出配置不當、資訊洩漏或存在漏洞的 Web 應用程式。GHDB（Google Hacking Database）收錄了大量此類搜尋語法。",
+        "B": "`site:tw` 運算子會將搜尋結果限制在頂級域名為 `.tw` 的網站，即台灣的網域。這是 Google 搜尋中用於限定搜尋範圍的標準運算子。",
+        "C": "`intitle:index.of site:tw` 這個搜尋語法會找出台灣網站中網頁標題包含「index of」的頁面。「Index of」通常是 Web 伺服器啟用目錄瀏覽（Directory Listing）時自動產生的頁面標題，代表該目錄的檔案清單被公開暴露，這是常見的安全配置疏失。",
+        "D": "Bing 搜尋引擎同樣支援類似的進階搜尋運算子（如 `site:`、`intitle:`、`filetype:` 等），也可用於進行類似 Google Hacking 的偵察活動。Shodan、DuckDuckGo 等搜尋引擎也有各自的進階搜尋功能。認為 Bing 沒有類似應用是不正確的。"
+      },
+      "general_explanation": "",
+      "key_points": "Google Hacking 常用運算子：`site:`（限定網域）、`intitle:`（搜尋標題）、`inurl:`（搜尋 URL）、`filetype:`（限定檔案類型）、`cache:`（檢視快取頁面）、`intext:`（搜尋內文）。防禦方式包括：正確配置 `robots.txt`、關閉目錄瀏覽、移除敏感檔案、使用 `.htaccess` 限制存取。 --- > 以下為第 21～40 題（題組題 5 組），提供完整的解析與相關資安知識點。 ---"
+    },
+    {
+      "id": 21,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。Host C 反應無法存取 Host B 分享的資源的原因為下列何者？",
+      "options": {
+        "A": "Host C 與 Host B 在不同 VLAN",
+        "B": "SW1 未設定 Gateway IP 192.168.10.1",
+        "C": "R1 未設定 Gateway IP 192.168.10.1",
+        "D": "Host C 未設定 Gateway IP 192.168.0.1"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "當 Host B 與 Host C 處於不同 VLAN 時，兩者之間的通訊必須經過路由器（R1）進行 VLAN 間路由。R1 必須為每個 VLAN 配置對應的子介面（Sub-interface）並設定 Gateway IP。如果 R1 未設定 192.168.10.1 作為 VLAN 10 的閘道，則該 VLAN 的主機無法透過 R1 轉發封包至其他 VLAN，導致 Host C 無法存取 Host B 的資源。",
+        "A": "Host C 與 Host B 在不同 VLAN 本身不是問題的「原因」，而是架構設計的一部分。只要正確設定 VLAN 間路由，不同 VLAN 的主機也能互相通訊。",
+        "B": "Switch（SW1）本身是 Layer 2 設備，在 Router-on-a-Stick 架構中不負責設定 Gateway IP，Gateway 應設定在 Router（R1）的子介面上。",
+        "D": "Host C 的 Gateway 應設為其所屬 VLAN 的閘道位址（如 192.168.x.1），而非 192.168.0.1。但題目的核心問題在於 R1 端缺少 Gateway 設定。"
+      },
+      "general_explanation": "",
+      "key_points": "Inter-VLAN Routing 要求路由器為每個 VLAN 設定子介面與 Gateway IP，Switch 端需設定 Trunk Port 以攜帶多個 VLAN 的標籤（802.1Q Tag）。 ---"
+    },
+    {
+      "id": 22,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。請問 R1 <----> SW1 之間所建立的架構稱為下列何者？",
+      "options": {
+        "A": "Multiple VLAN Routing",
+        "B": "Router on a stick",
+        "C": "Routing cross switch",
+        "D": "One-armed routing"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "「Router on a Stick」是一種經典的 Inter-VLAN Routing 架構。在此架構中，路由器（R1）透過單一實體介面連接 Switch（SW1），該介面被劃分為多個子介面（Sub-interface），每個子介面對應一個 VLAN 並設定該 VLAN 的 Gateway IP。Switch 端則將連接路由器的埠設為 Trunk Port，使用 802.1Q 封裝攜帶多個 VLAN 的流量。因為路由器只用「一隻腳」（一個介面）站在交換器上，形象地稱為「Router on a Stick」。",
+        "A": "「Multiple VLAN Routing」不是標準術語，雖然描述了多個 VLAN 路由的概念，但不是此架構的正式名稱。",
+        "C": "「Routing cross switch」不是業界標準術語。",
+        "D": "「One-armed routing」雖然概念上類似（透過單一介面路由），但此術語通常用於負載平衡器（Load Balancer）的部署架構，而非 VLAN 間路由的標準稱呼。"
+      },
+      "general_explanation": "",
+      "key_points": "Router on a Stick 架構的關鍵組件：(1) 路由器子介面使用 802.1Q 封裝、(2) Switch 設定 Trunk Port、(3) 每個子介面對應一個 VLAN 並擔任該 VLAN 的預設閘道。此架構適用於小型網路，大型環境通常使用三層交換器（Layer 3 Switch）進行 VLAN 間路由。 ---"
+    },
+    {
+      "id": 23,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。公司預計明年進行擴廠需求，您計畫導入動態路由協定（Dynamic Routing Protocol）讓路由可自動更新至所有節點，以降低中斷的影響時間，下列何者「不」是避免路由迴圈的技術？",
+      "options": {
+        "A": "Route Poisoning",
+        "B": "Split Horizon",
+        "C": "Hold-down timers",
+        "D": "Route Convergence"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "Route Convergence（路由收斂）是指當網路拓撲發生變化時，所有路由器更新路由表並達到一致狀態的過程。它是路由協定的一個特性指標（收斂速度快慢），而非一種「避免路由迴圈」的技術機制。",
+        "A": "Route Poisoning（路由毒化）是當某條路徑失效時，路由器會將該路由的度量值設為無限大（如 RIP 中設為 16），通知鄰居該路由已不可用，防止其他路由器繼續使用失效路由而形成迴圈。",
+        "B": "Split Horizon（水平分割）規定路由器不會將從某個介面學到的路由資訊再從同一介面回傳，防止路由資訊反饋造成迴圈。",
+        "C": "Hold-down Timers（抑制計時器）在路由失效後啟動一段等待期，期間路由器不接受該路由的更新（除非是更好的路由），避免因過時資訊造成的路由迴圈。"
+      },
+      "general_explanation": "",
+      "key_points": "其他避免路由迴圈的技術還包括：Poison Reverse（毒化反轉，Split Horizon 的變形）、TTL（Time To Live，限制封包跳數）、Triggered Updates（觸發更新，立即通知路由變更而非等待定期更新）。 ---"
+    },
+    {
+      "id": 24,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。承上題，R1 之現行路由表如附圖，若導入動態路由協定，並於 R1 進行路由匯總（route summarization），讓 SW2 及 SW3 的所有 Host 可以連接到 SW1 的所有 Host，請問 R1 應如何宣告 SW1 匯總後的路由？",
+      "options": {
+        "A": "192.168.8.0/19",
+        "B": "192.168.8.0/20",
+        "C": "192.168.8.0/21",
+        "D": "192.168.8.0/22"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "/22 遮罩 = 255.255.252.0，恰好涵蓋 SW1 下方所有 VLAN 的網段，且不會過度匯總（不包含不必要的網段）。",
+        "A": "/19 涵蓋範圍過大（192.168.0.0 ~ 192.168.31.255），包含了過多不必要的網段。",
+        "B": "/20 涵蓋範圍過大（192.168.0.0 ~ 192.168.15.255），同樣包含多餘網段。",
+        "C": "/21 涵蓋範圍為 192.168.8.0 ~ 192.168.15.255，雖然可用但涵蓋了多餘的網段，不是最精確的匯總。"
+      },
+      "general_explanation": "",
+      "key_points": "路由匯總的計算步驟：(1) 將所有網段的第三組八位元轉為二進位、(2) 找出共同前綴位元數、(3) 共同前綴 = 匯總路由的網路位址，前綴長度 = 匯總路由的遮罩。最佳匯總應涵蓋所有目標網段且不包含多餘網段。 ---"
+    },
+    {
+      "id": 25,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。您身為資安工程師，在面臨系統老舊且要求高妥善率的情況下，找來主機保固公司進行更換 RAID 卡電池組，下列敘述何者正確？",
+      "options": {
+        "A": "RAID 資訊遺失不會造成系統毀損",
+        "B": "在硬碟也保留一份 RAID 資訊，可當作 RAID 的資料備份",
+        "C": "這是正常故障更換，不需要進行 ISMS 資安通報",
+        "D": "檢修前不需要再取主機故障資訊及進行分析"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "RAID 控制器的組態資訊（RAID Configuration）通常會同時儲存在 RAID 卡的 NVRAM 與各硬碟的保留區域中。當 RAID 卡更換或故障時，新的 RAID 卡可以從硬碟上讀取原有的 RAID 組態資訊來重建陣列，這是一種資料保護機制。這意味著硬碟上保留的 RAID 資訊可當作 RAID 組態的備份。",
+        "A": "RAID 資訊若遺失，RAID 控制器將無法辨識原有的磁碟陣列組態，可能導致無法存取資料甚至造成資料遺失，進而導致系統毀損或無法啟動。",
+        "C": "在 ISMS 制度下，任何可能影響資訊系統可用性的事件（包括硬體故障與停機維護）都應按照既定程序進行通報。特別是 SLA 要求 99.9% 妥善率的關鍵系統，停機檢修必須納入 ISMS 事件管理程序中通報與記錄。",
+        "D": "檢修前應先蒐集並分析主機故障資訊（如系統事件日誌、硬體診斷報告、RAID 狀態等），以便準確判斷故障原因並制定適當的維修方案，避免在檢修過程中造成額外損害。"
+      },
+      "general_explanation": "",
+      "key_points": "RAID 卡電池（BBU, Battery Backup Unit）的功能是在斷電時保護 RAID 控制器快取中未寫入硬碟的資料。電池膨脹失效會導致寫入快取被停用（Write-through 模式）或資料遺失風險。 ---"
+    },
+    {
+      "id": 26,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。承上題，在掌握相關資訊後應注意的資料庫安全性評估事項，下列敘述何者正確？",
+      "options": {
+        "A": "資料庫版本為 MS-SQL 2008 已經被微軟終止更新服務，應在新主機抵達時更換成 MS-SQL 2019，未經相容性測試將 ERP 資料庫相容層級直接升級至 150 模式",
+        "B": "MS-SQL 2008 ERP 資料庫 ldf 檔已達 1.5TB 時，應 transaction log，其指令為 dump transaction erp with no_log",
+        "C": "MS-SQL 2008 ERP 資料庫 ldf 檔已達 1.5TB 時，發現無法使用 SQL Query 指令方式壓縮資料庫，直接刪除 ldf 檔後，而後再掛回 ERP 資料庫",
+        "D": "ERP 資料庫更換前，應先檢查 ERP 系統對資料庫連線方式以及連線的資料庫帳號密碼，且需要查核資料庫所屬安全性使用者群組"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "在進行資料庫環境更換或遷移前，必須全面掌握 ERP 系統對資料庫的連線資訊，包括：連線方式（TCP/IP、Named Pipe 等）、連線字串配置、資料庫帳號密碼、以及資料庫的安全性使用者（Database Users）與角色（Roles）。這些資訊確保遷移後 ERP 系統能正確且安全地連接新環境的資料庫，也是資料庫安全性評估的基本步驟。",
+        "A": "雖然 MS-SQL 2008 確實已終止更新服務（EOS），但升級資料庫版本時**必須**先進行相容性測試。ERP 系統已使用 15 年且僅有三次客製功能修改，直接將相容層級從 100 升級至 150 可能導致 SQL 語法不相容、預存程序執行錯誤等問題，必須經過完整的遷移測試。",
+        "B": "`DUMP TRANSACTION ... WITH NO_LOG` 是非常老舊且已被棄用的語法，在 MS-SQL 2008 中已不建議使用。正確的做法是使用 `BACKUP LOG` 搭配 `DBCC SHRINKFILE` 來處理交易記錄檔過大的問題。且此操作需謹慎進行，避免破壞交易記錄鏈。",
+        "C": "直接刪除 ldf（交易記錄檔）是極度危險的操作，會導致資料庫無法正常啟動、交易一致性被破壞，甚至造成資料遺失。正確的做法應該是先將資料庫復原模式（Recovery Model）改為簡單（Simple），再使用 `DBCC SHRINKFILE` 壓縮 ldf 檔案。"
+      },
+      "general_explanation": "",
+      "key_points": "資料庫遷移三步驟：(1) 完整盤點連線資訊與安全性設定、(2) 在測試環境驗證相容性、(3) 執行遷移並驗證功能正常。LDF 檔過大處理：應使用 `BACKUP LOG` + `DBCC SHRINKFILE`，切勿直接刪除。 ---"
+    },
+    {
+      "id": 27,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。承上題，關於新主機虛擬化之安全規劃應注意的主機與虛擬化之安全性評估事項，下列敘述何者較正確？",
+      "options": {
+        "A": "若該新主機決定採用 ESXi 6.7 U.3 版本，因 ESXi 對主機硬體規格有其要求，所以必須合法下載支援 HP-DL380 G10 版本，如不採用專用版本會有不相容問題",
+        "B": "新主機採用 ESXi 為求更大硬碟使用需要，決定採用 RAID 0 模式是兼具安全與容量使用規劃",
+        "C": "ESXi 可採用永久免費的版本，且可滿足新主機硬體更新需要",
+        "D": "網路上可以找到 ESXi 序號，可直接使用在公司正式環境上"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "VMware ESXi 對硬體相容性有嚴格要求，需參照 VMware 硬體相容性清單（HCL, Hardware Compatibility List）。HPE（Hewlett Packard Enterprise）等伺服器廠商會提供客製化的 ESXi 映像檔（Custom Image），其中包含針對該硬體平台的驅動程式與 firmware 支援。使用通用版本可能導致網路卡、RAID 控制器、管理模組等元件無法正確辨識或運作，因此應下載 HP-DL380 G10 專用版本的 ESXi。",
+        "B": "RAID 0（Stripe）雖然提供最大的可用容量與最佳效能，但**完全沒有資料冗餘保護**。任一硬碟故障即造成全部資料遺失。在 ISMS 制度要求 SLA 99.9% 的環境中，採用 RAID 0 完全違背資料安全與高可用性的原則。應採用 RAID 5、RAID 6 或 RAID 10 等具冗餘能力的組態。",
+        "C": "ESXi 免費版（Free License）功能受限，不支援 vMotion、HA（High Availability）、vSphere API 等企業關鍵功能。在要求 99.9% SLA 的正式生產環境中，免費版本無法滿足高可用性與完整管理的需求。",
+        "D": "使用非法授權序號違反軟體授權合規性，在 ISMS 制度下屬於重大違規。企業正式環境必須使用合法購買的授權，使用盜版序號不僅有法律風險，也無法獲得官方技術支援。"
+      },
+      "general_explanation": "",
+      "key_points": "虛擬化安全規劃要點：(1) 確認硬體相容性（HCL）、(2) 採用合法授權、(3) RAID 配置需考量資料冗餘、(4) 根據 SLA 需求選擇適當版本（標準版/企業版）。 ---"
+    },
+    {
+      "id": 28,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。承上題，若在 ISMS 制度中之服務級別協定（Service-Level Agreement, SLA）要求妥善率 99.9%，請問一年最大可容許停機時間約為多久？",
+      "options": {
+        "A": "7 天 15 小時 36 分",
+        "B": "8 小時 45 分 36 秒",
+        "C": "15 分 33.6 秒",
+        "D": "55.36 秒"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "99.9% 妥善率對應一年最大停機時間為 8 小時 45 分 36 秒。",
+        "A": "7 天 15 小時 36 分對應的是約 99% 的妥善率。",
+        "C": "15 分 33.6 秒對應的是約 99.997% 的妥善率。",
+        "D": "55.36 秒對應的是更高的妥善率（約 99.9998%）。"
+      },
+      "general_explanation": "",
+      "key_points": "常見 SLA 妥善率與年停機時間對照：99%（3 天 15 小時 36 分）、99.9%（8 小時 45 分 36 秒）、99.99%（52 分 33.6 秒）、99.999%（5 分 15.36 秒，又稱「五個九」）。 ---"
+    },
+    {
+      "id": 29,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。若小明想使用常見的封包側錄工具來錄製封包，可以使用下列何種工具做封包錄製？",
+      "options": {
+        "A": "jpgdump",
+        "B": "wireshark",
+        "C": "ipconfig",
+        "D": "atpx"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "Wireshark 是全球最廣泛使用的開源網路封包分析工具，支援即時封包擷取（Live Capture）與離線分析（Offline Analysis）。它能擷取網路介面上的所有流量，並提供豐富的協定解析功能，是資安工程師進行網路鑑識與異常分析的標準工具。",
+        "A": "jpgdump 不是標準的網路封包擷取工具。常見的命令列封包擷取工具為 tcpdump（Linux）或 windump（Windows）。",
+        "C": "ipconfig 是 Windows 的網路組態查詢指令，用於顯示或設定 IP 位址、子網路遮罩、預設閘道等資訊，並非封包擷取工具。",
+        "D": "atpx 不是標準的網路封包擷取工具。"
+      },
+      "general_explanation": "",
+      "key_points": "常見封包擷取與分析工具：Wireshark（GUI）、tcpdump（CLI, Linux）、tshark（Wireshark CLI 版本）、NetworkMiner（網路鑑識）、Microsoft Network Monitor / Message Analyzer（Windows 原生）。 ---"
+    },
+    {
+      "id": 30,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。請問附圖是小明下了什麼指令？",
+      "options": {
+        "A": "udp.port == 53",
+        "B": "tcp.port eq 80",
+        "C": "ip.addr==192.168.23.9",
+        "D": "arp eq DNS"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "根據附圖所示的封包紀錄為 DNS 查詢結果，DNS 協定預設使用 UDP 埠號 53。`udp.port == 53` 是 Wireshark 中用來過濾 DNS 流量的標準顯示過濾器語法，會顯示所有來源或目的埠為 UDP 53 的封包。",
+        "B": "`tcp.port eq 80` 會過濾 TCP 埠號 80（HTTP）的封包，而附圖顯示的是 DNS 查詢紀錄，不是 HTTP 流量。",
+        "C": "`ip.addr==192.168.23.9` 是過濾特定 IP 位址的封包，但附圖顯示的是按協定類型（DNS）過濾的結果。",
+        "D": "`arp eq DNS` 不是有效的 Wireshark 過濾器語法。ARP 是地址解析協定，與 DNS 是完全不同的協定，無法用 ARP 過濾器來篩選 DNS 封包。"
+      },
+      "general_explanation": "",
+      "key_points": "Wireshark 常用顯示過濾器：`dns`（DNS 封包）、`http`（HTTP 封包）、`tcp.port == 443`（HTTPS）、`ip.addr == x.x.x.x`（特定 IP）、`udp.port == 53`（DNS）。過濾器支援 `==`（等於）與 `eq`（等於）兩種語法。 ---"
+    },
+    {
+      "id": 31,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。小明從附圖中可找出封包中何者是惡意網站，造成同仁連上後下載了惡意程式，請問同仁電腦連上什麼中繼站，以及下載了什麼可疑的惡意檔案？",
+      "options": {
+        "A": "nrtjo.eu 下載 sdfg.jar",
+        "B": "nrtjo.eu 下載 q.jar",
+        "C": "nrtjo.eu 下載 favicon.ico",
+        "D": "freeways.in 下載 gates.php"
+      },
+      "answers": [
+        "AB"
+      ],
+      "explanations": {
+        "A": "從封包紀錄中可觀察到受害者電腦對 nrtjo.eu 網域發出 DNS 查詢，隨後建立 HTTP 連線並下載了 sdfg.jar 檔案。.jar（Java Archive）檔案是常見的惡意程式載體，攻擊者經常使用 Java Applet 漏洞來散布惡意程式。",
+        "B": "同樣在封包紀錄中可看到受害者從 nrtjo.eu 還下載了 q.jar 檔案。多個 .jar 檔案的下載行為高度可疑，通常是惡意程式的多階段攻擊（Multi-stage Attack），先下載一個小型載入器（Loader），再下載實際的惡意負載（Payload）。",
+        "C": "favicon.ico 是網站的標誌圖示檔案，是瀏覽器正常請求的資源，雖然來自可疑網域，但 favicon.ico 本身不是惡意檔案。",
+        "D": "封包紀錄中未顯示與 freeways.in 相關的惡意檔案下載行為，或 gates.php 不是從封包紀錄中觀察到的可疑下載檔案。"
+      },
+      "general_explanation": "",
+      "key_points": "惡意程式常見的檔案類型：.jar（Java）、.exe（Windows 執行檔）、.vbs/.js（腳本）、.dll（動態連結庫）、.ps1（PowerShell）。分析封包紀錄時應注意：異常 DNS 查詢（DGA 網域）、非預期的檔案下載、與已知惡意 IP/網域的通訊。 ---"
+    },
+    {
+      "id": 32,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。小明在附圖封包中可以判斷出受害者連線下載惡意程式的網站 IP 位置為下列何者？",
+      "options": {
+        "A": "59.53.91.102",
+        "B": "192.168.23.129",
+        "C": "65.55.195.250",
+        "D": "127.0.0.1"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "從封包紀錄的 DNS 查詢回應中，可看到 nrtjo.eu（已確認為惡意中繼站）所解析到的 IP 位址為 59.53.91.102。受害者電腦隨後對此 IP 建立 HTTP 連線並下載了惡意 .jar 檔案，因此 59.53.91.102 就是託管惡意程式的網站 IP。",
+        "B": "192.168.23.129 是私有 IP 位址（Class C），屬於公司內部網段，這是受害者電腦（同仁）的內部 IP 位址，而非惡意網站的 IP。",
+        "C": "65.55.195.250 是微軟（Microsoft）的 IP 位址範圍，屬於正常的合法連線目標，並非惡意網站。",
+        "D": "127.0.0.1 是本機迴路位址（Loopback Address），僅指向本機，不可能是外部惡意網站的 IP。"
+      },
+      "general_explanation": "",
+      "key_points": "網路鑑識中的 IP 分析要點：(1) 私有 IP 範圍（10.0.0.0/8、172.16.0.0/12、192.168.0.0/16）為內部網路、(2) DNS 回應的 Answer Section 可取得網域對應的 IP、(3) 可利用 Whois、VirusTotal、AbuseIPDB 等工具進一步查證可疑 IP 的信譽。 ---"
+    },
+    {
+      "id": 33,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。下列何者較「不」可能是小李滲透測試（Penetration Test）會使用到的工具？",
+      "options": {
+        "A": "Wireshark",
+        "B": "Burp Suite",
+        "C": "Nagios",
+        "D": "Nmap"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "Nagios 是一套開源的**網路與系統監控工具**，用於監控主機、服務、網路設備的運作狀態（如 CPU 使用率、磁碟空間、服務存活狀態等），並在異常時發出警報。它屬於 IT 運維監控（Operations Monitoring）工具，而非滲透測試工具。",
+        "A": "Wireshark 在滲透測試的偵察階段（Reconnaissance）與後滲透階段（Post-Exploitation）中常用於擷取與分析網路流量，發現明文傳輸的敏感資訊、不當的協定使用等。",
+        "B": "Burp Suite 是 Web 應用程式滲透測試的核心工具，功能包括：HTTP 代理攔截（Proxy）、自動掃描（Scanner）、入侵測試（Intruder）、重放攻擊（Repeater）等，是 OWASP Top 10 漏洞檢測的業界標準工具。",
+        "D": "Nmap（Network Mapper）是滲透測試的基礎工具，用於網路探測（Host Discovery）、埠掃描（Port Scanning）、服務版本偵測（Service Version Detection）、作業系統識別（OS Fingerprinting）等偵察任務。"
+      },
+      "general_explanation": "",
+      "key_points": "滲透測試工具分類：偵察（Nmap、Shodan）、掃描（Nessus、OpenVAS）、漏洞利用（Metasploit、SQLMap）、Web 測試（Burp Suite、OWASP ZAP）、封包分析（Wireshark、tcpdump）、後滲透（Mimikatz、BloodHound）。 ---"
+    },
+    {
+      "id": 34,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。承上題，當小李完成滲透測試後於報告中發現附圖資訊，判斷公司可能出現下列何種風險漏洞？",
+      "options": {
+        "A": "敏感目錄暴露（Possible sensitive directories）",
+        "B": "未強制使用 HTTPS（Unencrypted connection）",
+        "C": "Session Cookie 未設定為 Secure 安全模式（Cookie without Secure flag set）",
+        "D": "啟用 SSH 較弱 MAC 加密算法（SSH Weak MAC Algorithms Enabled）"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "滲透測試報告中顯示網站未強制使用 HTTPS 加密連線。這意味著使用者與伺服器之間的通訊可能以 HTTP 明文傳輸，攻擊者可透過中間人攻擊（MITM）或封包竊聽（Sniffing）輕易截取敏感資料（如帳號密碼、Session Token 等）。這是 OWASP 所列的重要安全風險之一。",
+        "A": "敏感目錄暴露是指網站目錄結構被公開存取（如 /admin/、/backup/ 等），雖然也是常見漏洞，但不符合附圖描述的資訊。",
+        "C": "Cookie without Secure flag 是指 Session Cookie 未設定 Secure 屬性，可能在 HTTP 連線中被傳送而遭截取，雖相關但與附圖直接描述不符。",
+        "D": "SSH 弱 MAC 演算法是 SSH 服務的配置問題，與網站 HTTPS 加密無關。"
+      },
+      "general_explanation": "",
+      "key_points": "HTTPS 安全最佳實務：(1) 強制 HTTPS（HSTS Header）、(2) 使用 TLS 1.2 以上版本、(3) 設定 Cookie 的 Secure 與 HttpOnly 屬性、(4) 實施 HTTP 到 HTTPS 的 301 重導向。 ---"
+    },
+    {
+      "id": 35,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。公司要求小李再協助處理弱點掃描（Vulnerability Assessment），請問滲透測試與弱點掃描的差異為下列何者？",
+      "options": {
+        "A": "滲透測試主要為自動化掃描軟體檢測，只檢測既有安全漏洞",
+        "B": "弱點掃描針對客戶的目標系統模擬、發掘安全漏洞並提出改善方法的善意行為",
+        "C": "弱點掃描能檢測出最新的資安漏洞",
+        "D": "滲透測試為資安專家仿駭客思維、發掘安全漏洞，以實戰方式找出任何可能突破目前網站安全防護的檢測"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "滲透測試是由具備專業知識的資安專家，模擬真實駭客的攻擊思維與手法，針對目標系統進行主動式攻擊測試。滲透測試不僅識別漏洞，還會嘗試實際利用漏洞（Exploitation）以驗證其風險影響程度，並以實戰方式找出可能突破現有安全防護的路徑，最終提出具體的修補建議。",
+        "A": "此描述將滲透測試與弱點掃描的特性混淆。**弱點掃描**才是主要依靠自動化掃描軟體（如 Nessus、OpenVAS、Qualys）檢測已知漏洞。滲透測試則大量依賴人工分析與創意攻擊思維，不僅限於已知漏洞。",
+        "B": "此描述更接近滲透測試的定義，而非弱點掃描。弱點掃描主要是使用自動化工具對系統進行漏洞偵測與清點，產出漏洞清單與建議修補方案，但不會主動嘗試利用漏洞。",
+        "C": "弱點掃描依賴漏洞資料庫（Vulnerability Database），只能檢測已被收錄的已知漏洞，對於零日漏洞（Zero-day）或自定義應用程式的邏輯漏洞通常無法檢測。「最新的資安漏洞」若尚未被加入掃描引擎的特徵庫，則無法被弱掃發現。"
+      },
+      "general_explanation": "",
+      "key_points": "弱點掃描 vs 滲透測試：弱掃是廣度導向（Breadth）、自動化、識別漏洞；滲透測試是深度導向（Depth）、人工操作、驗證漏洞可利用性。兩者互補，通常先執行弱掃發現漏洞清單，再進行滲透測試驗證關鍵漏洞的實際影響。 ---"
+    },
+    {
+      "id": 36,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。小李在研究系統安全維運與測試的過程，發現為了讓資訊安全測試與設計有較容易遵循的方法與流程，它是由多位資安領域專家、學者或顧問共同撰寫而成定義出許多資訊安全測試與設計範本，可幫助資安人員對於資訊安全測試與設計有一個較完整的全貌，請問下列哪些是目前業界共同的資訊安全測試參考的（方法論）文件範本？",
+      "options": {
+        "A": "Open Web Application Security Project Testing Guide（OWASP）",
+        "B": "Common Weakness Enumeration（CWE）",
+        "C": "Open Shortest Path First（OSPF）",
+        "D": "Information Systems Security Assessment Framework（ISSAF）"
+      },
+      "answers": [
+        "ABD"
+      ],
+      "explanations": {
+        "A": "OWASP（開放式 Web 應用程式安全專案）發布的 Testing Guide 是 Web 應用程式安全測試的權威指南，由全球資安專家共同撰寫，定義了完整的 Web 安全測試方法論、測試項目與流程，是滲透測試人員最常參考的文件之一。",
+        "B": "CWE（通用弱點列舉）是由 MITRE 組織維護的軟體安全弱點分類系統，為資安測試與安全開發提供了標準化的弱點分類與描述框架。雖然它偏向弱點分類而非測試方法論，但在安全測試設計中是重要的參考資源，可幫助資安人員理解各類弱點的全貌。",
+        "D": "ISSAF（資訊系統安全評估框架）是由 OISSG（Open Information Systems Security Group）發布的資訊安全評估框架，提供了完整的滲透測試方法論，涵蓋從規劃、評估到報告撰寫的各個階段，是業界公認的安全測試參考文件範本。",
+        "C": "OSPF（開放最短路徑優先）是一種動態路由協定（Link-State Routing Protocol），用於 IP 網路中的路由資訊交換，與資訊安全測試方法論完全無關。"
+      },
+      "general_explanation": "",
+      "key_points": "重要的資安測試方法論與框架：OWASP Testing Guide（Web 安全測試）、PTES（Penetration Testing Execution Standard）、ISSAF（安全評估框架）、OSSTMM（Open Source Security Testing Methodology Manual）、NIST SP 800-115（技術性安全測試指南）。CWE 與 CVE 則是弱點分類與漏洞編號的標準參考。 ---"
+    },
+    {
+      "id": 37,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。請問小張使用此工具的主要目的為下列何者？",
+      "options": {
+        "A": "NetChannel 工具通常使用於網路管理情境之下，主要目的為建立網路通道之用",
+        "B": "NoCommand 工具通常使用於將 DOS Command 轉換為 GUI 介面執行",
+        "C": "NoCommunication 工具通常使用於建立雙方之通訊連線",
+        "D": "NetCat 工具通常使用於網路管理情境之下，亦為滲透測試常用工具之一"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "NetCat（簡稱 nc）被譽為「網路界的瑞士刀」（Swiss Army Knife of Networking），是一款功能強大的網路工具，廣泛應用於：(1) 網路管理（埠掃描、連線測試、網路除錯）、(2) 滲透測試（建立反向連線 Shell、資料傳輸、Banner Grabbing）、(3) 網路服務監聽與測試。題目中的指令包含埠掃描（-z）、監聽（-l）、檔案傳輸（< / >）等操作，正是 NetCat 的典型使用場景。",
+        "A": "「NetChannel」不是 nc 的全稱，且「建立網路通道」的描述過於狹隘，不能完整涵蓋 NetCat 的功能。",
+        "B": "「NoCommand」不是真實工具，nc 也不是 GUI 轉換工具。",
+        "C": "「NoCommunication」不是真實工具，且建立通訊連線只是 NetCat 功能的一小部分。"
+      },
+      "general_explanation": "",
+      "key_points": "NetCat 常用參數：`-l`（監聽模式）、`-p`（指定埠號）、`-v`（詳細模式）、`-z`（零 I/O 模式，用於掃描）、`-w`（連線逾時）、`-t`（啟用 Telnet 模式）、`-e`（執行程式，常用於反向 Shell）。 ---"
+    },
+    {
+      "id": 38,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。關於附圖兩個指令的執行結果，何者正確？ `nc -vzw5 192.168.0.1 1-2048`（操控端） `nc -v -z -w5 192.168.0.1 1-2048`（操控端）",
+      "options": {
+        "A": "結果相同，對 192.168.0.1 主機進行 vpn 連線，且連線時間設定 2048 秒",
+        "B": "結果不同，對 192.168.0.1 主機進行監聽，且監聽時間設定 2048 秒",
+        "C": "結果相同，對 192.168.0.1 主機之 TCP port 1-2048 進行掃描，且連線逾時設定 5 秒",
+        "D": "結果不同，對 192.168.0.1 主機之 UCP port 1-2048 進行掃描，且連線逾時設定 5 秒"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "兩條指令結果相同，均對 192.168.0.1 主機的 TCP port 1-2048 進行掃描，且連線逾時設定為 5 秒。NetCat 預設使用 TCP 協定（需加 `-u` 才使用 UDP）。",
+        "A": "此操作是埠掃描而非 VPN 連線，「1-2048」是埠範圍不是連線時間。",
+        "B": "兩條指令結果相同（非不同），且此操作是主動掃描（-z）而非監聽（-l）。",
+        "D": "兩條指令結果相同（非不同），且 NetCat 預設使用 TCP（非 UCP/UDP）。"
+      },
+      "general_explanation": "",
+      "key_points": "NetCat 埠掃描語法：`nc -vzw[秒數] [目標IP] [埠範圍]`。合併參數（如 -vzw5）與分開參數（如 -v -z -w5）效果相同，是 Unix/Linux CLI 的標準用法。 ---"
+    },
+    {
+      "id": 39,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。請問題目中指令 `nc -ltp 80`（操控端）的執行結果為下列何者？",
+      "options": {
+        "A": "關閉 telnet 模式",
+        "B": "啟動 telnet 模式",
+        "C": "阻斷 80 port",
+        "D": "指定 80 port 為監聽 port"
+      },
+      "answers": [
+        "BD"
+      ],
+      "explanations": {
+        "B": "`-t` 參數啟動了 Telnet 模式，使 NetCat 能處理 Telnet 協議的控制字元與協商（如 IAC 序列），允許 Telnet 客戶端正常連接。",
+        "D": "`-l` 啟動監聽模式，`-p 80` 指定監聽埠為 80，因此 NetCat 會在 TCP 80 埠上等待傳入連線。",
+        "A": "`-t` 是**啟動**而非關閉 Telnet 模式。",
+        "C": "監聽（Listen）不等於阻斷（Block）。NetCat 是在 80 埠上開啟服務等待連線，而非阻止 80 埠的通訊。"
+      },
+      "general_explanation": "",
+      "key_points": "NetCat 監聽模式常見用法：`nc -l -p [埠號]`（基本監聽）、`nc -l -p [埠號] -e /bin/bash`（建立反向 Shell，安全測試用）、`nc -l -p [埠號] > file`（接收檔案）、`nc -l -p [埠號] < file`（傳送檔案給連線者）。 ---"
+    },
+    {
+      "id": 40,
+      "type": "single",
+      "context": "",
+      "question": "題組背景描述如附圖。請問操控端下達何種指令時，等待接聽 TCP 80 port，若接收到連線，就可以將 test.txt 傳送給對方？",
+      "options": {
+        "A": "nc -l -p 80 < type test.txt（操控端）",
+        "B": "nc -t -p 80 < type test.txt（操控端）",
+        "C": "nc -g -p 80 > type test.txt（操控端）",
+        "D": "nc -g -p 80 < type test.txt（操控端）"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "`nc -l -p 80 < test.txt` 的功能拆解如下： - `-l`（listen）：啟動監聽模式，等待傳入連線 - `-p 80`：指定監聽埠為 TCP 80 - `< test.txt`：將 test.txt 的內容作為標準輸入重導向至 NetCat，當有客戶端連線時，NetCat 會將檔案內容傳送給對方 此指令完全符合題目要求：等待接聽 TCP 80 port，接收到連線後將 test.txt 傳送給對方。",
+        "B": "`-t` 是 Telnet 模式而非監聽模式（listen），缺少 `-l` 參數，NetCat 不會進入監聽等待狀態。",
+        "C": "`-g` 是設定來源路由的躍點（source routing hop），非監聽參數。且 `>` 是從 NetCat 輸出到檔案（接收檔案），而非將檔案傳送給對方。",
+        "D": "`-g` 同樣不是監聽參數，缺少 `-l` 無法等待連線。"
+      },
+      "general_explanation": "",
+      "key_points": "NetCat 檔案傳輸：傳送端 `nc -l -p [埠] < [檔案]`（監聽並傳送）；接收端 `nc [目標IP] [埠] > [檔案]`（連線並接收）。重導向符號：`<` 將檔案內容送入程式（傳送），`>` 將程式輸出寫入檔案（接收）。"
+    }
+  ]
+}

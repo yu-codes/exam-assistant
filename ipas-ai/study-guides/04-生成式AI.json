@@ -1,0 +1,7 @@
+{
+  "id": "04",
+  "slug": "生成式AI",
+  "title": "生成式 AI（GAI/LLM/Diffusion）",
+  "filename": "04-生成式AI.md",
+  "html": "<h1>04 — 生成式 AI</h1>\n<h2>一、生成模型類型</h2>\n<table>\n<thead><tr><th>模型</th><th>原理</th><th>應用</th></tr></thead>\n<tbody>\n<tr><td>GAN</td><td>生成器 vs 判別器對抗訓練</td><td>影像生成、風格轉換</td></tr>\n<tr><td>VAE</td><td>編碼器→潛在空間→解碼器</td><td>影像生成、資料壓縮</td></tr>\n<tr><td>Diffusion Model</td><td>逐步加噪→學習去噪</td><td>高品質影像/影片生成</td></tr>\n<tr><td>LLM</td><td>自回歸序列生成</td><td>文字生成、程式碼、對話</td></tr>\n</tbody>\n</table>\n<h2>二、Prompt Engineering</h2>\n<ul>\n<li>Zero-shot：直接描述任務，無範例</li>\n<li>Few-shot：提供少量範例引導格式</li>\n<li>Chain-of-Thought (CoT)：要求模型逐步推理</li>\n<li>Role Prompting：指定角色（如「你是一位資料科學家」）</li>\n</ul>\n<h2>三、生成式 AI 的風險與治理</h2>\n<ul>\n<li><strong>幻覺（Hallucination）</strong>：生成看似合理但不正確的內容</li>\n<li><strong>個資洩漏</strong>：模型可能記憶並生成訓練資料中的個資</li>\n<li>解決方案：\n<ul>\n<li>訓練資料匿名化/偽匿名化</li>\n<li>輸出內容稽核機制（偵測個資）</li>\n<li>差分隱私訓練</li>\n<li>RAG 取代記憶（減少幻覺）</li>\n</ul></li>\n</ul>\n<h2>四、信用評分卡中不使用生成式模型</h2>\n<ul>\n<li>傳統信用評分卡強調<strong>可解釋性</strong></li>\n<li>標準流程：分箱 → WOE/IV → 邏輯迴歸 → PSI 監控</li>\n<li>生成式模型的特徵學習不符合監管要求的透明度</li>\n</ul>"
+}

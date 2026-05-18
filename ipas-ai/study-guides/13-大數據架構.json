@@ -1,0 +1,7 @@
+{
+  "id": "13",
+  "slug": "大數據架構",
+  "title": "大數據架構與串流處理",
+  "filename": "13-大數據架構.md",
+  "html": "<h1>13 — 大數據架構與串流處理</h1>\n<h2>一、IoT 即時監控最佳架構</h2>\n<p><strong>感測器 → 邊緣運算 → 串流處理框架 → 雲端資料湖 → 模型推論</strong></p>\n<ul>\n<li>邊緣運算（Edge）：毫秒級即時回應</li>\n<li>串流處理（Flink/Kafka Streams）：即時事件偵測</li>\n<li>資料湖：完整資料長期保存</li>\n<li>雲端：模型訓練和再訓練</li>\n</ul>\n<h2>二、資料湖（Data Lake）</h2>\n<ul>\n<li>儲存各種格式（結構化/非結構化/半結構化）</li>\n<li>搭配 Apache Spark 或 Ray 進行分散式處理</li>\n<li>適合多來源、多模態資料的統一儲存和處理</li>\n</ul>\n<h2>三、ACID 特性</h2>\n<table>\n<thead><tr><th>特性</th><th>說明</th><th>考試關鍵字</th></tr></thead>\n<tbody>\n<tr><td><strong>Atomicity（原子性）</strong></td><td>全部成功或全部回復</td><td>「部分失敗→全部Rollback」</td></tr>\n<tr><td>Consistency（一致性）</td><td>交易前後滿足完整性規則</td><td>「資料約束不被破壞」</td></tr>\n<tr><td>Isolation（隔離性）</td><td>並發交易互不干擾</td><td>「同時存取不影響」</td></tr>\n<tr><td>Durability（持久性）</td><td>提交後永久保存</td><td>「commit 後不消失」</td></tr>\n</tbody>\n</table>\n<p>分散式系統的原子性：透過 2PC（兩階段提交）或共識協議（Paxos/Raft）實現</p>\n<h2>四、近似分位數（Approximate Quantile）</h2>\n<ul>\n<li>核心目的：<strong>在可容忍誤差內快速估算分位值</strong></li>\n<li>適用：海量資料（上億筆）+ 即時分析</li>\n<li>算法：T-Digest、Q-Digest、GK Algorithm</li>\n<li>不需排序全部資料，可用於串流</li>\n</ul>\n<h2>五、圖資料庫與知識圖譜</h2>\n<h3>圖資料庫</h3>\n<ul>\n<li>節點（Entity）+ 邊（Relationship）+ 屬性（Properties）</li>\n<li><strong>邊可攜帶屬性</strong>（如時間戳記、裝置類型）</li>\n<li>查詢語言：Cypher（Neo4j）、Gremlin</li>\n</ul>\n<h3>知識圖譜</h3>\n<ul>\n<li>RDF 三元組：Subject – Predicate – Object</li>\n<li>技術棧：RDF + OWL + SPARQL + 推理引擎</li>\n<li>優勢：語意擴展性 + 推理能力</li>\n</ul>"
+}

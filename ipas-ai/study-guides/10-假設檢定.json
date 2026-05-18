@@ -1,0 +1,7 @@
+{
+  "id": "10",
+  "slug": "假設檢定",
+  "title": "假設檢定與統計推論",
+  "filename": "10-假設檢定.md",
+  "html": "<h1>10 — 假設檢定與統計推論</h1>\n<h2>一、假設檢定基本流程</h2>\n<ol>\n<li>設定 H₀（虛無假設）和 H₁（對立假設）</li>\n<li>選擇顯著水準 α（通常 0.05）</li>\n<li>計算檢定統計量</li>\n<li>判定：p < α → 拒絕 H₀；p ≥ α → 無法拒絕 H₀</li>\n</ol>\n<h2>二、p 值與信賴區間的一致性</h2>\n<ul>\n<li>H₀ 的值落在 (1-α) 信賴區間內 ↔ p > α ↔ 無法拒絕 H₀</li>\n<li>範例：α=0.05, p=0.08, 95% CI=[95,108], H₀:μ=100</li>\n<li>100 在 CI 內 → p>0.05 → <strong>無法拒絕 H₀</strong></li>\n</ul>\n<h2>三、常用檢定方法</h2>\n<table>\n<thead><tr><th>目的</th><th>檢定方法</th></tr></thead>\n<tbody>\n<tr><td>單一平均數 vs 常數</td><td>單樣本 t 檢定</td></tr>\n<tr><td>兩組平均數比較</td><td>雙樣本 t 檢定</td></tr>\n<tr><td><strong>兩個比例比較</strong></td><td><strong>雙比例 Z 檢定</strong></td></tr>\n<tr><td>三組以上平均數</td><td>ANOVA（變異數分析）</td></tr>\n<tr><td>類別變數獨立性</td><td>卡方檢定</td></tr>\n<tr><td>證明兩者等價</td><td>等價性檢定（TOST）</td></tr>\n</tbody>\n</table>\n<p><strong>考試重點</strong>：比較兩條生產線良率（95% vs 97%）→ <strong>雙比例 Z 檢定</strong></p>\n<h2>四、信賴區間寬度的影響因素</h2>\n<ul>\n<li>樣本量 n ↑ → CI 窄 ↑</li>\n<li>標準差 σ ↑ → CI 寬 ↑</li>\n<li>信心水準 (1-α) ↑ → CI 寬 ↑</li>\n<li>⚠️ 信賴區間寬度不是只受顯著水準影響</li>\n</ul>\n<h2>五、蒙地卡羅方法</h2>\n<ul>\n<li>大量隨機抽樣 → 模擬系統行為 → 估計輸出機率分佈</li>\n<li>適用：多變數、高不確定性的複雜系統</li>\n<li>應用：風險評估、選擇權定價、物理模擬</li>\n</ul>"
+}

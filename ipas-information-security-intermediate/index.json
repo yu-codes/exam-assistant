@@ -1,0 +1,329 @@
+{
+  "exam_id": "ipas-information-security-intermediate",
+  "exam_name": "iPAS 資訊安全工程師（中級）",
+  "description": "工業技術研究院 iPAS 資訊安全工程師能力鑑定（中級），含資訊安全規劃實務與資訊安全防護實務兩科。",
+  "exams": [
+    {
+      "year": "108",
+      "type": "規劃",
+      "file": "108-規劃.json",
+      "pdf": "108-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/108-規劃.pdf"
+    },
+    {
+      "year": "108",
+      "type": "防護",
+      "file": "108-防護.json",
+      "pdf": "108-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/108-防護.pdf"
+    },
+    {
+      "year": "109",
+      "type": "規劃",
+      "file": "109-規劃.json",
+      "pdf": "109-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/109-規劃.pdf"
+    },
+    {
+      "year": "109",
+      "type": "防護",
+      "file": "109-防護.json",
+      "pdf": "109-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/109-防護.pdf"
+    },
+    {
+      "year": "110",
+      "type": "規劃",
+      "file": "110-規劃.json",
+      "pdf": "110-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/110-規劃.pdf"
+    },
+    {
+      "year": "110",
+      "type": "防護",
+      "file": "110-防護.json",
+      "pdf": "110-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/110-防護.pdf"
+    },
+    {
+      "year": "111",
+      "type": "規劃",
+      "file": "111-規劃.json",
+      "pdf": "111-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/111-規劃.pdf"
+    },
+    {
+      "year": "111",
+      "type": "防護",
+      "file": "111-防護.json",
+      "pdf": "111-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/111-防護.pdf"
+    },
+    {
+      "year": "112-1",
+      "type": "規劃",
+      "file": "112-1-規劃.json",
+      "pdf": "112-1-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/112-1-規劃.pdf"
+    },
+    {
+      "year": "112-1",
+      "type": "防護",
+      "file": "112-1-防護.json",
+      "pdf": "112-1-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/112-1-防護.pdf"
+    },
+    {
+      "year": "112-2",
+      "type": "規劃",
+      "file": "112-2-規劃.json",
+      "pdf": "112-2-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/112-2-規劃.pdf"
+    },
+    {
+      "year": "112-2",
+      "type": "防護",
+      "file": "112-2-防護.json",
+      "pdf": "112-2-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/112-2-防護.pdf"
+    },
+    {
+      "year": "113-1",
+      "type": "規劃",
+      "file": "113-1-規劃.json",
+      "pdf": "113-1-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/113-1-規劃.pdf"
+    },
+    {
+      "year": "113-1",
+      "type": "防護",
+      "file": "113-1-防護.json",
+      "pdf": "113-1-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/113-1-防護.pdf"
+    },
+    {
+      "year": "113-2",
+      "type": "規劃",
+      "file": "113-2-規劃.json",
+      "pdf": "113-2-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/113-2-規劃.pdf"
+    },
+    {
+      "year": "113-2",
+      "type": "防護",
+      "file": "113-2-防護.json",
+      "pdf": "113-2-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/113-2-防護.pdf"
+    },
+    {
+      "year": "114-1",
+      "type": "規劃",
+      "file": "114-1-規劃.json",
+      "pdf": "114-1-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/114-1-規劃.pdf"
+    },
+    {
+      "year": "114-1",
+      "type": "防護",
+      "file": "114-1-防護.json",
+      "pdf": "114-1-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/114-1-防護.pdf"
+    },
+    {
+      "year": "114-2",
+      "type": "規劃",
+      "file": "114-2-規劃.json",
+      "pdf": "114-2-規劃.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/114-2-規劃.pdf"
+    },
+    {
+      "year": "114-2",
+      "type": "防護",
+      "file": "114-2-防護.json",
+      "pdf": "114-2-防護.pdf",
+      "pdf_url": "ipas-information-security-intermediate/pdf/114-2-防護.pdf"
+    }
+  ],
+  "study_guides": [
+    {
+      "id": "00",
+      "slug": "目錄總覽",
+      "title": "iPAS 資訊安全工程師（中級）— 考試重點整理總覽",
+      "file": "00-目錄總覽.json"
+    },
+    {
+      "id": "01",
+      "slug": "iso-27001-isms",
+      "title": "ISO/IEC 27001 與 ISMS",
+      "file": "01-ISO-27001-ISMS.json"
+    },
+    {
+      "id": "02",
+      "slug": "iso-27000-系列標準",
+      "title": "ISO 27000 系列標準全覽",
+      "file": "02-ISO-27000-系列標準.json"
+    },
+    {
+      "id": "03",
+      "slug": "風險管理",
+      "title": "風險管理",
+      "file": "03-風險管理.json"
+    },
+    {
+      "id": "04",
+      "slug": "owasp-top-10",
+      "title": "OWASP Top 10",
+      "file": "04-OWASP-Top-10.json"
+    },
+    {
+      "id": "05",
+      "slug": "nist-框架與標準",
+      "title": "NIST 框架與標準",
+      "file": "05-NIST-框架與標準.json"
+    },
+    {
+      "id": "06",
+      "slug": "零信任架構-zta",
+      "title": "零信任架構（Zero Trust Architecture, ZTA）",
+      "file": "06-零信任架構-ZTA.json"
+    },
+    {
+      "id": "07",
+      "slug": "網路攻擊手法",
+      "title": "網路攻擊手法",
+      "file": "07-網路攻擊手法.json"
+    },
+    {
+      "id": "08",
+      "slug": "網路安全架構",
+      "title": "網路安全架構",
+      "file": "08-網路安全架構.json"
+    },
+    {
+      "id": "09",
+      "slug": "密碼學",
+      "title": "密碼學",
+      "file": "09-密碼學.json"
+    },
+    {
+      "id": "10",
+      "slug": "mitre-attck-kill-chain",
+      "title": "MITRE ATT&CK 與 Cyber Kill Chain",
+      "file": "10-MITRE-ATTCK-Kill-Chain.json"
+    },
+    {
+      "id": "11",
+      "slug": "cvss-弱點評分",
+      "title": "CVSS 弱點評分系統",
+      "file": "11-CVSS-弱點評分.json"
+    },
+    {
+      "id": "12",
+      "slug": "bcm-營運持續管理",
+      "title": "BCM 營運持續管理",
+      "file": "12-BCM-營運持續管理.json"
+    },
+    {
+      "id": "13",
+      "slug": "事件處理與鑑識",
+      "title": "事件處理與數位鑑識",
+      "file": "13-事件處理與鑑識.json"
+    },
+    {
+      "id": "14",
+      "slug": "存取控制與身分驗證",
+      "title": "存取控制與身分驗證",
+      "file": "14-存取控制與身分驗證.json"
+    },
+    {
+      "id": "15",
+      "slug": "台灣資安法規",
+      "title": "台灣資安法規",
+      "file": "15-台灣資安法規.json"
+    },
+    {
+      "id": "16",
+      "slug": "國際資安法規",
+      "title": "國際資安法規",
+      "file": "16-國際資安法規.json"
+    },
+    {
+      "id": "17",
+      "slug": "安全軟體開發-ssdlc",
+      "title": "安全軟體開發 SSDLC",
+      "file": "17-安全軟體開發-SSDLC.json"
+    },
+    {
+      "id": "18",
+      "slug": "滲透測試與弱點管理",
+      "title": "滲透測試與弱點管理",
+      "file": "18-滲透測試與弱點管理.json"
+    },
+    {
+      "id": "19",
+      "slug": "惡意程式與進階威脅",
+      "title": "惡意程式與進階威脅",
+      "file": "19-惡意程式與進階威脅.json"
+    },
+    {
+      "id": "20",
+      "slug": "日誌管理與siem",
+      "title": "日誌管理與 SIEM",
+      "file": "20-日誌管理與SIEM.json"
+    },
+    {
+      "id": "21",
+      "slug": "安全控制與職務區隔",
+      "title": "安全控制與職務區隔",
+      "file": "21-安全控制與職務區隔.json"
+    },
+    {
+      "id": "22",
+      "slug": "ot-ics-工控安全",
+      "title": "OT/ICS 工控安全",
+      "file": "22-OT-ICS-工控安全.json"
+    },
+    {
+      "id": "23",
+      "slug": "雲端安全",
+      "title": "雲端安全",
+      "file": "23-雲端安全.json"
+    },
+    {
+      "id": "24",
+      "slug": "ai-安全與治理",
+      "title": "AI 安全與治理",
+      "file": "24-AI-安全與治理.json"
+    },
+    {
+      "id": "25",
+      "slug": "威脅情資-cti",
+      "title": "威脅情資 CTI",
+      "file": "25-威脅情資-CTI.json"
+    },
+    {
+      "id": "26",
+      "slug": "raid-與儲存安全",
+      "title": "RAID 與儲存安全",
+      "file": "26-RAID-與儲存安全.json"
+    },
+    {
+      "id": "27",
+      "slug": "網路協定安全",
+      "title": "網路協定安全",
+      "file": "27-網路協定安全.json"
+    },
+    {
+      "id": "28",
+      "slug": "實體安全與人員安全",
+      "title": "實體安全與人員安全",
+      "file": "28-實體安全與人員安全.json"
+    },
+    {
+      "id": "29",
+      "slug": "攻擊手法專有名詞字典",
+      "title": "攻擊手法專有名詞字典",
+      "file": "29-攻擊手法專有名詞字典.json"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "16",
+  "slug": "AI倫理與治理",
+  "title": "AI 倫理與治理",
+  "filename": "16-AI倫理與治理.md",
+  "html": "<h1>16 — AI 倫理與治理</h1>\n<h2>一、AI 偏差類型</h2>\n<table>\n<thead><tr><th>偏差類型</th><th>來源</th><th>範例</th></tr></thead>\n<tbody>\n<tr><td><strong>標籤偏差（Label Bias）</strong></td><td>標記者主觀偏見</td><td>情感標註受文化影響</td></tr>\n<tr><td><strong>取樣偏差（Sampling Bias）</strong></td><td>樣本不代表目標母體</td><td>只用活躍客戶訓練→新客戶預測差</td></tr>\n<tr><td>特徵偏差</td><td>特徵設計不公平</td><td>使用性別/種族作為特徵</td></tr>\n<tr><td>模型偏差</td><td>模型結構限制</td><td>線性模型無法擬合非線性</td></tr>\n</tbody>\n</table>\n<h2>二、可解釋性（Explainability）</h2>\n<ul>\n<li><strong>最關鍵場景：醫療診斷、司法判決、信用審核</strong></li>\n<li>工具：SHAP、LIME、Attention Visualization、Feature Importance</li>\n<li>EU AI Act 要求高風險 AI 具備可解釋性</li>\n</ul>\n<h2>三、生成式 AI 隱私保護</h2>\n<ul>\n<li>風險：模型可能生成訓練資料中的真實個資</li>\n<li>解決：\n<ol>\n<li>訓練資料前進行匿名化/偽匿名化</li>\n<li>建立輸出內容稽核機制</li>\n<li>差分隱私訓練</li>\n</ol></li>\n</ul>\n<h2>四、AI 資料治理原則</h2>\n<ul>\n<li>資料最小化：只蒐集必要資料</li>\n<li>目的限制：資料僅用於聲明目的</li>\n<li>合法取得：取得當事人同意</li>\n<li>可審計性：完整記錄資料使用歷程</li>\n</ul>"
+}

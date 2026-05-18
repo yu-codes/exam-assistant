@@ -1,0 +1,7 @@
+{
+  "id": "11",
+  "slug": "集成學習與XGBoost",
+  "title": "集成學習與 XGBoost",
+  "filename": "11-集成學習與XGBoost.md",
+  "html": "<h1>11 — 集成學習與 XGBoost</h1>\n<h2>一、決策樹分裂準則</h2>\n<table>\n<thead><tr><th>準則</th><th>用於</th><th>公式</th></tr></thead>\n<tbody>\n<tr><td><strong>資訊增益</strong></td><td>ID3</td><td>IG = H(parent) - ΣH(child)×weight</td></tr>\n<tr><td>增益比</td><td>C4.5</td><td>Gain Ratio = IG / Split Info</td></tr>\n<tr><td>Gini 指數</td><td>CART</td><td>Gini = 1 - Σp_i²</td></tr>\n</tbody>\n</table>\n<p><strong>考試重點</strong>：資訊增益 → 決策樹（ID3/C4.5）</p>\n<h2>二、集成方法</h2>\n<table>\n<thead><tr><th>方法</th><th>策略</th><th>代表模型</th></tr></thead>\n<tbody>\n<tr><td>Bagging</td><td>並行+投票/平均</td><td>Random Forest</td></tr>\n<tr><td>Boosting</td><td>序列+修正前一輪錯誤</td><td>GBDT, XGBoost, LightGBM</td></tr>\n<tr><td>Stacking</td><td>多模型輸出作為新特徵</td><td>Meta-learner</td></tr>\n</tbody>\n</table>\n<h2>三、XGBoost vs 傳統 GBDT</h2>\n<p>XGBoost 三大改進：</p>\n<ol>\n<li><strong>正則化項</strong>（L1/L2 on leaf weights）→ 防過擬合</li>\n<li><strong>缺失值自動處理</strong>（自動找最佳分裂方向）</li>\n<li><strong>並行化訓練</strong>（特徵維度並行搜尋最佳分裂點）</li>\n</ol>\n<p>其他改進：近似分裂算法（Histogram/Quantile Sketch）、Shrinkage</p>\n<h2>四、AutoML</h2>\n<ul>\n<li>適用場景：時間有限 + 缺乏專職人員 + 需快速比較多種模型</li>\n<li>不適用：需精細控制、高度客製化的場景</li>\n<li>工具：Auto-sklearn、H2O AutoML、Google AutoML</li>\n</ul>"
+}

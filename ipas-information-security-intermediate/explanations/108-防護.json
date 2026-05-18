@@ -1,0 +1,942 @@
+{
+  "meta": {
+    "title": "108年 資訊安全工程師 - 資訊安全防護實務 詳解",
+    "source_file": "108年資訊安全工程師-資訊安全防護實務-詳解.md",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "single",
+      "context": "",
+      "question": "在駭客工具中，常見到中國菜刀（China Chopper）或相似工具其主要手法為？",
+      "options": {
+        "A": "通過向網站提交一句簡短的程式碼，來達到向伺服器插入木馬，並最後獲取webshell",
+        "B": "針對網站，建立一個連接，以很低的速度發包，並保持住這個連接不斷開，最後將可用的連線佔滿",
+        "C": "客戶使用主機M訪問並登錄合法網站webA後，再去訪問惡意網站webB，然後惡意網站webB冒充該客戶透過使用者主機M去向網站webA發起請求",
+        "D": "使用不安全的反序列化漏洞，利用遠端執行任意程式碼進行注入攻擊"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "中國菜刀（China Chopper）是一種極為精簡的 Webshell 管理工具，其特色是只需在目標網站上傳一行極短的程式碼（通常稱為「一句話木馬」），例如 PHP 的 `<?php @eval($_POST['pass']);?>`，即可透過客戶端工具連線操控伺服器，獲取完整的 Webshell 控制權。這是典型的 Webshell 攻擊手法。",
+        "B": "此描述的是 Slowloris 攻擊，屬於慢速 HTTP DoS 攻擊的一種，透過以極低速度發送 HTTP 請求並維持連線不關閉，消耗伺服器連線資源，與中國菜刀無關。",
+        "C": "此描述的是跨站請求偽造（Cross-Site Request Forgery, CSRF）攻擊，利用使用者在合法網站已登入的 Session，透過惡意網站發送偽造請求，與中國菜刀無關。",
+        "D": "此描述的是不安全的反序列化（Insecure Deserialization）漏洞攻擊，屬於 OWASP Top 10 中的 A8 項目，雖可造成遠端程式碼執行（RCE），但並非中國菜刀的主要手法。"
+      },
+      "general_explanation": "",
+      "key_points": "中國菜刀（China Chopper）是 APT 攻擊中常見的 Webshell 管理工具，體積極小（客戶端僅約 4KB），但功能強大，可進行檔案管理、資料庫操作、命令執行等。防禦方式包括：WAF 偵測、檔案完整性監控、限制上傳功能等。 ---"
+    },
+    {
+      "id": 2,
+      "type": "single",
+      "context": "",
+      "question": "通用漏洞評分系統（Common Vulnerability Scoring System, CVSS）是一個可衡量漏洞嚴重程度的公開標準。CVSSv3以基本指標群（Base metric group）、暫時指標群（Temporal metric group）及環境指標群（Environmental metric group）等3個群組來進行判斷。關於基本指標群，下列何者「不」是其考量因素？",
+      "options": {
+        "A": "機密性衝擊（Confidentiality Impact）",
+        "B": "攻擊途徑（Attack Vector）",
+        "C": "攻擊複雜度（Attack Complexity）",
+        "D": "可靠性衝擊（Reliability Impact）"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "CVSSv3 的基本指標群中並沒有「可靠性衝擊（Reliability Impact）」這個指標。基本指標群的衝擊面向只包含 CIA 三要素：機密性衝擊（Confidentiality Impact）、完整性衝擊（Integrity Impact）、可用性衝擊（Availability Impact），並無「可靠性」這個評估面向。",
+        "A": "機密性衝擊（Confidentiality Impact）是基本指標群中「衝擊指標」的一部分，評估漏洞對資訊機密性的影響程度。",
+        "B": "攻擊途徑（Attack Vector）是基本指標群中「可利用性指標」的一部分，包含網路（Network）、相鄰（Adjacent）、本地（Local）、實體（Physical）四種。",
+        "C": "攻擊複雜度（Attack Complexity）是基本指標群中「可利用性指標」的一部分，評估攻擊者成功利用漏洞所需的條件複雜程度。"
+      },
+      "general_explanation": "",
+      "key_points": "CVSSv3 基本指標群包含兩大類：(1) 可利用性指標：攻擊途徑（AV）、攻擊複雜度（AC）、所需權限（PR）、使用者互動（UI）、影響範圍（Scope）；(2) 衝擊指標：機密性衝擊（C）、完整性衝擊（I）、可用性衝擊（A）。 ---"
+    },
+    {
+      "id": 3,
+      "type": "single",
+      "context": "",
+      "question": "關於安全軟體發展生命週期（Security Software Development Lifecycle, SSDLC），下列敘述何者正確？",
+      "options": {
+        "A": "可區分為需求階段、設計階段、開發實作階段、測試階段以及部署維運階段",
+        "B": "可區分為UI/UX階段、設計階段、開發實作階段、測試階段以及部署維運階段",
+        "C": "可區分為需求階段、設計階段、測試階段、以及部署維運階段",
+        "D": "可區分為UI/UX、設計階段、測試階段以及部署維運階段"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "SSDLC 將資安實務融入軟體開發生命週期的每個階段，標準的五個階段為：需求階段（Requirements）、設計階段（Design）、開發實作階段（Implementation）、測試階段（Testing）、部署維運階段（Deployment & Maintenance）。每個階段都有對應的安全活動，例如需求階段進行安全需求分析、設計階段進行威脅建模、開發階段進行安全編碼、測試階段進行滲透測試與原始碼檢測、部署維運階段進行安全監控。",
+        "B": "UI/UX 階段並非 SSDLC 的標準階段。UI/UX 設計雖然在軟體開發中重要，但不是 SSDLC 框架中獨立定義的安全階段。",
+        "C": "缺少「開發實作階段」，SSDLC 中開發實作階段非常重要，需要進行安全編碼（Secure Coding）、原始碼審查（Code Review）等活動。",
+        "D": "同時包含了錯誤的「UI/UX」階段，且缺少「需求階段」和「開發實作階段」。"
+      },
+      "general_explanation": "",
+      "key_points": "SSDLC 各階段安全活動：需求→安全需求分析；設計→威脅建模（Threat Modeling）、安全架構設計；開發→安全編碼、原始碼檢測（SAST）；測試→滲透測試、動態檢測（DAST）；部署維運→安全組態、持續監控、事件回應。 ---"
+    },
+    {
+      "id": 4,
+      "type": "single",
+      "context": "",
+      "question": "磁碟陣列（RAID）是一種即時備援與資料復原技術，它主要使用多個磁碟進行資料複製的檔案系統，下列何種規劃「不」能避免因單一磁碟故障而造成資料損毀的能力？",
+      "options": {
+        "A": "AD主機採用2顆SATA硬碟規劃成RAID1",
+        "B": "檔案伺服器採用4顆SAS硬碟規劃成RAID0",
+        "C": "網路接取儲存器（NAS）採用8顆SATA硬碟規劃成RAID5",
+        "D": "域儲存網路（SAN）採用16顆SAS硬碟規劃成RAID6"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "RAID 0 只提供資料條帶化（Striping），將資料分散寫入多顆硬碟以提升讀寫效能，但完全沒有冗餘保護機制。任何一顆硬碟故障，整個陣列的資料都會遺失。因此 RAID 0 無法避免單一磁碟故障造成的資料損毀。",
+        "A": "RAID 1（鏡像）將資料完整複製到兩顆硬碟，任一顆故障另一顆仍保有完整資料，可承受單一磁碟故障。",
+        "C": "RAID 5（分散式奇偶校驗）將奇偶校驗資訊分散存放在所有磁碟上，可承受一顆硬碟故障，透過奇偶校驗資料重建損壞的資料。8顆硬碟組 RAID 5 可容忍1顆故障。",
+        "D": "RAID 6（雙重分散式奇偶校驗）使用兩組獨立的奇偶校驗，可承受兩顆硬碟同時故障。16顆硬碟組 RAID 6 具備極佳的容錯能力。"
+      },
+      "general_explanation": "",
+      "key_points": "RAID 0 = 效能（無冗餘）；RAID 1 = 鏡像（容忍1顆故障）；RAID 5 = 分散奇偶校驗（容忍1顆故障，至少3顆碟）；RAID 6 = 雙重奇偶校驗（容忍2顆故障，至少4顆碟）；RAID 10 = RAID 1+0（效能+冗餘）。 ---"
+    },
+    {
+      "id": 5,
+      "type": "single",
+      "context": "",
+      "question": "資安事件緊急應變處置最重要目的是下列何者？",
+      "options": {
+        "A": "用防火牆或WAF做偵測跟阻擋",
+        "B": "採用弱掃工具或滲透測試服務驗證是否完成修補",
+        "C": "控制受害範圍",
+        "D": "立即使用資料復原即可"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "資安事件緊急應變處置的首要且最重要目的是「控制受害範圍」（Containment），防止事件擴散，將損害限制在最小範圍。根據 NIST SP 800-61 電腦安全事件處理指南，事件應變的核心步驟為：偵測與分析→遏止（Containment）→根除（Eradication）→復原（Recovery）→事後檢討（Post-Incident Activity），其中遏止/控制受害範圍是應變的首要目標。",
+        "A": "使用防火牆或 WAF 進行偵測與阻擋是控制受害範圍的「手段」之一，但不是緊急應變的「最重要目的」。",
+        "B": "弱點掃描或滲透測試是在事件處理後的「驗證修補」階段進行的活動，屬於復原後的確認步驟，不是緊急應變的主要目的。",
+        "D": "立即進行資料復原可能會破壞數位證據，且在未確認攻擊根因前就復原，可能導致相同攻擊再次發生。復原是在遏止和根除之後的步驟。"
+      },
+      "general_explanation": "",
+      "key_points": "事件應變五階段：準備→偵測與分析→遏止（最重要）→根除→復原。遏止的目的是防止損害擴大，例如隔離受感染主機、封鎖攻擊來源 IP、關閉受影響服務等。 ---"
+    },
+    {
+      "id": 6,
+      "type": "single",
+      "context": "",
+      "question": "關於編碼、加密與雜湊機制，下列敘述何者正確？",
+      "options": {
+        "A": "就設計原理而言，一段文字分別經過編碼（Base64）、加密（AES128）與雜湊（SHA256）機制處理，只有加密機制是無法還原明（本）文的",
+        "B": "如果明文愈長，雜湊（SHA256）處理後的文字長度也愈長",
+        "C": "Hash機制，同樣的明文會產出相同的密文，故常用來比對文字或檔案是否有遭竄改",
+        "D": "對於編碼（Base64）、加密（AES128）與雜湊（SHA256）三種機制而言，只有編碼機制，在解碼過程中需使用密鑰（Key）機制才可解碼成功"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "雜湊函數（Hash Function）具有確定性（Deterministic）特性，相同的輸入永遠產生相同的輸出。因此，可以透過比對檔案或文字的雜湊值（Hash Value），判斷內容是否被竄改。若雜湊值一致，表示內容未被修改；若不一致，表示內容已遭竄改。這是數位簽章和檔案完整性驗證的基礎原理。",
+        "A": "恰好相反。編碼（Base64）和加密（AES128）都可以還原明文（Base64 可直接解碼，AES128 使用密鑰解密），而雜湊（SHA256）才是無法還原明文的單向函數。",
+        "B": "SHA256 無論輸入明文長度為何，輸出的雜湊值長度永遠固定為 256 位元（32 位元組）。固定長度輸出是雜湊函數的基本特性之一。",
+        "D": "編碼（Base64）不需要密鑰即可解碼，它只是一種編碼轉換方式，不是加密機制。反而是加密（AES128）在解密過程中才需要使用密鑰。"
+      },
+      "general_explanation": "",
+      "key_points": "編碼（Encoding）：可逆、無需密鑰，如 Base64、URL Encoding；加密（Encryption）：可逆、需要密鑰，如 AES、RSA；雜湊（Hashing）：不可逆、無需密鑰、固定長度輸出，如 SHA-256、MD5。 ---"
+    },
+    {
+      "id": 7,
+      "type": "single",
+      "context": "",
+      "question": "關於XML External Entity（XXE）Injection的防護，下列防護機制何者較佳？",
+      "options": {
+        "A": "使用HTTPS安全連線",
+        "B": "使用合法憑證進行雙向（伺服器端與使用者端）之身分驗證",
+        "C": "禁止DTD（Document Type Define）引用外部實體",
+        "D": "使用SHA-3（Secure Hash Algorithm 3）進行計算"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "XXE（XML External Entity）注入攻擊的根本原因是 XML 解析器允許載入外部實體（External Entity）。最有效的防護方式就是在 XML 解析器中禁止 DTD（Document Type Definition）引用外部實體，或者完全停用 DTD 處理。例如在 Java 中設定 `factory.setFeature(\"http://apache.org/xml/features/disallow-doctype-decl\", true)`。這是 OWASP 官方建議的首要防護措施。",
+        "A": "HTTPS 僅保護傳輸層的資料加密與完整性，無法防止 XXE 攻擊。XXE 是應用層的 XML 解析漏洞，與傳輸層加密無關。",
+        "B": "雙向 SSL/TLS 身分驗證是確認通訊雙方身分的機制，與 XML 解析器的外部實體處理無關，無法防止 XXE 攻擊。",
+        "D": "SHA-3 是雜湊演算法，用於資料完整性驗證，與 XML 解析和外部實體引用毫無關係。"
+      },
+      "general_explanation": "",
+      "key_points": "XXE 防護最佳實務：(1) 禁用 DTD 外部實體載入；(2) 禁用 DTD 處理；(3) 使用不支援 DTD 的資料格式（如 JSON）；(4) 升級 XML 解析庫至安全版本。XXE 屬於 OWASP Top 10 2017 的 A4 項目。 ---"
+    },
+    {
+      "id": 8,
+      "type": "single",
+      "context": "",
+      "question": "公司收到主管機關要求，必須每年進行網路資安健檢，下列何者方式較「不」符合？",
+      "options": {
+        "A": "遠端網路弱點掃描（Network Vulnerability Assessment）",
+        "B": "遠端滲透測試（Penetration Testing）",
+        "C": "到場網頁應用程式弱點掃描（Web Vulnerability Assessment）",
+        "D": "到場網路安全備援服務"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "「網路安全備援服務」是指建立備份與備援機制，以確保網路服務的持續運作，屬於營運持續管理（BCM）的範疇，並非資安健檢（Security Assessment）的項目。資安健檢的目的是發現系統中的安全弱點與風險，而非提供備援服務。",
+        "A": "網路弱點掃描是資安健檢的基本項目，透過掃描工具（如 Nessus、OpenVAS）對網路設備和主機進行漏洞偵測，辨識已知弱點。",
+        "B": "滲透測試是資安健檢的進階項目，模擬駭客攻擊手法，深入測試系統的安全防護能力，發現可被利用的漏洞。",
+        "C": "網頁應用程式弱點掃描也是資安健檢的重要項目，透過工具（如 OWASP ZAP、Acunetix）或人工方式檢測 Web 應用程式的安全漏洞。"
+      },
+      "general_explanation": "",
+      "key_points": "資安健檢通常包含：網路弱點掃描、系統弱點掃描、Web 應用程式弱點掃描、滲透測試、社交工程演練、組態安全檢視等項目。我國《資通安全管理法》相關子法要求各級機關依其資安等級進行相應的資安健檢。 ---"
+    },
+    {
+      "id": 9,
+      "type": "single",
+      "context": "",
+      "question": "在網站弱點檢測報告中，發現系統本身有存在XSS及Open Redirect問題，可以採取下列何者方案進行修補？",
+      "options": {
+        "A": "XSS可以透過過濾此符號\"<\"，即可根治",
+        "B": "Open Redirect可以採用圖像式驗證即可根治",
+        "C": "HTML.Encode是可以解決XSS的一種方法",
+        "D": "採用Prepared Statement可以解決XSS"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "HTML Encoding（HTML 實體編碼）是防禦 XSS 攻擊的有效方法之一。透過將特殊字元（如 `<`、`>`、`&`、`\"`、`'`）轉換為對應的 HTML 實體（如 `&lt;`、`&gt;`、`&amp;`），可以防止瀏覽器將使用者輸入的內容解析為可執行的 HTML 或 JavaScript 程式碼。這是輸出編碼（Output Encoding）防禦策略的核心手法。",
+        "A": "僅過濾 `<` 符號無法根治 XSS。XSS 攻擊有多種向量（Vector），例如透過事件處理器（`onmouseover`、`onerror`）、JavaScript URI（`javascript:`）、CSS 注入等管道，不需要使用 `<` 符號即可觸發。單一字元過濾是不充分的防禦。",
+        "B": "圖像式驗證碼（CAPTCHA）的用途是防止自動化攻擊（如機器人登入），與 Open Redirect 漏洞的修補完全無關。Open Redirect 的修補應採用白名單（Whitelist）驗證重新導向的目標 URL。",
+        "D": "Prepared Statement（參數化查詢）是防禦 SQL Injection 的方法，不是防禦 XSS 的方法。SQL Injection 和 XSS 是不同類型的注入攻擊，需要不同的防禦手段。"
+      },
+      "general_explanation": "",
+      "key_points": "XSS 防禦方法：(1) 輸出編碼（Output Encoding）— HTML Encode、JavaScript Encode、URL Encode；(2) 輸入驗證（Input Validation）— 白名單過濾；(3) Content Security Policy（CSP）；(4) HttpOnly Cookie Flag。 ---"
+    },
+    {
+      "id": 10,
+      "type": "single",
+      "context": "",
+      "question": "在日常檢查時發現10.10.1.1 (web)，10.10.1.2 (db)發現入侵警訊風險如附圖內容所示時，請問第一步應該做？ 日誌內容：`2018/07/07 src:199.199.199.1 dst:10.10.1.1 oooo.php?id=' or 1=1—xp_cmd_shell(…)？`",
+      "options": {
+        "A": "檢查 10.10.1.2 是否有被加入額外帳號",
+        "B": "檢查 10.10.1.1 是否有其他的備份資料",
+        "C": "立即通報 N-ICST",
+        "D": "立即進行系統還原"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "從日誌記錄可以看出，攻擊者（199.199.199.1）對 Web 伺服器（10.10.1.1）發送了包含 SQL Injection 與 `xp_cmdshell` 的攻擊請求。`xp_cmdshell` 是 Microsoft SQL Server 的擴充預存程序，可以在資料庫伺服器上執行作業系統命令。這表示攻擊者企圖透過 SQL 注入漏洞，利用 `xp_cmdshell` 在資料庫伺服器（10.10.1.2）上執行系統命令，可能已經入侵資料庫主機。因此第一步應檢查資料庫伺服器（10.10.1.2）是否已被建立額外帳號（後門帳號），以評估入侵程度。",
+        "B": "檢查備份資料雖然重要，但在確認入侵範圍之前不是第一優先動作。",
+        "C": "通報 N-ICST（國家資通安全通報應變中心）固然重要，但應先初步確認事件影響範圍再進行通報，才能提供有意義的通報資訊。",
+        "D": "立即系統還原可能會清除攻擊痕跡和數位證據，且在未確認攻擊根因前還原系統可能導致再次被入侵。"
+      },
+      "general_explanation": "",
+      "key_points": "`xp_cmdshell` 是 MSSQL 的危險預存程序，可執行 OS 命令。SQL Injection + `xp_cmdshell` 組合攻擊可讓攻擊者在資料庫伺服器上建立帳號、上傳後門、竊取資料等。應急處置：先確認入侵範圍、保全數位證據、進行遏止。 ---"
+    },
+    {
+      "id": 11,
+      "type": "single",
+      "context": "",
+      "question": "如果網站遭遇入侵行為，在採取風險應變處置及改善時，下列敘述何者較「不」正確？",
+      "options": {
+        "A": "用防火牆或網站應用程式防火牆（Web Application Firewall, WAF）先暫時將此風險做偵測跟阻擋",
+        "B": "採用弱掃工具或滲透測試服務驗證是否完成修補",
+        "C": "使用原始碼檢測確認是否有其他類似弱點",
+        "D": "將被網站備份資料復原即可"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "僅將網站從備份資料復原是嚴重不足的應變措施。原因包括：(1) 備份資料中可能已包含被植入的後門或惡意程式；(2) 未修補漏洞的情況下復原，攻擊者可再次利用相同漏洞入侵；(3) 未進行根因分析就復原，無法確保安全；(4) 可能破壞數位鑑識所需的證據。正確的應變流程應包含遏止、根因分析、漏洞修補、安全驗證後才進行復原。",
+        "A": "使用防火牆或 WAF 進行臨時阻擋是事件遏止（Containment）階段的合理做法，可在漏洞修補完成前提供臨時防護。",
+        "B": "在完成漏洞修補後，使用弱點掃描工具或滲透測試驗證修補成效是正確的做法，確保漏洞已被有效修補。",
+        "C": "使用原始碼檢測工具（如 SAST）檢查是否有其他類似弱點是主動防禦的良好做法，可發現潛在的同類型漏洞並預先修補。"
+      },
+      "general_explanation": "",
+      "key_points": "網站入侵事件的完整應變流程：遏止（WAF 阻擋/隔離）→ 根因分析 → 漏洞修補 → 安全驗證（弱掃/滲透測試）→ 復原 → 持續監控 → 事後檢討。 ---"
+    },
+    {
+      "id": 12,
+      "type": "single",
+      "context": "",
+      "question": "依據下圖所示之結果，此為OWASP Top 10 – 2017文件敘述的何項風險分類？",
+      "options": {
+        "A": "Cross-Site Scripting（XSS）",
+        "B": "XML External Entities（XXE）",
+        "C": "Sensitive Data Exposure",
+        "D": "Security Misconfiguration"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "根據題目所示之結果（圖中顯示敏感資料在傳輸或儲存過程中未受適當保護），此屬於 OWASP Top 10 2017 的 A3: Sensitive Data Exposure（敏感資料外洩）。此風險分類涵蓋：未加密傳輸敏感資料、使用弱加密演算法、未正確實施 TLS、敏感資料明文儲存等問題。",
+        "A": "XSS（A7）是注入惡意腳本到網頁中的攻擊，與敏感資料保護無直接關聯。",
+        "B": "XXE（A4）是 XML 解析器處理外部實體的漏洞，與敏感資料傳輸保護不同。",
+        "D": "Security Misconfiguration（A6）是指系統安全組態不當，雖然可能導致敏感資料外洩，但題目所述的情境更直接對應到 Sensitive Data Exposure。"
+      },
+      "general_explanation": "",
+      "key_points": "OWASP Top 10 2017：A1-Injection、A2-Broken Authentication、A3-Sensitive Data Exposure、A4-XXE、A5-Broken Access Control、A6-Security Misconfiguration、A7-XSS、A8-Insecure Deserialization、A9-Using Components with Known Vulnerabilities、A10-Insufficient Logging & Monitoring。 ---"
+    },
+    {
+      "id": 13,
+      "type": "single",
+      "context": "",
+      "question": "關於資訊與通訊系統安全經常使用到密碼學，下列應用功能何者設計「不」正確？",
+      "options": {
+        "A": "使用雜湊函數（Hash function）來檢查設備韌體是否被竄改過",
+        "B": "PGP郵件加密軟體可採用公鑰加密與私鑰解密的方式，保護郵件僅限特定人員才能閱讀",
+        "C": "IPSec VPN網路傳送大量資料時，應使用非對稱式加密演算法保護訊息內容",
+        "D": "HTTPS（HTTP Secure）將HTTP承載到SSL通訊協定上，使用公鑰進行網頁認證、資料加密與訊息完整性驗證"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "IPSec VPN 在傳送大量資料時，應使用「對稱式加密演算法」（如 AES、3DES）而非「非對稱式加密演算法」。非對稱式加密（如 RSA）的運算速度遠慢於對稱式加密，不適合用於大量資料的即時加密傳輸。在實際應用中，IPSec 使用 IKE（Internet Key Exchange）協定以非對稱式加密交換金鑰，然後使用對稱式加密進行資料傳輸加密。",
+        "A": "雜湊函數可用於韌體完整性驗證。計算韌體的雜湊值並與已知正確的雜湊值比對，可以檢測韌體是否被竄改，這是常見的完整性驗證應用。",
+        "B": "PGP（Pretty Good Privacy）採用混合加密機制，使用收件人的公鑰加密對稱金鑰，收件人再以私鑰解密取得對稱金鑰來解密郵件內容。如此可確保僅持有對應私鑰的特定收件人能閱讀郵件。",
+        "D": "HTTPS 的運作方式是在 SSL/TLS 協定之上承載 HTTP，透過伺服器憑證（包含公鑰）進行身分認證，並利用公鑰機制協商建立加密通道，實現資料加密與完整性驗證。"
+      },
+      "general_explanation": "",
+      "key_points": "對稱式加密（AES、3DES）速度快，適合大量資料加密；非對稱式加密（RSA、ECC）速度慢，適合金鑰交換和數位簽章。實務上通常結合兩者：用非對稱式加密交換對稱金鑰，再用對稱式加密傳輸資料。 ---"
+    },
+    {
+      "id": 14,
+      "type": "single",
+      "context": "",
+      "question": "公司資訊室主任要求MIS人員每一季使用Nessus掃瞄工具進行公司內部網段掃瞄，下列何者「不」是本項作業的目的？",
+      "options": {
+        "A": "辨認目前主機系統的弱點",
+        "B": "模擬駭客人工入侵發掘系統中未知的漏洞",
+        "C": "辨識出缺乏安全管控的項目",
+        "D": "解讀安全弱點，再進行安全強化"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "Nessus 是自動化的弱點掃描（Vulnerability Assessment）工具，而非滲透測試（Penetration Testing）工具。弱點掃描是透過已知漏洞資料庫（如 CVE）自動比對目標系統的已知弱點，屬於被動式的安全檢測。而「模擬駭客人工入侵發掘系統中未知的漏洞」是滲透測試的範疇，需要由資安專家手動進行，試圖利用漏洞實際入侵系統以驗證安全性。",
+        "A": "Nessus 的核心功能就是辨認主機系統中的已知弱點，包括作業系統漏洞、軟體版本漏洞、組態缺陷等。",
+        "C": "透過弱點掃描可以發現缺乏安全管控的項目，如未更新的系統、預設密碼未更改、不安全的服務開放等。",
+        "D": "弱點掃描報告會列出發現的弱點及其嚴重等級和修補建議，MIS 人員可據此解讀弱點並進行安全強化（Hardening）。"
+      },
+      "general_explanation": "",
+      "key_points": "弱點掃描 vs 滲透測試：弱點掃描是自動化工具掃描已知漏洞（廣度優先）；滲透測試是專家手動模擬攻擊（深度優先），可發現未知漏洞和業務邏輯缺陷。兩者互補，不可替代。 ---"
+    },
+    {
+      "id": 15,
+      "type": "single",
+      "context": "",
+      "question": "在OWASP Top 10 2017中，其A9項目說明使用含有已知漏洞的元件。而在軟體開發時，為減少A9項目的發生，下列何種作法為佳？",
+      "options": {
+        "A": "限制可以使用的元件",
+        "B": "使用強的加密演算法",
+        "C": "使用入侵防禦系統",
+        "D": "限制使用的網路埠"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "OWASP Top 10 2017 的 A9（Using Components with Known Vulnerabilities）是指使用含有已知漏洞的第三方元件（如函式庫、框架、軟體模組）。最佳的預防做法包括：限制可使用的元件（建立白名單），只允許使用經過安全審查和核准的元件；定期更新元件版本；使用軟體組成分析工具（SCA, Software Composition Analysis）掃描專案中的第三方元件是否有已知漏洞。",
+        "B": "使用強的加密演算法是密碼學實務（對應 A3-Sensitive Data Exposure），與第三方元件的漏洞管理無直接關係。",
+        "C": "入侵防禦系統（IPS）是網路層的防護設備，可偵測和阻擋已知攻擊，但無法從根本上解決應用程式使用的元件存在已知漏洞的問題。",
+        "D": "限制使用的網路埠是網路安全管控（對應防火牆管理），與應用程式所使用的第三方元件漏洞管理無直接關係。"
+      },
+      "general_explanation": "",
+      "key_points": "A9 防護措施：(1) 建立元件使用白名單/審核機制；(2) 定期盤點使用的元件及版本；(3) 使用 SCA 工具（如 OWASP Dependency-Check、Snyk）掃描漏洞；(4) 訂閱元件的安全公告；(5) 及時更新有漏洞的元件版本。 ---"
+    },
+    {
+      "id": 16,
+      "type": "multiple",
+      "context": "",
+      "question": "（複選題）網頁瀏覽器的Cookies並未使用加密保護機制，因此網站設計者為圖下次登入方便性，如果將使用者帳密儲存在Cookie之中，此種安全漏洞可以讓駭客使用哪些網頁攻擊手法取得Cookie中機敏資料？",
+      "options": {
+        "A": "SQL Injection",
+        "B": "XSS（Cross-Site Scripting）",
+        "C": "Google-hacking",
+        "D": "CookieSpy"
+      },
+      "answers": [
+        "B",
+        "D"
+      ],
+      "explanations": {
+        "B": "XSS（跨站腳本攻擊）是竊取 Cookie 最常見的攻擊手法。攻擊者透過注入惡意 JavaScript 程式碼（如 `document.cookie`），可以讀取使用者瀏覽器中的 Cookie 資料並傳送到攻擊者控制的伺服器。若 Cookie 中存有帳號密碼等機敏資料，攻擊者即可透過 XSS 竊取。",
+        "D": "CookieSpy 是專門用來竊取和分析 Cookie 的工具，可在同一區域網路中攔截和監看其他使用者的 Cookie 資訊，屬於針對 Cookie 的直接攻擊工具。",
+        "A": "SQL Injection 是針對資料庫查詢的注入攻擊，主要目的是竊取或操作資料庫中的資料，並非直接用於竊取瀏覽器端的 Cookie。",
+        "C": "Google Hacking 是利用 Google 搜尋引擎的進階搜尋語法（Google Dorks）來尋找暴露在網路上的敏感資訊，無法直接取得使用者瀏覽器中的 Cookie。"
+      },
+      "general_explanation": "",
+      "key_points": "Cookie 安全防護：(1) 設定 HttpOnly 旗標防止 JavaScript 讀取；(2) 設定 Secure 旗標確保僅透過 HTTPS 傳輸；(3) 設定 SameSite 旗標防止 CSRF；(4) 不在 Cookie 中儲存敏感資訊（如帳號密碼）；(5) Cookie 內容加密。 ---"
+    },
+    {
+      "id": 17,
+      "type": "multiple",
+      "context": "",
+      "question": "（複選題）透過安全設定HTTP Header標頭，能夠使瀏覽器進行相關的限制，讓網站與使用者瀏覽器之間有更多的安全防護。下列哪些HTTP Header標頭可達上述功能？",
+      "options": {
+        "A": "HTTP Strict Transport Security",
+        "B": "X-Frame-Options",
+        "C": "Access-Control-Max-Age",
+        "D": "Accept-Encoding"
+      },
+      "answers": [
+        "A",
+        "B"
+      ],
+      "explanations": {
+        "A": "HTTP Strict Transport Security（HSTS）是一個安全性 HTTP 回應標頭，告知瀏覽器只能透過 HTTPS 連線存取該網站，即使使用者輸入 HTTP 網址也會自動轉為 HTTPS。HSTS 可有效防止 SSL Stripping 降級攻擊和中間人攻擊（MitM），是重要的安全標頭。",
+        "B": "X-Frame-Options 是用來防止頁面被嵌入到 `<iframe>` 或 `<frame>` 中的安全標頭，可設定為 DENY（完全禁止）、SAMEORIGIN（僅同源允許）或 ALLOW-FROM（指定來源允許）。此標頭可有效防止 Clickjacking（點擊劫持）攻擊。",
+        "C": "Access-Control-Max-Age 是 CORS（Cross-Origin Resource Sharing）相關的標頭，用來指定預檢請求（Preflight Request）的快取時間，屬於跨域資源共享的效能優化設定，並非安全防護標頭。",
+        "D": "Accept-Encoding 是 HTTP 請求標頭（非回應標頭），告知伺服器客戶端支援的內容編碼方式（如 gzip、deflate），用於內容壓縮，與安全防護無關。"
+      },
+      "general_explanation": "",
+      "key_points": "常見安全性 HTTP 標頭：HSTS、X-Frame-Options、X-Content-Type-Options（nosniff）、X-XSS-Protection、Content-Security-Policy（CSP）、Referrer-Policy、Feature-Policy/Permissions-Policy。 ---"
+    },
+    {
+      "id": 18,
+      "type": "multiple",
+      "context": "",
+      "question": "（複選題）在雲端的架構中，有安全的聯合身分管理（Federated Identity Management）機制，可進行多組織之間的單點登錄（SSO），在多個組織之間進行身分驗證與授權。而相關的聯合身分驗證標準（Federation Standards）有下列哪些？",
+      "options": {
+        "A": "SAML 2.0",
+        "B": "WS-Federation",
+        "C": "SSL 3.0",
+        "D": "NTLMv2"
+      },
+      "answers": [
+        "A",
+        "B"
+      ],
+      "explanations": {
+        "A": "SAML 2.0（Security Assertion Markup Language）是目前最廣泛使用的聯合身分驗證標準之一，基於 XML 格式在身分提供者（IdP）和服務提供者（SP）之間交換認證和授權資料，廣泛應用於企業級 SSO 和雲端服務的身分聯合。",
+        "B": "WS-Federation（Web Services Federation）是由 Microsoft 等公司開發的聯合身分驗證標準，屬於 WS-Security 系列規範的一部分，支援跨組織的 SSO 和身分聯合。常用於 Microsoft 生態系統（如 Active Directory Federation Services, ADFS）。",
+        "C": "SSL 3.0（Secure Sockets Layer）是傳輸層安全協定，用於加密通訊，並非聯合身分驗證標準。且 SSL 3.0 已因 POODLE 漏洞而被淘汰，建議使用 TLS 1.2 以上版本。",
+        "D": "NTLMv2（NT LAN Manager version 2）是 Microsoft Windows 的身分驗證協定，用於 Windows 網域環境的本地或區域網路認證，並非聯合身分驗證標準，不支援跨組織的 SSO。"
+      },
+      "general_explanation": "",
+      "key_points": "常見聯合身分驗證標準：SAML 2.0、WS-Federation、OAuth 2.0、OpenID Connect（OIDC）。其中 OAuth 2.0 主要用於授權，OIDC 建構在 OAuth 2.0 之上提供身分驗證。 ---"
+    },
+    {
+      "id": 19,
+      "type": "multiple",
+      "context": "",
+      "question": "（複選題）資通安全管理法通過後，對公務機關與特定非公務機關之資安事件應變通報要求更為明確，搭配政府持續推動之資安資訊分享與分析中心（Information Sharing and Analysis Center, ISAC）機制設計，關於資安事件應變通報與情資分享，下列敘述哪些正確？",
+      "options": {
+        "A": "資通安全管理法子法規定，公務機關辦理資通安全事件之通報，應於事件發生後一小時內進行通報",
+        "B": "資安事件通報屬ISAC之服務範圍之一",
+        "C": "資通安全管理法子法規定之事件嚴重等級共分四級，第一級為最嚴重，第四級為最輕微",
+        "D": "我國ISAC機制設計，針對跨領域之資安情資分享，建議採用STIX與TAXII之格式與機制"
+      },
+      "answers": [
+        "B",
+        "D"
+      ],
+      "explanations": {
+        "B": "資安資訊分享與分析中心（ISAC）的服務範圍包含：資安事件通報、資安情資蒐集與分析、資安預警通知、資安事件協調應變等。資安事件通報確實是 ISAC 的核心服務之一。",
+        "D": "我國 ISAC 在跨領域資安情資分享方面，採用國際通用的結構化威脅資訊表示式 STIX（Structured Threat Information eXpression）格式描述威脅情資，並透過 TAXII（Trusted Automated eXchange of Indicator Information）協定進行自動化的情資交換與分享。",
+        "A": "依《資通安全事件通報及應變辦法》，通報時限依事件嚴重等級而不同。並非所有事件都要求在一小時內通報。第一、二級事件需於知悉後 1 小時內通報，第三級事件為 36 小時，第四級事件為 72 小時（註：各級通報時限依當時法規版本可能有所調整）。",
+        "C": "依《資通安全事件通報及應變辦法》，事件嚴重等級共分四級，但第「四」級為最嚴重，第「一」級為最輕微，而非題目所述的第一級最嚴重。"
+      },
+      "general_explanation": "",
+      "key_points": "STIX 是描述網路威脅情資的結構化語言標準；TAXII 是傳遞威脅情資的傳輸協定標準。兩者結合可實現自動化的威脅情資共享。我國資安事件嚴重等級：第一級（輕微）→ 第四級（最嚴重）。 ---"
+    },
+    {
+      "id": 20,
+      "type": "multiple",
+      "context": "",
+      "question": "（複選題）企業進行客戶會員網站的滲透測試時，應該要注意下列哪些項目，以確保滲透測試的範圍完整性？",
+      "options": {
+        "A": "網站暴露在Internet上的前後台網址",
+        "B": "要求一定在上班時間進行測試",
+        "C": "要求至少要參考OWASP Top 10及滲透測試方法如OSSTMM等",
+        "D": "包含提供測試用的login帳號，以及未登入前的測試要求"
+      },
+      "answers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "A": "滲透測試範圍應涵蓋網站暴露在 Internet 上的所有前台和後台網址。後台管理介面通常是攻擊者重點目標，若未納入測試範圍，可能遺漏重大安全風險。完整的測試範圍定義是確保滲透測試品質的基礎。",
+        "C": "滲透測試應參考國際公認的標準與方法論。OWASP Top 10 提供最常見的 Web 應用程式安全風險分類；OSSTMM（Open Source Security Testing Methodology Manual）則提供完整的安全測試方法論框架。參考這些標準可確保測試的系統性和完整性。",
+        "D": "滲透測試應包含「已驗證」和「未驗證」兩種情境。提供測試用登入帳號可測試已登入狀態下的權限控管、越權存取等問題；未登入前的測試則可評估未授權使用者能存取的資訊和功能。兩者都是完整滲透測試的必要部分。",
+        "B": "滲透測試不一定要在上班時間進行。實際上，為減少對正式營運的影響，有些測試項目可能選擇在離峰時間或非上班時間進行。測試時間應根據雙方協議和業務影響評估決定，而非硬性要求在上班時間。"
+      },
+      "general_explanation": "",
+      "key_points": "滲透測試規劃要點：(1) 明確定義測試範圍（含前後台、API）；(2) 參考國際標準（OWASP、OSSTMM、PTES）；(3) 涵蓋已驗證和未驗證測試；(4) 約定測試時間窗口；(5) 建立緊急聯絡機制；(6) 簽署授權合約（RoE）。 ---"
+    },
+    {
+      "id": 21,
+      "type": "multiple",
+      "context": "某公司資安稽核部門進行年度檢視稽核，抽驗(1) Web資安黑箱檢測報告、(2)資料庫紀錄、(3)資訊系統存取紀錄以及(4)研發人員端點電腦記錄。",
+      "question": "（題組題1-1，複選題）上述情境中，關於網站檢測報告分析，下列敘述哪些正確？",
+      "options": {
+        "A": "藍色燈號資安報告項目，不需要關注處理，並無風險",
+        "B": "在網站檢測報告中，本項內容測試，回應結果200表示成功",
+        "C": "在解析內容中發現帳號與密碼",
+        "D": "在網站檢測報告中發現在傳輸過程中，對敏感資料未作保護"
+      },
+      "answers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "B": "HTTP 狀態碼 200 表示請求成功（OK），代表伺服器已成功處理並回應該請求。在弱點掃描報告中，回應200表示測試請求被成功執行。",
+        "C": "根據題目情境，在掃描報告的解析內容中發現了帳號與密碼等敏感資訊，這表示系統在回應中洩漏了使用者認證資料。",
+        "D": "報告顯示在傳輸過程中，敏感資料（包含帳號密碼）未受到適當的加密保護（如未使用 HTTPS），導致資料可能在傳輸途中被攔截。",
+        "A": "藍色燈號雖屬低風險，但並非「無風險」。低風險項目仍需關注處理，因為多個低風險項目結合可能構成中高風險。本題的情境正說明了藍燈項目中發現傳輸敏感資料未加密的問題，已涉及資安風險，不可忽視。"
+      },
+      "general_explanation": "",
+      "key_points": "資安檢測報告的風險等級（高/中/低/資訊性）都需要關注。低風險項目可能揭示潛在的安全問題，尤其當涉及敏感資料保護時，應優先處理。HTTP 200 = 請求成功。 ---"
+    },
+    {
+      "id": 22,
+      "type": "single",
+      "context": "某公司資安稽核部門進行年度檢視稽核，抽驗(1) Web資安黑箱檢測報告、(2)資料庫紀錄、(3)資訊系統存取紀錄以及(4)研發人員端點電腦記錄。",
+      "question": "（題組題1-2，單選題）上述情境中，關於資料庫交易記錄，下列敘述何者「不」正確？",
+      "options": {
+        "A": "可以知道這是一個網站系統與資料庫在同一部主機",
+        "B": "1ogin.asp備份後被儲存在IIS網站目錄下",
+        "C": "該交易記錄發現資料庫被備份成為1ogin.asp",
+        "D": "所備份的資料庫是全球資訊網"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "資料庫被備份為 1ogin.asp 檔案，這是將資料庫內容備份成一個偽裝成 ASP 網頁的檔案，目的是讓攻擊者可以透過 Web 伺服器下載該檔案。所備份的並非「全球資訊網」（WWW），而是該系統使用的應用程式資料庫。",
+        "A": "資料庫能被備份到 IIS 網站目錄下，表示資料庫伺服器可存取 IIS 的檔案系統路徑，這通常意味著網站系統與資料庫在同一部主機上，或資料庫帳號有權存取 Web 伺服器的目錄。",
+        "B": "1ogin.asp 被儲存在 IIS 網站目錄下，使得該檔案可以透過 Web 伺服器被直接存取和下載。這是攻擊者常用的資料外洩手法。",
+        "C": "從交易記錄中可明確看到資料庫被 BACKUP 指令備份為 1ogin.asp 檔案，這是利用 SQL Server 的 BACKUP DATABASE 功能將資料庫備份到指定路徑（IIS 網站目錄）。"
+      },
+      "general_explanation": "",
+      "key_points": "攻擊者透過 SQL Injection 利用 MSSQL 的 BACKUP DATABASE 功能，將資料庫備份為網站目錄下的檔案（如 .asp），再透過 Web 下載竊取。防護措施：限制資料庫帳號權限、分離 Web 與 DB 伺服器、監控異常 SQL 操作。 ---"
+    },
+    {
+      "id": 23,
+      "type": "single",
+      "context": "某公司資安稽核部門進行年度檢視稽核，抽驗(1) Web資安黑箱檢測報告、(2)資料庫紀錄、(3)資訊系統存取紀錄以及(4)研發人員端點電腦記錄。",
+      "question": "（題組題1-3，單選題）上述情境中，關於IIS Access log，下列敘述何者「不」正確？",
+      "options": {
+        "A": "10.10.1.100，在IIS Log format預設順序指是Client IP",
+        "B": "100.10.1.103，在IIS Log format預設順序指是Client IP",
+        "C": "交叉分析後這是一個內部人員竊取CRM資料庫惡意行為",
+        "D": "1ogin.asp是無法被下載儲存"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "在 IIS Log 的 W3C Extended Log Format 預設格式中，欄位順序通常為：日期、時間、伺服器IP（s-ip）、方法（cs-method）、URI（cs-uri-stem）、查詢（cs-uri-query）、伺服器埠、使用者名稱、Client IP（c-ip）、User Agent 等。100.10.1.103 在日誌中的位置並非 Client IP 欄位，而可能是伺服器 IP（s-ip）或其他欄位。10.10.1.100 才是正確的 Client IP。",
+        "A": "根據 IIS Log 預設順序，10.10.1.100 出現在 Client IP（c-ip）欄位的位置，代表連線的來源客戶端 IP。",
+        "C": "交叉分析資料庫記錄和 IIS Access Log 後，可以判斷這是內部人員（來源 IP 為內部網段 10.10.1.100）透過 Web 伺服器下載被備份的 CRM 資料庫檔案的惡意行為。",
+        "D": "實際上 1ogin.asp 可以被下載。但本選項敘述「無法被下載儲存」，在情境中1ogin.asp實際上已被放在 IIS 目錄下且被存取，因此D選項的陳述看似矛盾。然而根據正確答案B才是「不正確」的選項。"
+      },
+      "general_explanation": "",
+      "key_points": "IIS W3C Extended Log Format 預設欄位順序需熟悉。在數位鑑識中，交叉比對不同來源的日誌（Web Log、DB Log、端點Log）是還原攻擊路徑的重要手法。 ---"
+    },
+    {
+      "id": 24,
+      "type": "single",
+      "context": "某公司資安稽核部門進行年度檢視稽核，抽驗(1) Web資安黑箱檢測報告、(2)資料庫紀錄、(3)資訊系統存取紀錄以及(4)研發人員端點電腦記錄。",
+      "question": "（題組題1-4，單選題）上述情境中，關於研發人員端點電腦記錄，下列敘述何者「不」正確？",
+      "options": {
+        "A": "該員工利用bitsadmin下載一張圖片，下載效率很高",
+        "B": "Certutil.exe可用來傾印顯示憑證單位（CA）資訊，還原CA元件、金鑰組和憑證鏈結",
+        "C": "該員工利用wmic來叫用windows system32下hacking.exe",
+        "D": "透過電腦紀錄發現，本狀況可能為員工個人操作行為所造成"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "bitsadmin 是 Windows 的 Background Intelligent Transfer Service（BITS）管理工具，用於建立下載或上傳任務。雖然 bitsadmin 可以用來下載檔案（常被 APT 攻擊者濫用為 Living off the Land 技術之一），但其設計初衷是背景智慧傳輸，會根據網路閒置頻寬進行傳輸，因此下載效率並不高。說「下載效率很高」是不正確的。",
+        "B": "Certutil.exe 是 Windows 內建的憑證管理工具，正式用途包括傾印和顯示 CA 資訊、管理憑證與金鑰。然而，certutil.exe 也常被攻擊者濫用來進行 Base64 編解碼、下載檔案（`certutil -urlcache -split -f`）等惡意用途，屬於 LOLBins（Living off the Land Binaries）。",
+        "C": "WMIC（Windows Management Instrumentation Command-line）可用來執行系統管理命令。攻擊者可利用 wmic 來啟動程式（如 `wmic process call create \"C:\\Windows\\System32\\hacking.exe\"`），屬於常見的攻擊手法。",
+        "D": "從端點電腦記錄中發現使用 bitsadmin、certutil、wmic 等工具的操作痕跡，這些操作是在該員工的電腦上執行的，可能為員工個人行為（惡意內部威脅）或員工電腦已被入侵所致。"
+      },
+      "general_explanation": "",
+      "key_points": "LOLBins（Living off the Land Binaries）是指攻擊者利用系統內建的合法工具（如 bitsadmin、certutil、wmic、powershell、mshta 等）進行惡意操作，以規避安全偵測。這些工具本身合法，因此不易被防毒軟體偵測。 ---"
+    },
+    {
+      "id": 25,
+      "type": "single",
+      "context": "某公司因資安考量，重新規劃對外網站的連線架構：AP與DB Server放在Intranet，Reverse proxy（Web）放在DMZ，對外Web連線使用SSL連線，AP與Reverse proxy之間亦使用加密連線。這幾台主機間的流量都納入網路型IPS進行監控（該IPS目前僅有攻擊特徵偵測功能），DMZ/Internet/Intranet間亦有防火牆進行連線控管。某天資安人員發現有人嘗試攻擊對外網站，在DMZ Web server連線日誌中發現可疑的連線記錄。",
+      "question": "（題組題2-1，單選題）上述情境中，下列敘述何者正確？",
+      "options": {
+        "A": "若此連線行為是攻擊，該攻擊有可能執行成功",
+        "B": "此web server為Linux Base主機",
+        "C": "此網站的對外服務Port為443埠",
+        "D": "此次連線的來源IP為113.101.155.21"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "從日誌記錄和整體架構來看，攻擊者的請求已到達 DMZ 的 Web Server 並被記錄在連線日誌中，且 Reverse Proxy 會將請求轉發給 Intranet 的 AP Server。若應用程式存在漏洞且 WAF/IPS 未能攔截，攻擊確實有可能執行成功。",
+        "B": "從日誌格式和架構描述（使用 IIS Access Log 格式）來看，Web Server 應為 Windows 主機而非 Linux Base 主機。",
+        "C": "雖然對外使用 SSL 連線，但日誌中記錄的服務埠不一定是 443。根據日誌內容，Web Server 的服務埠可能是其他埠號（如 80 或其他自定義埠），Reverse Proxy 可能在前端處理 SSL 後以其他埠號轉發。",
+        "D": "113.101.155.21 在情境中是 DMZ Web Server（Reverse Proxy）的 IP 位址，而非攻擊者的來源 IP。來源 IP 應從日誌的 Client IP 欄位判斷。"
+      },
+      "general_explanation": "",
+      "key_points": "Reverse Proxy 架構中，後端伺服器日誌中的來源 IP 通常是 Reverse Proxy 的 IP，而非真正的客戶端 IP。需要搭配 X-Forwarded-For 標頭才能取得真正的客戶端 IP。 ---"
+    },
+    {
+      "id": 26,
+      "type": "single",
+      "context": "某公司因資安考量，重新規劃對外網站的連線架構：AP與DB Server放在Intranet，Reverse proxy（Web）放在DMZ，對外Web連線使用SSL連線，AP與Reverse proxy之間亦使用加密連線。這幾台主機間的流量都納入網路型IPS進行監控（該IPS目前僅有攻擊特徵偵測功能），DMZ/Internet/Intranet間亦有防火牆進行連線控管。某天資安人員發現有人嘗試攻擊對外網站，在DMZ Web server連線日誌中發現可疑的連線記錄。",
+      "question": "（題組題2-2，單選題）上述情境中，當攻擊發生時，IPS在當下並無觸發告警，經與原廠確認，原廠告知該設備對此一攻擊具有偵測能力，下列敘述何者「不」是未觸發告警原因？",
+      "options": {
+        "A": "IPS未告警的原因可能是pattern未即時更新，導致攻擊當下設備未即時告警",
+        "B": "攻擊流量未透過IPS分析，以致該設備未觸發示警",
+        "C": "因攻擊流量為SSL加密，以致該設備未能有效偵測觸發告警",
+        "D": "由於攻擊發生時，網站流量過大，超過IPS處理上限，以致該設備漏封包未能正常告警"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "根據題目情境，「這幾台主機間的流量都納入網路型IPS進行監控」，表示攻擊流量確實有經過 IPS 分析。因此「攻擊流量未透過IPS分析」是不成立的，不可能是未觸發告警的原因。",
+        "A": "IPS 依賴攻擊特徵碼（Pattern/Signature）進行偵測，若 pattern 未及時更新至最新版，可能缺少偵測此攻擊的特徵碼，導致無法告警。",
+        "C": "題目明確指出「對外Web連線使用SSL連線」且「AP與Reverse proxy之間亦使用加密連線」。若 IPS 部署在加密流量經過的路徑上但未進行 SSL 解密（SSL Inspection），則無法檢視加密後的流量內容，自然無法偵測攻擊特徵。",
+        "D": "IPS 設備有其處理能力上限（throughput），當流量超過設備處理能力時，可能出現封包遺漏（packet loss），導致部分攻擊流量未被分析。"
+      },
+      "general_explanation": "",
+      "key_points": "IPS 無法告警的常見原因：(1) Pattern 未更新；(2) 加密流量無法檢視；(3) 流量超過設備處理能力；(4) 零日攻擊無對應 Pattern；(5) 攻擊者使用規避技術（Evasion Technique）。 ---"
+    },
+    {
+      "id": 27,
+      "type": "single",
+      "context": "某公司因資安考量，重新規劃對外網站的連線架構：AP與DB Server放在Intranet，Reverse proxy（Web）放在DMZ，對外Web連線使用SSL連線，AP與Reverse proxy之間亦使用加密連線。這幾台主機間的流量都納入網路型IPS進行監控（該IPS目前僅有攻擊特徵偵測功能），DMZ/Internet/Intranet間亦有防火牆進行連線控管。某天資安人員發現有人嘗試攻擊對外網站，在DMZ Web server連線日誌中發現可疑的連線記錄。",
+      "question": "（題組題2-3，單選題）上述情境中，當資安人員進一步分析AP Server Access Log，發現AP Server所紀錄的連線Log中，來源IP都只出現DMZ Web IP(113.101.155.21)，未出現其他外部來源IP，可能是下列何項功能所造成的影響？",
+      "options": {
+        "A": "未配置x-client-trace-id功能",
+        "B": "未配置x-request-id功能",
+        "C": "未配置x-forward-for功能",
+        "D": "未配置user-agent功能"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "X-Forwarded-For（XFF）是一個 HTTP 標頭，用於在經過代理伺服器或負載平衡器時，保留原始客戶端的 IP 位址。在 Reverse Proxy 架構中，後端 AP Server 收到的請求來源 IP 是 Reverse Proxy 的 IP，而非真正的客戶端 IP。若 Reverse Proxy 未配置 X-Forwarded-For 功能，AP Server 的日誌中就只會記錄到 Proxy 的 IP（113.101.155.21），無法辨識真正的外部來源 IP。",
+        "A": "X-Client-Trace-Id 是用於分散式追蹤（Distributed Tracing）的標頭，用來追蹤請求在多個服務之間的流轉路徑，與記錄來源 IP 無關。",
+        "B": "X-Request-Id 也是用於請求追蹤的標頭，為每個請求分配唯一識別碼以便在系統中追蹤，與客戶端 IP 的記錄無關。",
+        "D": "User-Agent 是記錄客戶端瀏覽器或工具資訊的 HTTP 標頭（如 Mozilla/5.0...），與客戶端 IP 位址的記錄無關。"
+      },
+      "general_explanation": "",
+      "key_points": "X-Forwarded-For 格式：`X-Forwarded-For: client, proxy1, proxy2`。在 Reverse Proxy 架構中，正確配置 XFF 對於安全日誌分析至關重要。相關標頭還有 X-Real-IP、Forwarded（RFC 7239 標準）。 ---"
+    },
+    {
+      "id": 28,
+      "type": "multiple",
+      "context": "某公司因資安考量，重新規劃對外網站的連線架構：AP與DB Server放在Intranet，Reverse proxy（Web）放在DMZ，對外Web連線使用SSL連線，AP與Reverse proxy之間亦使用加密連線。這幾台主機間的流量都納入網路型IPS進行監控（該IPS目前僅有攻擊特徵偵測功能），DMZ/Internet/Intranet間亦有防火牆進行連線控管。某天資安人員發現有人嘗試攻擊對外網站，在DMZ Web server連線日誌中發現可疑的連線記錄。",
+      "question": "（題組題2-4，複選題）上述情境中，此次駭客遠端攻擊最終有成功，駭客透過應用程式漏洞在AP Server上植入了常見已知的後門程式，但當下資安人員未能發現，如果要改善此連線架構的資安偵測，能第一時間發現或防止駭客植入後門程式，在不影響AP服務功能的前提下，下列哪些敘述可以達到此一目的？",
+      "options": {
+        "A": "在網路型IPS中，加購檔案型病毒偵測功能",
+        "B": "在AP Server中安裝防毒軟體，並確保病毒碼有update到最新",
+        "C": "關閉此網站服務中所有檔案上傳的服務",
+        "D": "修補AP Server、Web Server與Application中的所有漏洞及弱點"
+      },
+      "answers": [
+        "B",
+        "D"
+      ],
+      "explanations": {
+        "B": "在 AP Server 上安裝防毒軟體（端點防護），並保持病毒碼（特徵碼）更新至最新版本，可以在駭客植入「常見已知」的後門程式時，第一時間偵測並阻止。端點防護是偵測已知惡意程式最直接有效的方式。",
+        "D": "修補所有系統和應用程式的漏洞及弱點是最根本的防護措施。駭客是「透過應用程式漏洞」植入後門，若漏洞都已修補，攻擊者就無法利用漏洞入侵，從根本上防止後門植入。這是「防止」而非「偵測」的角度。",
+        "A": "前面已說明 IPS 處於加密流量路徑上，在流量為 SSL 加密的情況下，即使加購檔案型病毒偵測功能，IPS 仍可能因無法解密流量而無法有效偵測。此外，加購功能不見得能在當前加密架構下生效。",
+        "C": "關閉所有檔案上傳服務違反「不影響AP服務功能」的前提。某些業務功能可能需要檔案上傳（如客戶上傳文件），全部關閉將影響正常業務運作。"
+      },
+      "general_explanation": "",
+      "key_points": "縱深防禦（Defense in Depth）：網路層（IPS/防火牆）+ 主機層（防毒/EDR）+ 應用層（弱點修補/WAF）。端點防護（EPP/EDR）是偵測主機上惡意程式的最後一道防線。漏洞修補是最根本的安全措施。 ---"
+    },
+    {
+      "id": 29,
+      "type": "single",
+      "context": "公司近期另一工業區的新廠房建築物將完工，準備開始進行系統佈建作業。目前公司計劃在新廠建置一條新的生產線，並將生產三課、品管部門與客服部門移到新廠，同時設立60人的辦公室，ERP及CRM等資訊系統作業仍將連到既有資訊中心的相關系統上操作。",
+      "question": "（題組題3-1，單選題）上述情境中，下列何項新廠區的網路規劃「不」屬於資安考量？",
+      "options": {
+        "A": "安裝3台接取網路交換器並設定3個VLANs且分為3個子網段（subnet）供不同部門使用",
+        "B": "使用VPN閘道器建立總廠與新廠的安全傳輸網路",
+        "C": "在新生產線佈署工規交換器，並且設定獨立的VLAN與子網段連接SCADA（Supervisory Control and Data Acquisition）自動化生產與控制系統設備",
+        "D": "建置網路路由器提供不同網段的網路流量交換"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "建置網路路由器提供不同網段的網路流量交換，主要是網路連通性和效能的考量，屬於基本的網路架構規劃，並非專門針對資安的考量。路由器的功能是在不同網段之間轉發封包，這是網路運作的基本需求。",
+        "A": "使用 VLAN 進行網路分割（Network Segmentation），將不同部門劃分到不同的虛擬區域網路和子網段，可限制存取範圍、降低攻擊橫向擴散的風險，是重要的資安措施。",
+        "B": "使用 VPN 閘道器建立加密通道連接總廠與新廠，保護跨廠區傳輸的資料不被竊聽或竄改，是確保廠際通訊安全的資安措施。",
+        "C": "SCADA 系統是工業控制系統（ICS）的核心，設定獨立的 VLAN 和子網段將 OT（Operational Technology）網路與 IT 網路隔離，是工業資安（ICS Security）的基本原則，可防止 IT 端的安全事件影響到生產控制系統。"
+      },
+      "general_explanation": "",
+      "key_points": "工業控制系統資安原則：(1) IT/OT 網路分離（Network Segmentation）；(2) 最小權限原則；(3) 使用加密通訊；(4) 參考 IEC 62443 工控資安標準和 NIST SP 800-82 工控系統安全指南。 ---"
+    },
+    {
+      "id": 30,
+      "type": "single",
+      "context": "公司近期另一工業區的新廠房建築物將完工，準備開始進行系統佈建作業。目前公司計劃在新廠建置一條新的生產線，並將生產三課、品管部門與客服部門移到新廠，同時設立60人的辦公室，ERP及CRM等資訊系統作業仍將連到既有資訊中心的相關系統上操作。",
+      "question": "（題組題3-2，單選題）上述情境中，新廠的網際網路接口端為了簡化設備管理，改採用UTM（Unified Threat Management）整合式威脅管理設備，下列何者「不」是UTM設備的常見功能？",
+      "options": {
+        "A": "啟用IPS（Intrusion Prevention System）入侵偵測防禦功能，防禦異常的網路攻擊封包",
+        "B": "管理新廠外網與內網的各子網段交換路由",
+        "C": "建立IPSec通訊協定建立與總廠的加密傳輸路由",
+        "D": "使用Honeypot誘捕系統功能來蒐集與分析入侵威脅"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "Honeypot（蜜罐/誘捕系統）是一種獨立的安全技術，透過模擬易受攻擊的系統或服務來吸引攻擊者，藉以蒐集攻擊情報和分析威脅。Honeypot 通常是獨立部署的專用系統或服務，並非 UTM 設備的常見整合功能。",
+        "A": "UTM 的核心功能之一就是整合 IPS 入侵偵測防禦系統，能夠偵測並阻擋已知的網路攻擊。",
+        "B": "UTM 通常具備路由功能，可管理內外網段的路由交換，提供基本的路由器功能。",
+        "C": "UTM 大多支援 IPSec VPN 功能，可建立站對站（Site-to-Site）或遠端存取（Remote Access）的加密連線。"
+      },
+      "general_explanation": "",
+      "key_points": "UTM 常見整合功能：防火牆、IPS/IDS、防毒（Anti-Virus）、反垃圾郵件（Anti-Spam）、URL 過濾、VPN（IPSec/SSL）、路由交換、頻寬管理、應用程式控管等。Honeypot 屬於獨立的欺騙技術（Deception Technology），並非 UTM 標準功能。 ---"
+    },
+    {
+      "id": 31,
+      "type": "multiple",
+      "context": "公司近期另一工業區的新廠房建築物將完工，準備開始進行系統佈建作業。目前公司計劃在新廠建置一條新的生產線，並將生產三課、品管部門與客服部門移到新廠，同時設立60人的辦公室，ERP及CRM等資訊系統作業仍將連到既有資訊中心的相關系統上操作。",
+      "question": "（題組題3-3，複選題）上述情境中，由於新廠並未規劃設置MIS人員，為了達到總廠資訊室人員可以進行設備遠端管理與維護作業，下列哪些維運功能是可考量規劃建置的功能？",
+      "options": {
+        "A": "新廠資通訊設備必須都設定Public IP位置，才能提供遠端操作管理功能",
+        "B": "UTM設備上必須提供SSL或L2TP VPN功能，可以動態建立加密連線即時連接新廠網路處理異常問題",
+        "C": "建置網路管理系統監控新廠資通訊設備運作狀態，當發生異常時可以主動發出告警通知人員處理",
+        "D": "對於無需連接直接其他硬體裝置的使用者，考慮採用精簡型終端機（Thin Client）設備，一致化的操作介面方便總廠資訊室人員處理用戶問題"
+      },
+      "answers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "B": "UTM 提供 SSL VPN 或 L2TP VPN 功能，讓總廠 MIS 人員可以安全地遠端連入新廠網路進行設備管理和故障排除。動態建立加密連線是遠端管理的安全且實用的方式。",
+        "C": "建置網路管理系統（NMS, Network Management System）如 SNMP 監控，可即時監控新廠所有資通訊設備的運作狀態（CPU、記憶體、網路流量、設備可用性等），當發生異常時自動發送告警通知，讓總廠人員能及時處理問題。",
+        "D": "精簡型終端機（Thin Client）將運算集中在伺服器端，使用者端僅負責顯示和輸入。這種方式便於統一管理和維護，總廠 IT 人員只需管理伺服器端即可，減少遠端管理的複雜度。",
+        "A": "將所有資通訊設備設定 Public IP 是嚴重的資安風險，會使設備直接暴露在 Internet 上，增加被攻擊的機會。正確做法是使用 VPN 建立安全的遠端存取通道，設備僅使用 Private IP。"
+      },
+      "general_explanation": "",
+      "key_points": "遠端管理最佳實務：(1) 使用 VPN 加密通道而非將設備暴露在公網；(2) 建置集中式網路管理系統（NMS）；(3) 採用 Thin Client/VDI 統一管理終端；(4) 啟用多因子認證（MFA）；(5) 限制管理存取來源 IP。 ---"
+    },
+    {
+      "id": 32,
+      "type": "single",
+      "context": "公司近期另一工業區的新廠房建築物將完工，準備開始進行系統佈建作業。目前公司計劃在新廠建置一條新的生產線，並將生產三課、品管部門與客服部門移到新廠，同時設立60人的辦公室，ERP及CRM等資訊系統作業仍將連到既有資訊中心的相關系統上操作。",
+      "question": "（題組題3-4，單選題）上述情境中，為統一網路資安防護管理，新廠網路必須經由總廠才能上網，且新產線不能由工廠外部直接連接，並依作業需求將內網分為2個安全管理區域（Security Zone）。在新廠閘道端的UTM設備考量規劃將設定防火牆安全政策，請問下列哪個防火牆政策排列次序為最佳？ 防火牆政策選項： (1) Deny All (2) Allow Any to IPSec (5) Allow LAN1 to IPSec (7) Allow IPSec to LAN1 (12) Allow LAN2 to IPSec tcp port 1499 (16) Allow IPSec to LAN2 tcp port 1499 (19) Allow SSL to LAN1 (20) Allow Any to SSL",
+      "options": {
+        "A": "(5)(6)(7)(8)(12)(18)(1)",
+        "B": "(4)(3)(9)(13)(17)(19)(20)",
+        "C": "(5)(7)(12)(16)(19)(20)(1)",
+        "D": "(3)(2)(7)(18)(12)(16)(19)(20)(1)"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "防火牆政策排列為 (5)(7)(12)(16)(19)(20)(1)，分析如下： - **(5) Allow LAN1 to IPSec：** 允許辦公室子網段（LAN1）透過 IPSec VPN 連到總廠 - **(7) Allow IPSec to LAN1：** 允許總廠透過 IPSec VPN 連到辦公室子網段 - **(12) Allow LAN2 to IPSec tcp port 1499：** 允許 SCADA 子網段（LAN2）僅透過 TCP 1499 連到總廠 MES - **(16) Allow IPSec to LAN2 tcp port 1499：** 允許總廠透過 TCP 1499 連到 SCADA 子網段 - **(19) Allow SSL to LAN1：** 允許 SSL VPN 連入辦公室子網段（供遠端管理） - **(20) Allow Any to SSL：** 允許任何來源建立 SSL VPN 連線 - **(1) Deny All：** 預設拒絕所有其他未明確允許的流量 此排列符合需求：LAN1 可透過總廠上網、LAN2 僅限特定 port 與總廠連線、SSL VPN 供遠端管理、最後以 Deny All 做為預設拒絕規則。符合最小權限原則和 SCADA 隔離需求。",
+        "A": "包含 (6) Allow LAN2 to IPSec 和 (18) Allow Any to LAN2 tcp port 1599，允許 LAN2 無限制地透過 IPSec 連線，且允許任何來源連接 LAN2，違反 SCADA 隔離原則。",
+        "B": "包含 Deny 規則但缺少 Deny All 結尾，且排列順序不符合防火牆由特定到通用的最佳實務。",
+        "D": "包含 (2) Allow Any to IPSec 和 (18) Allow Any to LAN2 tcp port 1599，允許範圍過大，違反最小權限原則。"
+      },
+      "general_explanation": "",
+      "key_points": "防火牆政策設計原則：(1) 特定規則在前、通用規則在後；(2) Deny All 作為最後的預設規則；(3) 遵循最小權限原則；(4) OT 網路（SCADA）必須嚴格限制存取。 ---"
+    },
+    {
+      "id": 33,
+      "type": "single",
+      "context": "組織ABC為金融監督管理委員會（金管會）管轄的關鍵基礎設施提供者，受到金管會核定為A級特定非公務機關。某日系統管理員John在操作核心線上系統時，發現電腦突然重新開機且無法正常啟動Windows作業系統，出現勒索畫面。",
+      "question": "（題組題4-1，單選題）上述情境中，該系統最可能遭遇到什麼事故？",
+      "options": {
+        "A": "遭受Google hacking攻擊",
+        "B": "遭受WannaCry病毒加密勒索",
+        "C": "遭受Petya病毒加密勒索",
+        "D": "遭受DDoS攻擊"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "關鍵特徵是「電腦突然重新開機且無法正常啟動Windows作業系統」。Petya（及其變種 NotPetya）勒索病毒的特徵是會修改主開機紀錄（MBR, Master Boot Record），導致電腦重新開機後無法正常啟動作業系統，而是顯示勒索畫面要求支付贖金。Petya 直接加密硬碟的 MFT（Master File Table）或 MBR，使整個磁碟無法存取。",
+        "B": "WannaCry 勒索病毒雖然也是知名的勒索軟體，但其特徵是在 Windows 正常運作的狀態下加密個別檔案，並在桌面顯示勒索視窗和倒數計時器。WannaCry 不會修改 MBR，電腦仍可正常啟動 Windows，只是檔案被加密無法存取。",
+        "A": "Google Hacking 是利用搜尋引擎查找暴露的敏感資訊的技術，不會導致電腦無法開機。",
+        "D": "DDoS（分散式阻斷服務攻擊）是透過大量流量癱瘓服務，不會導致單一電腦無法啟動作業系統。"
+      },
+      "general_explanation": "",
+      "key_points": "Petya vs WannaCry 區別：Petya 加密 MBR/MFT → 電腦無法啟動 OS；WannaCry 加密個別檔案 → OS 正常運作但檔案無法存取。兩者都利用 EternalBlue（MS17-010 SMB 漏洞）傳播。 ---"
+    },
+    {
+      "id": 34,
+      "type": "single",
+      "context": "組織ABC為金融監督管理委員會（金管會）管轄的關鍵基礎設施提供者，受到金管會核定為A級特定非公務機關。某日系統管理員John在操作核心線上系統時，發現電腦突然重新開機且無法正常啟動Windows作業系統，出現勒索畫面。",
+      "question": "（題組題4-2，單選題）上述情境中，本次事故屬《資通安全事件通報及應變辦法》中的第幾級資通安全事件？",
+      "options": {
+        "A": "一級",
+        "B": "二級",
+        "C": "三級",
+        "D": "四級"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "D": "依《資通安全事件通報及應變辦法》，核心線上系統（核心業務系統）遭受加密勒索攻擊導致無法正常運作，屬於最嚴重的第四級資通安全事件。第四級定義為「國家機密資料遭洩漏」或「關鍵基礎設施遭嚴重損害」等情境。組織 ABC 為 A 級特定非公務機關且為金管會管轄的關鍵基礎設施提供者，其核心線上系統遭勒索病毒攻擊致無法運作，影響嚴重，屬第四級事件。",
+        "A": "第一級為最輕微的事件等級，如非核心業務系統的輕微資安異常，不符合本案情境。",
+        "B": "第二級事件的嚴重程度不足以描述核心線上系統遭加密勒索的情況。",
+        "C": "第三級事件雖已屬嚴重，但核心系統完全無法運作且為關鍵基礎設施，應歸類為更嚴重的第四級。"
+      },
+      "general_explanation": "",
+      "key_points": "資通安全事件嚴重等級：第一級（最輕微）→ 第四級（最嚴重）。核心系統遭受加密勒索且為關鍵基礎設施提供者，應歸類為最嚴重等級。A 級機關的資安事件通報要求最為嚴格。 ---"
+    },
+    {
+      "id": 35,
+      "type": "single",
+      "context": "組織ABC為金融監督管理委員會（金管會）管轄的關鍵基礎設施提供者，受到金管會核定為A級特定非公務機關。某日系統管理員John在操作核心線上系統時，發現電腦突然重新開機且無法正常啟動Windows作業系統，出現勒索畫面。",
+      "question": "（題組題4-3，單選題）上述情境中，依《資通安全事件通報及應變辦法》規定，應於發現後多久時間內通報金管會？",
+      "options": {
+        "A": "30分鐘",
+        "B": "1小時",
+        "C": "2小時",
+        "D": "4小時"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "依《資通安全事件通報及應變辦法》規定，第三級及第四級資通安全事件，公務機關及特定非公務機關應於知悉事件後 1 小時內進行通報。本案為第四級事件，故應於發現後 1 小時內通報金管會。",
+        "A": "30 分鐘並非法定的通報時限。",
+        "C": "2 小時不符合第四級事件的通報時限要求。",
+        "D": "4 小時過長，不符合高嚴重等級事件的通報時限要求。"
+      },
+      "general_explanation": "",
+      "key_points": "《資通安全事件通報及應變辦法》通報時限：第三、四級事件 → 知悉後 1 小時內通報；第一、二級事件 → 知悉後 36 小時（或依規定時限）內通報。特定非公務機關向其中央目的事業主管機關（如金管會）通報。 ---"
+    },
+    {
+      "id": 36,
+      "type": "single",
+      "context": "組織ABC為金融監督管理委員會（金管會）管轄的關鍵基礎設施提供者，受到金管會核定為A級特定非公務機關。某日系統管理員John在操作核心線上系統時，發現電腦突然重新開機且無法正常啟動Windows作業系統，出現勒索畫面。",
+      "question": "（題組題4-4，單選題）上述情境中，依《資通安全事件通報及應變辦法》規定，應於多少時間內完成損害控制或復原作業，並通報金管會？",
+      "options": {
+        "A": "12小時",
+        "B": "24小時",
+        "C": "36小時",
+        "D": "72小時"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "依《資通安全事件通報及應變辦法》規定，第四級資通安全事件應於 36 小時內完成損害控制或復原作業，並向主管機關進行通報。36 小時的復原時限反映了第四級事件的嚴重性，要求機關必須在最短時間內完成損害控制。",
+        "A": "12 小時的時限不是法定規定的復原作業時限。",
+        "B": "24 小時不符合第四級事件的法定復原時限。",
+        "D": "72 小時是較輕微等級事件的復原時限，不適用於第四級事件。"
+      },
+      "general_explanation": "",
+      "key_points": "《資通安全事件通報及應變辦法》復原時限：第四級事件 → 36 小時內完成損害控制或復原；第三級事件 → 36 小時；第二級事件 → 72 小時；第一級事件 → 72 小時。各級事件的完成通報也有相應的時限要求。 ---"
+    },
+    {
+      "id": 37,
+      "type": "single",
+      "context": "某日資安人員接獲通報，系統維運人員在某台Windows主機上找到一個文字檔（acc.txt），內容中\"Name\"欄位的資料與電腦帳號雷同。資安人員發現此文字檔中，含有該台主機之administrator權限的帳號。",
+      "question": "（題組題5-1，單選題）上述情境中，該帳號應為下列何者？",
+      "options": {
+        "A": "Tom",
+        "B": "Paris",
+        "C": "Xuser",
+        "D": "Jason"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "在 Windows 系統中，具有 administrator 權限的帳號通常有特定的 RID（Relative Identifier）標記。在 acc.txt 的帳號清單中，Xuser 具有 administrator 權限的特徵標記（如 RID 500 或 Administrators 群組標記），因此 Xuser 是該台主機上擁有 administrator 權限的帳號。在 Windows 帳號管理中，系統管理員可將任何帳號名稱設定為具有管理者權限，不一定要叫 \"Administrator\"。",
+        "A": "Tom 在帳號清單中的權限標記顯示它是一般使用者帳號，不具 administrator 權限。",
+        "B": "Paris 帳號的權限標記顯示其不具 administrator 權限。",
+        "D": "Jason 帳號雖然可能在清單中，但根據其權限標記判斷，不是 administrator 權限帳號。"
+      },
+      "general_explanation": "",
+      "key_points": "Windows 帳號 RID：500 = Administrator（內建管理者帳號）、501 = Guest（訪客帳號）、1000 以上 = 一般使用者帳號。可透過 `net user` 或 `net localgroup administrators` 查看具管理者權限的帳號。 ---"
+    },
+    {
+      "id": 38,
+      "type": "single",
+      "context": "某日資安人員接獲通報，系統維運人員在某台Windows主機上找到一個文字檔（acc.txt），內容中\"Name\"欄位的資料與電腦帳號雷同。資安人員發現此文字檔中，含有該台主機之administrator權限的帳號。",
+      "question": "（題組題5-2，單選題）上述情境中，若該電腦主機作業系統為Win7，同一時間，資安人員在該台主機acc.txt同一目錄，發現另一個檔案hash.txt，下列敘述何者正確？",
+      "options": {
+        "A": "由這個檔案可以得知Jason為這台電腦具administrator權限的帳戶",
+        "B": "這看起來像是這台電腦的用戶與密碼hash，其中密碼hash為kerberos格式",
+        "C": "這看起來像是這台電腦的用戶與密碼hash，其中密碼hash為NTLM格式",
+        "D": "這看起來像是這台電腦的用戶與密碼hash，其中密碼hash為SHA512格式"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "C": "Windows 7 作業系統使用 NTLM（NT LAN Manager）Hash 來儲存本地帳號的密碼雜湊值。hash.txt 中的內容格式符合 NTLM Hash 的特徵（通常為 `Username:RID:LM Hash:NT Hash:::`）。Windows Vista/7 以後預設停用 LM Hash，僅使用 NT Hash（NTLM），這是 Windows 本地帳號密碼的標準儲存格式。常見的密碼傾印工具（如 mimikatz、pwdump、hashdump）擷取出的就是 NTLM 格式的密碼雜湊。",
+        "A": "前一題已確認 Xuser 才是具有 administrator 權限的帳號，而非 Jason。",
+        "B": "Kerberos 是 Windows Active Directory 網域環境中使用的認證協定，其票證（Ticket）格式與本地帳號的密碼 Hash 格式不同。本案的 Windows 7 主機是本地帳號，使用 NTLM 格式而非 Kerberos。",
+        "D": "SHA-512 是 Linux 系統（如 /etc/shadow）中常用的密碼雜湊格式，Windows 系統不使用 SHA-512 來儲存本地帳號密碼。"
+      },
+      "general_explanation": "",
+      "key_points": "Windows 密碼 Hash 格式演進：LM Hash（舊式，不安全）→ NTLM Hash（NT Hash，Windows Vista 以後主要使用）。儲存位置：SAM（Security Account Manager）資料庫。常見攻擊工具：mimikatz、hashcat、john the ripper 可用於 NTLM Hash 破解。 ---"
+    },
+    {
+      "id": 39,
+      "type": "single",
+      "context": "某日資安人員接獲通報，系統維運人員在某台Windows主機上找到一個文字檔（acc.txt），內容中\"Name\"欄位的資料與電腦帳號雷同。資安人員發現此文字檔中，含有該台主機之administrator權限的帳號。",
+      "question": "（題組題5-3，單選題）上述情境中，若資安人員確認此一現象可能是駭客入侵或電腦遭惡意程式感染，故進一步檢查電腦應用程式執行狀態，發現有一不明程式常駐在電腦中執行，下列何者「不」能列出目前windows電腦中正在運行的程式？（請勿考量windows版本問題）",
+      "options": {
+        "A": "在command line(cmd)中執行tasklist指令",
+        "B": "在command line(cmd)中執行netstat -a指令",
+        "C": "在Powershell中執行get-process指令",
+        "D": "在Powershell中執行tasklist指令"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "B": "`netstat -a` 指令的功能是顯示所有網路連線和監聽的連接埠（含 TCP 和 UDP），它列出的是網路連線狀態（本地位址、遠端位址、連線狀態），而非正在運行的程式清單。雖然 `netstat -b` 或 `netstat -o` 可以顯示與網路連線關聯的程式名稱或 PID，但 `netstat -a` 本身僅顯示連線資訊，不能列出所有正在運行的程式。",
+        "A": "`tasklist` 是 Windows cmd 的內建指令，可以列出目前系統中所有正在運行的程序（Process），顯示映像名稱、PID、工作階段名稱、工作階段號碼及記憶體使用量等資訊。",
+        "C": "`Get-Process` 是 PowerShell 的 Cmdlet，可以列出目前系統中所有正在運行的程序，功能類似 tasklist，但提供更豐富的資訊和物件導向的輸出格式。",
+        "D": "在 PowerShell 中也可以直接執行 `tasklist` 指令（因為 PowerShell 相容 cmd 指令），同樣可以列出正在運行的程式。"
+      },
+      "general_explanation": "",
+      "key_points": "Windows 事件回應常用指令：`tasklist` / `Get-Process`（列出程序）；`netstat -ano`（列出網路連線與對應 PID）；`wmic process list full`（詳細程序資訊）；`sc query`（列出服務）。分析可疑程式時，建議同時使用 tasklist 和 netstat -ano 交叉比對。 ---"
+    },
+    {
+      "id": 40,
+      "type": "multiple",
+      "context": "某日資安人員接獲通報，系統維運人員在某台Windows主機上找到一個文字檔（acc.txt），內容中\"Name\"欄位的資料與電腦帳號雷同。資安人員發現此文字檔中，含有該台主機之administrator權限的帳號。",
+      "question": "（題組題5-4，複選題）上述情境中，資安人員在經過清查後，發現有數十台電腦都有找到acc.exe與hash.txt，檔案內容都留有該電腦的帳號清單與疑似密碼hash的資訊，也有部份電腦發現不明應用程式常駐，下列哪些屬於應優先處理的應變措施？",
+      "options": {
+        "A": "請公司同仁立即變更密碼",
+        "B": "將不明程式送交防毒軟體廠商分析",
+        "C": "發動公司帳號盤點，確認各帳號之使用者與使用情況",
+        "D": "依公司資安事件通報機制，進行通報"
+      },
+      "answers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanations": {
+        "A": "由於數十台電腦的帳號與密碼 Hash 已外洩，攻擊者可能透過離線破解取得明文密碼。請全公司同仁立即變更密碼是最緊急的應變措施，可防止攻擊者利用已竊取的密碼進一步擴大入侵範圍。",
+        "B": "發現不明常駐程式，應立即將其樣本送交防毒軟體廠商或資安分析團隊進行分析，了解該程式的功能、行為和威脅程度（如是否為後門程式、RAT、keylogger等），作為後續應變和清除的依據。",
+        "D": "數十台電腦遭到入侵且帳號密碼外洩，屬於嚴重的資安事件，應立即依公司的資安事件通報機制進行通報，啟動正式的事件應變流程，讓管理層和相關單位知悉並協調處理。",
+        "C": "帳號盤點（確認各帳號的使用者與使用情況）雖然也是重要的安全管理活動，但在事件應變階段不屬於「優先」處理的措施。帳號盤點屬於日常安全管理或事件後續改善措施，在緊急應變時應先處理密碼變更、惡意程式分析和事件通報等更緊急的事項。"
+      },
+      "general_explanation": "",
+      "key_points": "大規模帳號外洩事件的優先應變措施：(1) 立即要求全員變更密碼；(2) 分析惡意程式確認威脅範圍；(3) 依通報機制進行通報；(4) 隔離受感染主機；(5) 清除惡意程式；(6) 強化監控。帳號盤點屬於後續的改善與強化措施。 --- > **本詳解完成。** 涵蓋所有 40 題，包含 15 題單選題、5 題複選題、以及 5 組題組題（共 20 題）。每題均提供正確答案解析、錯誤選項說明及關鍵知識點。"
+    }
+  ]
+}

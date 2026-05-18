@@ -1,0 +1,7 @@
+{
+  "id": "18",
+  "slug": "降維與PCA",
+  "title": "降維與 PCA",
+  "filename": "18-降維與PCA.md",
+  "html": "<h1>18 — 降維與 PCA</h1>\n<h2>一、PCA（主成分分析）</h2>\n<h3>基本原理</h3>\n<ul>\n<li>找到使資料變異最大化的方向（主成分）</li>\n<li>步驟：標準化 → 計算協方差矩陣 → 特徵分解 → 選前 k 個主成分</li>\n<li>主成分選擇：累積解釋變異比 ≥ 80-95%</li>\n</ul>\n<h3>計算範例</h3>\n<p>特徵值 λ₁=6, λ₂=3, λ₃=1（總和=10）</p>\n<ul>\n<li>PC1 解釋：6/10 = 60%</li>\n<li>PC1+PC2 解釋：9/10 = <strong>90% > 80%</strong> → 可降至 2 維</li>\n</ul>\n<h3>注意事項</h3>\n<ul>\n<li><strong>PCA 前必須標準化</strong>（否則量級大的特徵主導）</li>\n<li>PCA 假設線性關係</li>\n<li>主成分缺乏直觀解釋性</li>\n</ul>\n<h2>二、PCA 降噪</h2>\n<ul>\n<li>原理：前 k 個主成分包含信號，其餘包含噪音</li>\n<li>步驟：PCA 轉換（保留前 k 個）→ inverse_transform 重建</li>\n<li>關鍵：<strong>n_components 必須設小</strong>（設太大=保留噪音=無效）</li>\n</ul>\n<h2>三、其他降維方法</h2>\n<table>\n<thead><tr><th>方法</th><th>特點</th><th>適用</th></tr></thead>\n<tbody>\n<tr><td>PCA</td><td>線性、全域</td><td>線性相關特徵</td></tr>\n<tr><td>Kernel PCA</td><td>非線性（核技巧）</td><td>非線性資料</td></tr>\n<tr><td>t-SNE</td><td>非線性、保留局部結構</td><td>視覺化（2D/3D）</td></tr>\n<tr><td>UMAP</td><td>非線性、保留全局+局部</td><td>視覺化+後續分析</td></tr>\n</tbody>\n</table>\n<p>高維資料 + DBSCAN 失效 → 先降維再分群</p>"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "00",
+  "slug": "目錄總覽",
+  "title": "iPAS AI 應用規劃師（中級）— 考試重點整理總覽",
+  "filename": "00-目錄總覽.md",
+  "html": "<h1>iPAS AI 應用規劃師（中級）— 考試重點整理總覽</h1>\n<h2>考試科目</h2>\n<table>\n<thead><tr><th>科目</th><th>範圍</th><th>題數</th></tr></thead>\n<tbody>\n<tr><td>第一科：人工智慧技術應用與規劃</td><td>AI基礎理論、深度學習、NLP、CV、生成式AI、AI倫理</td><td>50題</td></tr>\n<tr><td>第二科：大數據處理分析與應用</td><td>統計分析、特徵工程、大數據架構、視覺化、隱私技術</td><td>39-50題</td></tr>\n<tr><td>第三科：機器學習技術與應用</td><td>監督/非監督學習、模型評估、最佳化、CNN/RNN、實作</td><td>47-50題</td></tr>\n</tbody>\n</table>\n<h2>重點章節目錄</h2>\n<ol>\n<li>深度學習基礎（DNN/CNN/RNN/LSTM）</li>\n<li>卷積神經網路與電腦視覺</li>\n<li>Transformer 與自然語言處理</li>\n<li>生成式 AI（GAI/LLM/RAG）</li>\n<li>模型評估與驗證方法</li>\n<li>正則化與過擬合防治</li>\n<li>最佳化演算法</li>\n<li>特徵工程與資料前處理</li>\n<li>機率與統計基礎</li>\n<li>假設檢定與統計推論</li>\n<li>集成學習與 XGBoost</li>\n<li>分群演算法（DBSCAN/K-means）</li>\n<li>大數據架構與串流處理</li>\n<li>資料視覺化原則</li>\n<li>隱私保護技術</li>\n<li>AI 倫理與治理</li>\n<li>類別不平衡處理</li>\n<li>降維與 PCA</li>\n<li>Python 資料科學實作</li>\n</ol>"
+}

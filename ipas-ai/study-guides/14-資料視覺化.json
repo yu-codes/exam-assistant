@@ -1,0 +1,7 @@
+{
+  "id": "14",
+  "slug": "資料視覺化",
+  "title": "資料視覺化原則",
+  "filename": "14-資料視覺化.md",
+  "html": "<h1>14 — 資料視覺化原則</h1>\n<h2>一、Tufte 資訊視覺化原則</h2>\n<ul>\n<li><strong>資料密度（Data Density）</strong>：有限空間最大化有意義的資訊</li>\n<li>最大化資料墨水比（Data-Ink Ratio）</li>\n<li>避免圖表垃圾（Chartjunk）</li>\n<li>實踐：同一圖表整合多維度（顏色區分），保持比例一致且標註清晰</li>\n</ul>\n<h2>二、視覺化方法選擇</h2>\n<table>\n<thead><tr><th>目的</th><th>最佳方法</th></tr></thead>\n<tbody>\n<tr><td>多變數相關性</td><td><strong>熱力圖 + 相關係數矩陣</strong></td></tr>\n<tr><td>分佈比較（右偏有離群值）</td><td><strong>對數刻度</strong>（展開長尾）</td></tr>\n<tr><td>時間趨勢</td><td>折線圖</td></tr>\n<tr><td>類別比較</td><td>長條圖</td></tr>\n<tr><td>分佈形態</td><td>直方圖、箱型圖</td></tr>\n</tbody>\n</table>\n<h2>三、關聯規則指標</h2>\n<table>\n<thead><tr><th>指標</th><th>定義</th><th>解讀</th></tr></thead>\n<tbody>\n<tr><td>Support</td><td>P(A∩B)</td><td>AB同時出現的頻率</td></tr>\n<tr><td>Confidence</td><td>P(B|A) = P(A∩B)/P(A)</td><td>A發生時B也發生的條件機率</td></tr>\n<tr><td><strong>Lift</strong></td><td>Confidence/P(B)</td><td>>1正相關, =1獨立, <1負相關</td></tr>\n</tbody>\n</table>\n<p>範例：Support=12%, Confidence=50%, Lift=1.8 → 正相關，有商業價值</p>"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "15",
+  "slug": "隱私保護技術",
+  "title": "隱私保護技術",
+  "filename": "15-隱私保護技術.md",
+  "html": "<h1>15 — 隱私保護技術</h1>\n<h2>一、同態加密（Homomorphic Encryption）</h2>\n<ul>\n<li><strong>核心特性：密文上直接進行數學運算，解密後結果正確</strong></li>\n<li>Enc(a) ⊕ Enc(b) = Enc(a+b)</li>\n<li>分類：\n<ul>\n<li>部分同態（PHE）：只支援加或乘</li>\n<li>全同態（FHE）：支援任意運算（但極慢）</li>\n</ul></li>\n<li>應用場景：\n<ul>\n<li>雲端運算（不解密仍能計算）</li>\n<li>多方銀行協作AI訓練</li>\n<li>隱私保護的模型推論</li>\n</ul></li>\n</ul>\n<h2>二、其他隱私技術比較</h2>\n<table>\n<thead><tr><th>技術</th><th>原理</th><th>適用</th></tr></thead>\n<tbody>\n<tr><td>差分隱私</td><td>加入隨機雜訊保護個體</td><td>統計查詢、機器學習訓練</td></tr>\n<tr><td>安全多方計算(MPC)</td><td>多方合作計算不洩漏各自資料</td><td>多組織協作</td></tr>\n<tr><td>聯邦學習</td><td>資料不動模型動</td><td>跨機構模型訓練</td></tr>\n<tr><td>匿名化</td><td>移除可識別資訊</td><td>資料發布</td></tr>\n<tr><td>偽匿名化</td><td>以代碼替換識別資訊</td><td>內部使用（可逆）</td></tr>\n</tbody>\n</table>\n<h2>三、完整安全方案組合</h2>\n<p>跨銀行AI訓練的安全需求：</p>\n<ul>\n<li><strong>同態加密</strong>：密文上運算（不解密資料）</li>\n<li><strong>非對稱加密</strong>：安全金鑰交換</li>\n<li><strong>單向雜湊</strong>：資料完整性/防竄改</li>\n<li><strong>對稱加密</strong>：高效傳輸加密</li>\n</ul>"
+}

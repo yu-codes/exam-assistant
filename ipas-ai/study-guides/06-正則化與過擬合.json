@@ -1,0 +1,7 @@
+{
+  "id": "06",
+  "slug": "正則化與過擬合",
+  "title": "正則化與過擬合防治",
+  "filename": "06-正則化與過擬合.md",
+  "html": "<h1>06 — 正則化與過擬合防治</h1>\n<h2>一、L1 vs L2 正則化</h2>\n<table>\n<thead><tr><th>項目</th><th>L1（Lasso）</th><th>L2（Ridge）</th></tr></thead>\n<tbody>\n<tr><td>懲罰項</td><td>λΣ|w_i|</td><td>λΣw_i²</td></tr>\n<tr><td>效果</td><td><strong>稀疏解（部分權重=0）</strong></td><td>權重縮小但不為零</td></tr>\n<tr><td>特徵選擇</td><td>✅ 自動特徵選擇</td><td>❌ 保留全部特徵</td></tr>\n<tr><td>適用</td><td>需自動篩選特徵</td><td>多重共線性</td></tr>\n</tbody>\n</table>\n<p><strong>考試重點</strong>：</p>\n<ul>\n<li>需自動篩選特徵 + 防過擬合 → <strong>L1（Lasso）</strong></li>\n<li>多重共線性 → <strong>L2（Ridge）</strong></li>\n<li>Elastic Net = L1 + L2 結合</li>\n</ul>\n<h2>二、Dropout</h2>\n<ul>\n<li>訓練時隨機將 p 比例的神經元輸出設為 0</li>\n<li>效果：正則化、等效子網路集成、防過擬合</li>\n<li>推論時：所有神經元啟用，輸出乘以 (1-p)</li>\n<li>典型 p = 0.5（隱藏層）或 0.2（輸入層）</li>\n</ul>\n<h2>三、Early Stopping</h2>\n<ul>\n<li>監控<strong>驗證集損失</strong>（❌ 不能用測試集或訓練集）</li>\n<li>設定 Patience（容忍輪數）：連續 N 輪無改善後停止</li>\n<li>驗證損失有週期波動時 → 加大 Patience</li>\n<li>保存最佳模型參數（ModelCheckpoint）</li>\n</ul>\n<h2>四、防過擬合策略總覽</h2>\n<table>\n<thead><tr><th>策略</th><th>效果</th></tr></thead>\n<tbody>\n<tr><td>L1/L2 正則化</td><td>限制權重大小</td></tr>\n<tr><td>Dropout</td><td>隨機關閉神經元</td></tr>\n<tr><td>Early Stopping</td><td>在最佳泛化點停止</td></tr>\n<tr><td>資料增強</td><td>增加訓練資料多樣性</td></tr>\n<tr><td>降低模型複雜度</td><td>減少層數/神經元</td></tr>\n<tr><td>增加訓練資料</td><td>最根本的解決方案</td></tr>\n</tbody>\n</table>\n<p>⚠️ <strong>擴增輸入特徵 = 增加複雜度 → 增加（而非降低）過擬合風險</strong></p>"
+}
