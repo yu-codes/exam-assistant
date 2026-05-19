@@ -1,0 +1,20 @@
+{
+  "exams": [
+    {
+      "filename": "114-2-AI技術.json",
+      "title": "114年第二梯次 iPAS AI應用規劃師（中級）— 人工智慧技術應用與規劃",
+      "total_questions": 50
+    },
+    {
+      "filename": "114-2-大數據.json",
+      "title": "114年第二梯次 iPAS AI應用規劃師（中級）— 大數據處理分析與應用",
+      "total_questions": 50
+    },
+    {
+      "filename": "114-2-機器學習.json",
+      "title": "114年第二梯次 iPAS AI應用規劃師（中級）— 機器學習技術與應用",
+      "total_questions": 50
+    }
+  ],
+  "total_exams": 3
+}

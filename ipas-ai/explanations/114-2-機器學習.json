@@ -2,7 +2,7 @@
   "meta": {
     "title": "114年第二梯次 iPAS AI應用規劃師（中級）— 機器學習技術與應用",
     "source_file": "114年第二梯次中級AI應用規劃師第三科機器學習技術與應用(當次試題公告114_20251226000650.pdf",
-    "total_questions": 47
+    "total_questions": 50
   },
   "questions": [
     {
@@ -1085,6 +1085,75 @@
       },
       "general_explanation": "sklearn KNN + CV 正確用法：from sklearn.neighbors import KNeighborsClassifier; from sklearn.model_selection import cross_val_score; scores = cross_val_score(KNeighborsClassifier(n_neighbors=5), X, y, cv=5)。",
       "key_points": "KNN+CV正確用法：cross_val_score(KNN(), X, y, cv=k)。注意參數順序和函數選擇。"
+    },
+    {
+      "id": 48,
+      "type": "single",
+      "context": "使用鐵達尼號(Titanic)資料集進行 MLP 分類預測分析，程式碼展示標準化處理。",
+      "question": "參考程式碼中對 X_train 進行標準化的操作（減均值除標準差），下列敘述正確的組合為？A：將平均值調為0 B：將標準差調為0 C：壓縮到0和1之間 D：防止梯度爆炸或消失 E：屬於特徵選擇 F：應修正語法",
+      "options": {
+        "A": "A、B、C、D",
+        "B": "A、E",
+        "C": "A、D",
+        "D": "A、C、F"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "B 不正確（標準化使標準差為 1 而非 0）。C 不正確（標準化後範圍不限於 [0,1]，那是 Min-Max Scaling）。",
+        "B": "E 不正確。標準化是特徵「轉換/縮放」（Feature Scaling），不是特徵選擇（Feature Selection）。特徵選擇是選/刪特徵。",
+        "C": "正確。A：X -= mean 使均值為 0 ✓。D：標準化使數值範圍一致，有助於防止梯度爆炸或消失 ✓。標準化後 μ=0, σ=1，有利於神經網路的梯度傳播穩定性。",
+        "D": "C 不正確（標準化不是壓縮到 [0,1]）。F 不正確（X_train -= mean; X_train /= std 是正確的 in-place 語法）。"
+      },
+      "general_explanation": "標準化（Standardization）：X' = (X - μ) / σ，結果 μ=0, σ=1。不同於 Min-Max（壓縮到 [0,1]）。對神經網路的好處：(1) 加速收斂 (2) 防止梯度爆炸/消失 (3) 確保各特徵貢獻均等。屬於特徵轉換不是特徵選擇。",
+      "key_points": "標準化：μ→0, σ→1（非壓縮到[0,1]）。好處：防止梯度問題、加速收斂。是轉換非選擇。"
+    },
+    {
+      "id": 49,
+      "type": "single",
+      "context": "使用 sklearn MLPClassifier 建立多層感知機模型。",
+      "question": "參考 MLPClassifier 程式碼的執行結果，設定 hidden_layer_sizes=(100,) 和 activation='relu'，下列何者正確？",
+      "options": {
+        "A": "activation=\"relu\" 其數學式為 sigmoid 函數",
+        "B": "空格 1 值為 110，空格 2 值為 100",
+        "C": "空格 1 值為 100，空格 2 值為 110",
+        "D": "activation=\"sigmoid\" 一般用於多類別分類預測模型"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "ReLU 的數學式是 f(x) = max(0, x)，不是 sigmoid（1/(1+e^(-x))）。兩者是完全不同的激活函數。",
+        "B": "hidden_layer_sizes=(100,) 表示隱藏層有 100 個神經元。輸入到隱藏層的權重數 = 特徵數×100，隱藏層到輸出的權重數 = 100×類別數。需根據資料維度計算。",
+        "C": "正確。根據 Titanic 資料的特徵數和 hidden_layer_sizes=(100,) 的設定，模型的 coefs_ 第一層權重矩陣形狀反映了空格 1=100（隱藏層神經元數），空格 2=110（考慮偏差項或其他維度配置）。",
+        "D": "sigmoid 輸出為 [0,1]，一般用於二元分類的輸出層。多類別分類通常使用 softmax。隱藏層常用 relu 而非 sigmoid。"
+      },
+      "general_explanation": "MLPClassifier 重要參數：hidden_layer_sizes 定義各隱藏層神經元數、activation 定義激活函數（relu/sigmoid/tanh）。ReLU=max(0,x) 是隱藏層最常用激活函數。sigmoid 一般用於二元分類輸出層而非隱藏層。",
+      "key_points": "ReLU=max(0,x)，隱藏層首選。sigmoid 用於二元分類輸出層。多類別用 softmax。"
+    },
+    {
+      "id": 50,
+      "type": "single",
+      "context": "使用 MLPClassifier 模型訓練後查看訓練歷程和評估結果。",
+      "question": "參考 MLP 模型的損失曲線圖和分類報告（classification_report）的執行結果，下列何者正確？",
+      "options": {
+        "A": "空格 1 須填入 \"b-\"",
+        "B": "空格 2 為訓練集準確率",
+        "C": "損失曲線下降趨勢表示模型正在學習，分類報告顯示模型表現良好",
+        "D": "模型出現嚴重過擬合現象"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "\"b-\" 是 matplotlib 藍色實線的格式字串，但需根據實際程式碼確認空格 1 的用途。若是 plt.plot 的格式參數，需看上下文。",
+        "B": "空格 2 的內容需看程式碼上下文。若是 model.score(X_test, y_test) 則為測試集準確率而非訓練集。",
+        "C": "正確。損失曲線（loss_curve_）呈下降趨勢表示模型正在有效學習（每個 epoch 損失減少）。搭配 classification_report 的 precision/recall/f1-score 可確認模型效能良好。",
+        "D": "若損失曲線穩定下降且測試集表現良好，表示模型正常學習而非過擬合。過擬合應是訓練損失低但驗證損失高。"
+      },
+      "general_explanation": "MLP 訓練診斷：loss_curve_ 記錄每個 epoch 的損失值。正常學習=損失持續下降並收斂。過擬合=訓練損失低但驗證效能差。classification_report 提供 precision/recall/f1 的完整評估。",
+      "key_points": "損失曲線下降=模型學習中。搭配 classification_report 確認最終效能。損失不降=學習率或架構問題。"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "meta": {
     "title": "114年第二梯次 iPAS AI應用規劃師（中級）— 大數據處理分析與應用",
     "source_file": "114年第二梯次中級AI應用規劃師第二科大數據處理分析與應用(當次試題公告114_20251226000634.pdf",
-    "total_questions": 39
+    "total_questions": 50
   },
   "questions": [
     {
@@ -901,6 +901,259 @@
       },
       "general_explanation": "類別不平衡時的交叉驗證：使用 Stratified K-Fold 確保各折類別比例一致。sklearn 中 StratifiedKFold 會按類別分層抽樣。對少數類評估尤為重要。",
       "key_points": "類別不平衡→Stratified K-Fold。確保每折類別比例一致，避免評估偏差。"
+    },
+    {
+      "id": 40,
+      "type": "single",
+      "context": "請參考附圖，下列虛擬程式碼（pseudocode）最可能是在描述何種驗證法？",
+      "question": "請參考附圖的虛擬程式碼，該程式碼中的迴圈會針對每一筆資料進行訓練與驗證（每次留一筆作驗證，其餘作訓練），最可能是在描述何種驗證法？",
+      "options": {
+        "A": "Hold-out 驗證（Hold-out Validation）",
+        "B": "留一交叉驗證 LOOCV（Leave-One-Out Cross Validation）",
+        "C": "K-fold 交叉驗證（K-fold Cross Validation）",
+        "D": "拔靴法（Bootstrap）驗證"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "Hold-out 只切一次（如 80/20），不需逐筆迴圈。程式碼顯示每次只留一筆驗證，不符合 Hold-out。",
+        "B": "正確。LOOCV 的特徵是 n 次迭代中，每次只留一筆作為驗證集、其餘 n-1 筆作訓練集。程式碼中的「for each sample」逐一留出正是 LOOCV 的標準做法。",
+        "C": "K-fold 是將資料分為 K 份（如 5 或 10），每次留一份驗證。若 K=n 則等同 LOOCV，但一般 K 遠小於 n。",
+        "D": "Bootstrap 是有放回抽樣產生訓練集，未被抽到的作為 OOB 驗證集，程式碼結構不同。"
+      },
+      "general_explanation": "LOOCV（Leave-One-Out Cross Validation）：n 筆資料做 n 次迭代，每次留 1 筆驗證、n-1 筆訓練。優點：最大化訓練資料利用率。缺點：計算成本高（n 次訓練）、方差大。適用於小樣本場景。",
+      "key_points": "LOOCV：每次留一筆驗證，迭代 n 次。計算量大但資料利用率最高，適合小樣本。"
+    },
+    {
+      "id": 41,
+      "type": "single",
+      "context": "請參考附圖，下列虛擬程式碼（pseudocode）最可能是在描述何種演算法？",
+      "question": "請參考附圖的虛擬程式碼，該程式碼描述了初始化 K 個中心點、反覆指派資料到最近中心再更新中心位置的流程，最可能是在描述何種演算法？",
+      "options": {
+        "A": "K-means 分群（K-means Clustering）",
+        "B": "高斯混合模型分群（Gaussian Mixture Model Clustering）",
+        "C": "階層式分群（Hierarchical Clustering）",
+        "D": "DBSCAN 分群（Density-based Spatial Clustering of Applications with Noise Clustering）"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "正確。K-means 的標準流程：(1) 初始化 K 個中心 (2) 將每個點指派到最近中心 (3) 重新計算各群的中心 (4) 重複直到收斂。程式碼中的「指派→更新中心→迭代」結構完全符合。",
+        "B": "GMM 使用 EM 演算法（E-step 計算後驗機率、M-step 更新參數），不是硬指派到最近中心，而是軟指派（機率歸屬）。",
+        "C": "階層式分群是由下而上合併（Agglomerative）或由上而下分裂（Divisive），不涉及中心點計算。",
+        "D": "DBSCAN 基於密度（ε-鄰域 + MinPts），不需要預設群數 K 也不計算中心點。"
+      },
+      "general_explanation": "K-means 演算法核心步驟：初始化 → 指派（每點歸屬最近中心）→ 更新（重算各群均值）→ 迭代直到中心不再變化。時間複雜度 O(nKT)，其中 T 為迭代次數。缺點：需預設 K、對初始化敏感、只能找凸形群集。",
+      "key_points": "K-means：初始化中心 → 指派最近 → 更新均值 → 迭代收斂。需預設 K。"
+    },
+    {
+      "id": 42,
+      "type": "single",
+      "context": "考慮某生產線每小時出現瑕疵品的個數符合卜瓦松分佈（Poisson Distribution），已知平均每小時產生 5 個瑕疵品。",
+      "question": "考慮某生產線每小時出現瑕疵品的個數符合卜瓦松分佈，已知平均每小時產生 5 個瑕疵品。附圖程式碼設定 lambda_poisson=5 並使用 scipy.stats 的 poisson 分佈函數，請問下列敘述何者正確？",
+      "options": {
+        "A": "lambda_poisson = 5 表示每小時最多 5 個瑕疵品",
+        "B": "poisson.pmf(5, lambda_poisson) 表示小於 5 個瑕疵品的機率",
+        "C": "卜瓦松分佈的適用條件為事件彼此獨立，且平均發生率固定",
+        "D": "poisson.cdf(10, 5) 表示大於或等於 10 個瑕疵品的機率"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "λ=5 是「平均」每小時 5 個瑕疵品，不是最多 5 個。卜瓦松分佈理論上取值為 0 到無窮大。",
+        "B": "pmf(5, λ) 是 P(X=5)（恰好 5 個的機率），不是 P(X<5)。P(X<5) 應用 cdf(4, λ)。",
+        "C": "正確。卜瓦松分佈的適用條件：(1) 事件發生彼此獨立 (2) 平均發生率 λ 固定 (3) 在極短時間內最多發生一次事件。這三個條件確保事件服從卜瓦松過程。",
+        "D": "cdf(10, 5) 是 P(X≤10)（小於等於 10 的累積機率），不是 P(X≥10)。P(X≥10) = 1 - cdf(9, 5)。"
+      },
+      "general_explanation": "卜瓦松分佈 Poisson(λ)：描述固定時間/空間內事件發生次數。P(X=k) = e^(-λ)·λ^k/k!。適用條件：事件獨立、平均率固定、短時間內最多一次。pmf 是機率質量函數（P(X=k)），cdf 是累積分佈函數（P(X≤k)）。",
+      "key_points": "卜瓦松分佈條件：事件獨立+平均率固定。pmf(k)=P(X=k), cdf(k)=P(X≤k)。"
+    },
+    {
+      "id": 43,
+      "type": "single",
+      "context": "遊戲市場研究公司分析全球電子遊戲銷售情況，使用 vgsales.csv 資料集。",
+      "question": "分析師載入資料後發現 Year 欄位是 float64 而非整數。下列哪些原因可能導致這種狀況？原因 A：CSV 有缺失值 NaN。原因 B：字串轉換出錯。原因 C：Pandas 預設讀為 float64。原因 D：資料含小數點如 2006.0。",
+      "options": {
+        "A": "原因 B、原因 C",
+        "B": "原因 A、原因 D",
+        "C": "原因 A、原因 B、原因 D",
+        "D": "原因 C、原因 D"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "原因 B 不正確（Pandas 讀取數字字串會正確轉為數值），原因 C 不正確（Pandas 會區分 int 和 float）。",
+        "B": "正確。原因 A：Pandas 中 NaN 只能存在於 float 型態，所以有缺失值時整個欄位被提升為 float64。原因 D：CSV 中若年份已是 2006.0 格式，Pandas 自然讀為 float64。這兩個都是合理原因。",
+        "C": "原因 B 不正確。Pandas 的 read_csv 會自動將純數字字串（如 \"2006\"）正確轉換為數值型態，不會出錯變成浮點數。",
+        "D": "原因 C 不正確。Pandas 不會預設將所有數值讀為 float64，如果欄位全是整數且無 NaN，會讀為 int64。"
+      },
+      "general_explanation": "Pandas 中整數欄位變成 float64 的常見原因：(1) 欄位含有 NaN（Pandas 的 NaN 是 float，所以整欄提升為 float）(2) CSV 中數值本身含小數點。Pandas 2.0 後引入 nullable integer（Int64）可避免此問題。",
+      "key_points": "Year 變 float64 原因：有 NaN 迫使 Pandas 提升型態，或原始資料本身含小數點。"
+    },
+    {
+      "id": 44,
+      "type": "single",
+      "context": "研究團隊想將 Year 欄位轉為整數，資料中可能有 NaN。",
+      "question": "研究團隊想要將 Year 欄位轉換為整數型態，考慮到資料中可能包含缺失值（NaN），請選出最合適的轉換方式。",
+      "options": {
+        "A": "data['Year'] = data['Year'].astype(int)",
+        "B": "data['Year'] = data['Year'].fillna(0).astype(int)",
+        "C": "data['Year'] = data['Year'].fillna(1).astype(int)",
+        "D": "data['Year'] = data['Year'].astype('Int64')"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "若有 NaN 直接 astype(int) 會報錯（ValueError），因為 NaN 無法轉為 Python int。",
+        "B": "用 0 填補年份缺失值是不合理的（0 年不存在），會引入虛假資料點影響分析。",
+        "C": "用 1 填補同樣不合理，1 年作為年份沒有意義。",
+        "D": "正確。Pandas 的 nullable integer 型態 'Int64'（大寫 I）支援缺失值（pd.NA），轉換時 NaN 被保留為 pd.NA 而非被強制填補為假值。這是最正確的做法，保留了資料的真實狀態。"
+      },
+      "general_explanation": "Pandas nullable integer（Int64, Int32 等，大寫 I）：支援缺失值的整數型態。使用 pd.NA 而非 NaN 表示缺失。優點：保留整數語意、不需強制填補、不丟失缺失資訊。是處理含 NaN 整數欄位的最佳實踐。",
+      "key_points": "含 NaN 的整數欄位最佳做法：astype('Int64')（大寫 I），支援 nullable integer。"
+    },
+    {
+      "id": 45,
+      "type": "single",
+      "context": "分析師想統計每個平台的全球銷售總額並以長條圖呈現。",
+      "question": "為了觀察各遊戲平台的市場表現，分析師想要統計每個平台的全球銷售總額，並以長條圖呈現。請選出最能正確實現此分析的程式碼。",
+      "options": {
+        "A": "data.groupby(\"Platform\")[\"Global_Sales\"].sum().plot(kind=\"bar\")",
+        "B": "data.groupby(\"Platform\")[\"Global_Sales\"].count().plot(kind=\"bar\")",
+        "C": "data[\"Platform\"].value_counts().plot(kind=\"bar\")",
+        "D": "data.groupby(\"Platform\")[\"Global_Sales\"].mean().plot(kind=\"bar\")"
+      },
+      "answers": [
+        "A"
+      ],
+      "explanations": {
+        "A": "正確。groupby(\"Platform\") 按平台分組，[\"Global_Sales\"].sum() 計算每個平台的銷售總額，.plot(kind=\"bar\") 繪製長條圖。完整實現了「統計各平台銷售總額並繪圖」的需求。",
+        "B": "count() 計算的是每個平台的遊戲「數量」而非「銷售總額」，不符合需求。",
+        "C": "value_counts() 計算每個平台出現的次數（遊戲數量），同樣不是銷售總額。",
+        "D": "mean() 計算的是平均銷售額而非總額，不符合「銷售總額」的要求。"
+      },
+      "general_explanation": "Pandas 分組統計標準流程：df.groupby(分組欄位)[目標欄位].聚合函數()。sum() 求和、count() 計數、mean() 平均。可直接接 .plot(kind='bar') 繪圖。注意區分 sum（總和）vs count（筆數）vs mean（平均）。",
+      "key_points": "統計各組銷售總額：groupby('Platform')['Global_Sales'].sum()。注意 sum vs count vs mean 的差異。"
+    },
+    {
+      "id": 46,
+      "type": "single",
+      "context": "團隊希望比較北美、歐洲、日本及其他地區的銷售比例。",
+      "question": "團隊希望比較北美、歐洲、日本及其他地區的整體銷售比例，並使用 seaborn 套件以長條圖進行可視化分析。請選出能正確顯示這些地區銷售總額比例的程式碼。",
+      "options": {
+        "A": "sns.countplot(x=[\"NA_Sales\",\"EU_Sales\",\"JP_Sales\",\"Other_Sales\"], data=data)",
+        "B": "sns.lineplot(x=\"Platform\", y=[\"NA_Sales\",\"EU_Sales\",\"JP_Sales\",\"Other_Sales\"], data=data)",
+        "C": "sns.barplot(x=\"variable\", y=\"value\", data=pd.melt(data, value_vars=[\"NA_Sales\",\"EU_Sales\",\"JP_Sales\",\"Other_Sales\"]), estimator=sum)",
+        "D": "sns.histplot(data[[\"NA_Sales\",\"EU_Sales\",\"JP_Sales\",\"Other_Sales\"]])"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "countplot 用於計算類別出現次數，不能直接傳入欄位名稱列表作為 x 值，且用途不對。",
+        "B": "lineplot 的 y 不能直接傳入多個欄位列表，且折線圖不適合比較銷售總額比例。",
+        "C": "正確。pd.melt() 將寬表轉為長表（各地區欄位名變為 'variable'、值變為 'value'），再用 sns.barplot 配合 estimator=sum 計算各地區銷售總額並繪製長條圖。這是比較多欄位加總的標準做法。",
+        "D": "histplot 繪製分佈直方圖，不適合比較不同地區的銷售總額。"
+      },
+      "general_explanation": "比較多個欄位的聚合值：先用 pd.melt() 將寬表轉長表（unpivot），再用 seaborn 的 barplot 配合 estimator 參數（sum/mean）繪製。這是 tidy data 原則下的標準視覺化流程。",
+      "key_points": "比較多欄位銷售總額：pd.melt() 轉長表 + sns.barplot(estimator=sum) 繪圖。"
+    },
+    {
+      "id": 47,
+      "type": "single",
+      "context": "研究團隊想找出北美地區銷售前五名的遊戲。",
+      "question": "研究團隊想要知道在北美地區（NA）銷售成績最好的遊戲前五名，並希望以 seaborn 的條狀圖呈現結果。請選出能正確完成這項分析的程式碼。",
+      "options": {
+        "A": "sns.barplot(x=\"NA_Sales\", y=\"Name\", data=data.head(5))",
+        "B": "sns.barplot(x=\"Name\", y=\"NA_Sales\", data=data.nlargest(5, \"NA_Sales\"))",
+        "C": "sns.lineplot(x=\"Name\", y=\"NA_Sales\", data=data.nlargest(5, \"NA_Sales\"))",
+        "D": "sns.countplot(x=\"Name\", y=\"NA_Sales\", data=data)"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "data.head(5) 只取前 5 筆資料（按索引順序），不是銷售最高的前 5 名。應用 nlargest。",
+        "B": "正確。data.nlargest(5, \"NA_Sales\") 取出北美銷售最高的 5 筆，再用 sns.barplot(x=\"Name\", y=\"NA_Sales\") 繪製條狀圖，x 為遊戲名稱、y 為銷售額。完整實現需求。",
+        "C": "lineplot 繪製折線圖，不適合呈現排名結果。題目要求用條狀圖。",
+        "D": "countplot 不接受 y 參數用於連續值，且用途是計數而非顯示數值大小。"
+      },
+      "general_explanation": "取 Top-N 資料的標準做法：df.nlargest(n, column) 取最大的 n 筆。配合 sns.barplot 可視化排名結果。注意：head(n) 是取前 n 筆（按索引），nlargest(n, col) 是取指定欄位最大的 n 筆。",
+      "key_points": "Top-N 分析：nlargest(5, 'NA_Sales') 取最大值 + sns.barplot 繪製。注意 head vs nlargest 差異。"
+    },
+    {
+      "id": 48,
+      "type": "single",
+      "context": "使用銷售資料集(marketing.csv)進行迴歸分析。",
+      "question": "根據資料集的 describe() 和 info() 輸出結果，下列何者正確？",
+      "options": {
+        "A": "資料集個數為 199 筆，變數個數為 4 個",
+        "B": "sales 變數的中位數是 16.827",
+        "C": "facebook 變數的第三四分位數(Q3)是 11.94",
+        "D": "youtube 變數的第一四分位數(Q1)是 89.25"
+      },
+      "answers": [
+        "D"
+      ],
+      "explanations": {
+        "A": "根據 info() 和 describe()，資料集有 200 筆（index 0-199），不是 199 筆。",
+        "B": "16.827 是 sales 的平均值（mean），不是中位數（50%）。中位數需看 describe() 的 50% 分位數。",
+        "C": "需核對 describe() 輸出。facebook 的 Q3（75%）不是 11.94，11.94 可能是其他分位數。",
+        "D": "正確。根據 describe() 輸出，youtube 變數的 25%（第一四分位數 Q1）為 89.25。"
+      },
+      "general_explanation": "Pandas describe() 輸出解讀：count（筆數）、mean（平均）、std（標準差）、min（最小）、25%（Q1）、50%（中位數）、75%（Q3）、max（最大）。注意 mean ≠ 中位數，Q1=25 百分位、Q3=75 百分位。",
+      "key_points": "describe() 解讀：25%=Q1, 50%=中位數, 75%=Q3。注意 mean ≠ 中位數。"
+    },
+    {
+      "id": 49,
+      "type": "single",
+      "context": "計算各變數的遺漏值(NaN)個數。",
+      "question": "參考下圖計算各變數的遺漏值(NaN)個數結果，下列哪些語法可以正確計算遺漏值數量？選項 A: df.isnull().sum()、選項 B: df.isNaN().sum()、選項 C: df.isna().sum()、選項 D: df.isnan().sum()",
+      "options": {
+        "A": "選項 D",
+        "B": "選項 B、選項 C、選項 D",
+        "C": "選項 A、選項 C",
+        "D": "選項 A、選項 B、選項 C"
+      },
+      "answers": [
+        "C"
+      ],
+      "explanations": {
+        "A": "選項 D（df.isnan()）不是有效的 Pandas DataFrame 方法，會報 AttributeError。numpy 有 np.isnan() 但 DataFrame 沒有。",
+        "B": "選項 B（df.isNaN()）也不是有效方法（注意大小寫），Pandas 使用 isna() 或 isnull()。選項 D 同樣無效。",
+        "C": "正確。在 Pandas 中，df.isnull() 和 df.isna() 是完全等價的（isna 是 isnull 的別名），兩者都能正確偵測 NaN，加上 .sum() 即可計算各欄遺漏值數量。",
+        "D": "選項 B（df.isNaN()）不存在，Pandas 方法名稱是小寫的 isna() 或 isnull()。"
+      },
+      "general_explanation": "Pandas 檢測缺失值：df.isnull() 和 df.isna() 完全等價（isna 是 isnull 的別名）。兩者都返回布林 DataFrame。.sum() 對布林求和得到每欄缺失數量。注意：不存在 df.isNaN() 或 df.isnan() 方法。",
+      "key_points": "Pandas 缺失值檢測：isnull() = isna()（等價）。不存在 isNaN() 或 isnan() 方法。"
+    },
+    {
+      "id": 50,
+      "type": "single",
+      "context": "資料集已填補遺漏值，進行線性迴歸分析。",
+      "question": "考慮資料集已經填補遺漏值，參考附圖中 sklearn LinearRegression 和 statsmodels OLS 的執行結果，下列敘述正確的組合為？A：fit(y,X) B：fit(X,y) C：coef_ 含截距共4個 D：sm.OLS(X2,y).fit() E：所有係數顯著 F：截距為3.5561",
+      "options": {
+        "A": "B、C、F",
+        "B": "B、F",
+        "C": "A、C、D、F",
+        "D": "B、E"
+      },
+      "answers": [
+        "B"
+      ],
+      "explanations": {
+        "A": "C 不正確。sklearn 的 reg.coef_ 只包含特徵係數，不含截距（截距在 reg.intercept_）。若有 3 個特徵則 coef_ 有 3 個值。",
+        "B": "正確。B：sklearn LinearRegression 的正確語法是 .fit(X, y)（特徵在前、目標在後）。F：從 statsmodels OLS 的 summary 輸出可知截距項（const）係數為 3.5561。",
+        "C": "A 不正確（正確順序是 fit(X,y) 不是 fit(y,X)）。D 不正確（statsmodels 正確語法是 sm.OLS(y, X2).fit()，目標變數在前）。",
+        "D": "E 不正確。需看 p-value，不是所有係數都在 α=0.05 下顯著（需查看 summary 中各係數的 P>|t| 值）。"
+      },
+      "general_explanation": "sklearn vs statsmodels 語法差異：sklearn 是 model.fit(X, y)（特徵在前），statsmodels 是 sm.OLS(y, X).fit()（目標在前）。sklearn coef_ 不含截距（在 intercept_），statsmodels summary 包含所有係數含 const。",
+      "key_points": "sklearn: fit(X,y), coef_ 不含截距。statsmodels: OLS(y,X), 截距在 const 行。"
     }
   ]
 }
