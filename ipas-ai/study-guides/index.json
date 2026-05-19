@@ -3,120 +3,120 @@
     "id": "00",
     "slug": "目錄總覽",
     "title": "iPAS AI 應用規劃師（中級）— 考試重點整理總覽",
-    "filename": "00-目錄總覽.json"
+    "file": "00-目錄總覽.json"
   },
   {
     "id": "01",
     "slug": "深度學習基礎",
     "title": "深度學習基礎（DNN/CNN/RNN/LSTM）",
-    "filename": "01-深度學習基礎.json"
+    "file": "01-深度學習基礎.json"
   },
   {
     "id": "02",
     "slug": "卷積神經網路",
     "title": "卷積神經網路與電腦視覺（CNN）",
-    "filename": "02-卷積神經網路.json"
+    "file": "02-卷積神經網路.json"
   },
   {
     "id": "03",
     "slug": "transformer-nlp",
     "title": "Transformer 與自然語言處理",
-    "filename": "03-transformer-nlp.json"
+    "file": "03-transformer-nlp.json"
   },
   {
     "id": "04",
     "slug": "生成式AI",
     "title": "生成式 AI（GAI/LLM/Diffusion）",
-    "filename": "04-生成式AI.json"
+    "file": "04-生成式AI.json"
   },
   {
     "id": "05",
     "slug": "模型評估",
     "title": "模型評估與驗證方法",
-    "filename": "05-模型評估.json"
+    "file": "05-模型評估.json"
   },
   {
     "id": "06",
     "slug": "正則化與過擬合",
     "title": "正則化與過擬合防治",
-    "filename": "06-正則化與過擬合.json"
+    "file": "06-正則化與過擬合.json"
   },
   {
     "id": "07",
     "slug": "最佳化演算法",
     "title": "最佳化演算法（SGD/Adam/Learning Rate）",
-    "filename": "07-最佳化演算法.json"
+    "file": "07-最佳化演算法.json"
   },
   {
     "id": "08",
     "slug": "特徵工程",
     "title": "特徵工程與資料前處理",
-    "filename": "08-特徵工程.json"
+    "file": "08-特徵工程.json"
   },
   {
     "id": "09",
     "slug": "機率統計基礎",
     "title": "機率與統計基礎",
-    "filename": "09-機率統計基礎.json"
+    "file": "09-機率統計基礎.json"
   },
   {
     "id": "10",
     "slug": "假設檢定",
     "title": "假設檢定與統計推論",
-    "filename": "10-假設檢定.json"
+    "file": "10-假設檢定.json"
   },
   {
     "id": "11",
     "slug": "集成學習與XGBoost",
     "title": "集成學習與 XGBoost",
-    "filename": "11-集成學習與XGBoost.json"
+    "file": "11-集成學習與XGBoost.json"
   },
   {
     "id": "12",
     "slug": "分群演算法",
     "title": "分群演算法（DBSCAN/K-means）",
-    "filename": "12-分群演算法.json"
+    "file": "12-分群演算法.json"
   },
   {
     "id": "13",
     "slug": "大數據架構",
     "title": "大數據架構與串流處理",
-    "filename": "13-大數據架構.json"
+    "file": "13-大數據架構.json"
   },
   {
     "id": "14",
     "slug": "資料視覺化",
     "title": "資料視覺化原則",
-    "filename": "14-資料視覺化.json"
+    "file": "14-資料視覺化.json"
   },
   {
     "id": "15",
     "slug": "隱私保護技術",
     "title": "隱私保護技術",
-    "filename": "15-隱私保護技術.json"
+    "file": "15-隱私保護技術.json"
   },
   {
     "id": "16",
     "slug": "AI倫理與治理",
     "title": "AI 倫理與治理",
-    "filename": "16-AI倫理與治理.json"
+    "file": "16-AI倫理與治理.json"
   },
   {
     "id": "17",
     "slug": "類別不平衡",
     "title": "類別不平衡處理",
-    "filename": "17-類別不平衡.json"
+    "file": "17-類別不平衡.json"
   },
   {
     "id": "18",
     "slug": "降維與PCA",
     "title": "降維與 PCA",
-    "filename": "18-降維與PCA.json"
+    "file": "18-降維與PCA.json"
   },
   {
     "id": "19",
     "slug": "Python實作",
     "title": "Python 資料科學實作",
-    "filename": "19-Python實作.json"
+    "file": "19-Python實作.json"
   }
 ]
