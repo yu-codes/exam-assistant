@@ -6,142 +6,102 @@
     {
       "year": "108",
       "type": "規劃",
-      "file": "108-規劃.json",
-      "pdf": "108-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/108-規劃.pdf"
+      "file": "108-規劃.json"
     },
     {
       "year": "108",
       "type": "防護",
-      "file": "108-防護.json",
-      "pdf": "108-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/108-防護.pdf"
+      "file": "108-防護.json"
     },
     {
       "year": "109",
       "type": "規劃",
-      "file": "109-規劃.json",
-      "pdf": "109-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/109-規劃.pdf"
+      "file": "109-規劃.json"
     },
     {
       "year": "109",
       "type": "防護",
-      "file": "109-防護.json",
-      "pdf": "109-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/109-防護.pdf"
+      "file": "109-防護.json"
     },
     {
       "year": "110",
       "type": "規劃",
-      "file": "110-規劃.json",
-      "pdf": "110-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/110-規劃.pdf"
+      "file": "110-規劃.json"
     },
     {
       "year": "110",
       "type": "防護",
-      "file": "110-防護.json",
-      "pdf": "110-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/110-防護.pdf"
+      "file": "110-防護.json"
     },
     {
       "year": "111",
       "type": "規劃",
-      "file": "111-規劃.json",
-      "pdf": "111-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/111-規劃.pdf"
+      "file": "111-規劃.json"
     },
     {
       "year": "111",
       "type": "防護",
-      "file": "111-防護.json",
-      "pdf": "111-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/111-防護.pdf"
+      "file": "111-防護.json"
     },
     {
       "year": "112-1",
       "type": "規劃",
-      "file": "112-1-規劃.json",
-      "pdf": "112-1-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/112-1-規劃.pdf"
+      "file": "112-1-規劃.json"
     },
     {
       "year": "112-1",
       "type": "防護",
-      "file": "112-1-防護.json",
-      "pdf": "112-1-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/112-1-防護.pdf"
+      "file": "112-1-防護.json"
     },
     {
       "year": "112-2",
       "type": "規劃",
-      "file": "112-2-規劃.json",
-      "pdf": "112-2-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/112-2-規劃.pdf"
+      "file": "112-2-規劃.json"
     },
     {
       "year": "112-2",
       "type": "防護",
-      "file": "112-2-防護.json",
-      "pdf": "112-2-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/112-2-防護.pdf"
+      "file": "112-2-防護.json"
     },
     {
       "year": "113-1",
       "type": "規劃",
-      "file": "113-1-規劃.json",
-      "pdf": "113-1-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/113-1-規劃.pdf"
+      "file": "113-1-規劃.json"
     },
     {
       "year": "113-1",
       "type": "防護",
-      "file": "113-1-防護.json",
-      "pdf": "113-1-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/113-1-防護.pdf"
+      "file": "113-1-防護.json"
     },
     {
       "year": "113-2",
       "type": "規劃",
-      "file": "113-2-規劃.json",
-      "pdf": "113-2-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/113-2-規劃.pdf"
+      "file": "113-2-規劃.json"
     },
     {
       "year": "113-2",
       "type": "防護",
-      "file": "113-2-防護.json",
-      "pdf": "113-2-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/113-2-防護.pdf"
+      "file": "113-2-防護.json"
     },
     {
       "year": "114-1",
       "type": "規劃",
-      "file": "114-1-規劃.json",
-      "pdf": "114-1-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/114-1-規劃.pdf"
+      "file": "114-1-規劃.json"
     },
     {
       "year": "114-1",
       "type": "防護",
-      "file": "114-1-防護.json",
-      "pdf": "114-1-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/114-1-防護.pdf"
+      "file": "114-1-防護.json"
     },
     {
       "year": "114-2",
       "type": "規劃",
-      "file": "114-2-規劃.json",
-      "pdf": "114-2-規劃.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/114-2-規劃.pdf"
+      "file": "114-2-規劃.json"
     },
     {
       "year": "114-2",
       "type": "防護",
-      "file": "114-2-防護.json",
-      "pdf": "114-2-防護.pdf",
-      "pdf_url": "ipas-information-security-intermediate/pdf/114-2-防護.pdf"
+      "file": "114-2-防護.json"
     }
   ],
   "study_guides": [
