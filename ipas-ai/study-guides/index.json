@@ -118,5 +118,53 @@
     "slug": "Python實作",
     "title": "Python 資料科學實作",
     "file": "19-Python實作.json"
+  },
+  {
+    "id": "20",
+    "slug": "AI專案管理與MLOps",
+    "title": "AI 專案管理與 MLOps",
+    "file": "20-AI專案管理與MLOps.json"
+  },
+  {
+    "id": "21",
+    "slug": "時間序列分析",
+    "title": "時間序列分析與 ARIMA",
+    "file": "21-時間序列分析.json"
+  },
+  {
+    "id": "22",
+    "slug": "遷移學習與模型壓縮",
+    "title": "遷移學習與模型壓縮",
+    "file": "22-遷移學習與模型壓縮.json"
+  },
+  {
+    "id": "23",
+    "slug": "知識圖譜與資料庫",
+    "title": "知識圖譜與資料庫系統",
+    "file": "23-知識圖譜與資料庫.json"
+  },
+  {
+    "id": "24",
+    "slug": "NLP進階應用",
+    "title": "NLP 進階應用與任務",
+    "file": "24-NLP進階應用.json"
+  },
+  {
+    "id": "25",
+    "slug": "計算公式速查表",
+    "title": "計算公式速查表",
+    "file": "25-計算公式速查表.json"
+  },
+  {
+    "id": "26",
+    "slug": "對抗攻擊與安全",
+    "title": "AI 安全與對抗攻擊",
+    "file": "26-對抗攻擊與安全.json"
+  },
+  {
+    "id": "27",
+    "slug": "多任務與多模態學習",
+    "title": "多任務學習與多模態 AI",
+    "file": "27-多任務與多模態學習.json"
   }
 ]
